@@ -175,7 +175,7 @@ public class Juego {
 
             int cartasPorFila = 7; // Número de cartas por fila
 
-            // Itera sobre las cartas en grupos de 7
+            // Itera sobre las cartas en filas de 7
             for (int inicio = 0; inicio < cartas.size(); inicio += cartasPorFila) {
                 int fin = Math.min(inicio + cartasPorFila, cartas.size());
                 List<List<String>> subLista = cartas.subList(inicio, fin); //SubList te devuelve una lista creada por los indices que indiques a partir de otra lista
