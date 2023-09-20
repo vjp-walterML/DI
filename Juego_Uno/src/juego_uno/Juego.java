@@ -30,7 +30,7 @@ public class Juego {
 
     public static void main(String[] args) {
         System.out.println(morado + "          ****************************************");
-        System.out.println(morado + "          *********" + negro + " B I E N VE N I D O " + morado + "***********");
+        System.out.println(morado + "          *********" + negro + " B I E N V E N I D O " + morado + "**********");
         System.out.println(morado + "          **********" + negro + " A L   U N O   D E " + morado + "***********");
         System.out.println(morado + "          *************" + negro + " W A L T E R " + morado + "**************");
         System.out.println(morado + "          ****************************************\n");
@@ -50,18 +50,18 @@ public class Juego {
     //Todas las acciones necesarias del turno de la máquina
     public static void turnoMaquina() {
         boolean jugada = false;
-        //Animacion
-        System.out.println("\n\n==================== TURNO DE LA MÁQUINA ====================");
-        for (int i = 0; i < 5; i++) {
-            System.out.print(".  ");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        //Primero compruebo si el juego ha terminado, si no es asi actua
         if (!juegoTerminado) {
+            //Animacion
+            System.out.println("\n\n==================== TURNO DE LA MÁQUINA ====================");
+            for (int i = 0; i < 5; i++) {
+                System.out.print(".  ");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //Primero compruebo si el juego ha terminado, si no es asi actua
             for (Carta carta : cartasMaquina) {
                 if (carta.valida(mesa.get(mesa.size() - 1))) {
                     mesa.add(carta);
@@ -80,7 +80,7 @@ public class Juego {
 
         //Pauso el programa para ver resultado y limpio pantalla
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -155,33 +155,42 @@ public class Juego {
         mesa.add(mazo.remove(0));
     }
 
-    //Muestra todas las cartas de la mesa
+    //Muestra todas las cartas de la mesa en filas de 7
     public static void mostrarCartas() {
         List<List<String>> cartas = new ArrayList<>();
         if (!juegoTerminado) {
             //Muestro la carta centro de mesa
             System.out.println("");
             mesa.get((mesa.size() - 1)).mostrarCarta();
+            //Cartas de la máquina
+            System.out.println("                      MáQUINA: " + cartasMaquina.size() + " cartas.");
             System.out.println("");
-
             //Muestro mensaje
             System.out.println("==================== T U S   C A R T A S ====================");
+
             // Obtiene las representaciones de todas las cartas del usuario
             for (Carta carta : cartasUsuario) {
                 cartas.add(carta.mostrarCartaUsuario());
             }
 
-            // Imprime las cartas lado a lado
-            for (int i = 0; i < cartas.get(0).size(); i++) {
-                for (List<String> c : cartas) {
-                    System.out.print(c.get(i) + "  ");
-                }
-                System.out.println(); // Salto de línea después de imprimir todas las cartas en la misma fila
-                if (i == (cartas.get(0).size() - 1)) {
-                    for (int j = 0; j < (cartas.size()); j++) {
-                        System.out.print("   " + (j + 1) + "     ");
+            int cartasPorFila = 7; // Número de cartas por fila
+
+            // Itera sobre las cartas en grupos de 7
+            for (int inicio = 0; inicio < cartas.size(); inicio += cartasPorFila) {
+                int fin = Math.min(inicio + cartasPorFila, cartas.size());
+                List<List<String>> subLista = cartas.subList(inicio, fin); //SubList te devuelve una lista creada por los indices que indiques a partir de otra lista
+
+                for (int i = 0; i < subLista.get(0).size(); i++) {
+                    for (List<String> c : subLista) {
+                        System.out.print(c.get(i) + "  ");
                     }
-                    System.out.println("");//Salto de línea
+                    System.out.println(""); // Salto de línea después de imprimir todas las cartas en la misma fila
+                    if (i == (subLista.get(0).size() - 1)) {
+                        for (int j = inicio; j < fin; j++) {
+                            System.out.print("   " + (j + 1) + "     ");
+                        }
+                        System.out.println("");//Salto de línea
+                    }
                 }
             }
         }
