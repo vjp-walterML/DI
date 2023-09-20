@@ -144,9 +144,9 @@ public class Juego {
             }
 
             // Imprime las cartas lado a lado
-            for (int i = 0; i < 5; i++) { // Cada carta tiene 5 líneas
+            for (int i = 0; i < cartas.get(0).size(); i++) { 
                 for (List<String> c : cartas) {
-                    System.out.print(c.get(i));
+                    System.out.print(c.get(i)+"  ");
                 }
                 System.out.println(); // Salto de línea después de imprimir todas las cartas en la misma fila
             }

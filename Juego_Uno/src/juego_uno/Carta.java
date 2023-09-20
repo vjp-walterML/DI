@@ -85,32 +85,32 @@ public class Carta {
         List<String> cartas = new ArrayList<>();
         switch (color) {
             case "ROJO":
-                cartas.add(Juego.rojo + " -----");
+                cartas.add(Juego.rojo + " ----- ");
                 cartas.add(Juego.rojo + "|     |");
                 cartas.add(Juego.rojo + "|  " + numero + "  |");
                 cartas.add(Juego.rojo + "|     |");
-                cartas.add(Juego.rojo + " -----");
+                cartas.add(Juego.rojo + " ----- ");
                 break;
             case "AZUL":
-                cartas.add(Juego.azul + " -----");
+                cartas.add(Juego.azul + " ----- ");
                 cartas.add(Juego.azul + "|     |");
                 cartas.add(Juego.azul + "|  " + numero + "  |");
                 cartas.add(Juego.azul + "|     |");
-                cartas.add(Juego.azul + " -----");
+                cartas.add(Juego.azul + " ----- ");
                 break;
             case "AMARILLO":
-                cartas.add(Juego.amarillo + " -----");
+                cartas.add(Juego.amarillo + " ----- ");
                 cartas.add(Juego.amarillo + "|     |");
                 cartas.add(Juego.amarillo + "|  " + numero + "  |");
                 cartas.add(Juego.amarillo + "|     |");
-                cartas.add(Juego.amarillo + " -----");
+                cartas.add(Juego.amarillo + " ----- ");
                 break;
             case "VERDE":
-                cartas.add(Juego.verde + " -----");
+                cartas.add(Juego.verde + " ----- ");
                 cartas.add(Juego.verde + "|     |");
                 cartas.add(Juego.verde + "|  " + numero + "  |");
                 cartas.add(Juego.verde + "|     |");
-                cartas.add(Juego.verde + " -----");
+                cartas.add(Juego.verde + " ----- ");
                 break;
             default:
                 throw new AssertionError();
