@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +20,8 @@ public class Juego {
     public static final String azul = "\u001B[34m";
     public static final String amarillo = "\u001B[33m";
     public static final String verde = "\u001B[32m";
+    public static final String morado = "\u001B[35m";
+    public static final String negro = "\u001B[30m";
     public static boolean juegoTerminado = false;
     public static List<Carta> mazo = new ArrayList<>();
     public static List<Carta> mesa = new ArrayList<>();
@@ -25,29 +29,37 @@ public class Juego {
     public static List<Carta> cartasMaquina = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println(rojo + "****************************************");
-        System.out.println(amarillo + "********* B I E N VE N I D O ***********");
-        System.out.println(amarillo + "********** A L   U N O   D E ***********");
-        System.out.println(amarillo + "************* W A L T E R **************");
-        System.out.println(rojo + "****************************************\n");
+        System.out.println(morado + "          ****************************************");
+        System.out.println(morado + "          *********" + negro + " B I E N VE N I D O " + morado + "***********");
+        System.out.println(morado + "          **********" + negro + " A L   U N O   D E " + morado + "***********");
+        System.out.println(morado + "          *************" + negro + " W A L T E R " + morado + "**************");
+        System.out.println(morado + "          ****************************************\n");
 
         //Creamos el mazo e iniciamos el juego barajando y repartiendo las cartas.
         rellenarMazo();
         iniciarJuego();
-        mostrarCartas();
-//        while (!juegoTerminado) {
-//            //mostrarCartas();
-//            turnoUsuario();
-//            //mostrarCartas();
-//            comprobarJugada();
-//            turnoMaquina();
-//            comprobarJugada();
-//        }
+        while (!juegoTerminado) {
+            mostrarCartas();
+            turnoUsuario();
+            comprobarJugada();
+            turnoMaquina();
+            comprobarJugada();
+        }
     }
 
     //Todas las acciones necesarias del turno de la máquina
     public static void turnoMaquina() {
         boolean jugada = false;
+        //Animacion
+        System.out.println("\n\n==================== TURNO DE LA MÁQUINA ====================");
+        for (int i = 0; i < 5; i++) {
+            System.out.print(".  ");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         //Primero compruebo si el juego ha terminado, si no es asi actua
         if (!juegoTerminado) {
             for (Carta carta : cartasMaquina) {
@@ -60,10 +72,20 @@ public class Juego {
             }
             if (!jugada) {
                 cartasMaquina.add(mazo.remove(0));
-                System.out.println("---- LA MÁQUINA HA ROBADO CARTA ----");
+                System.out.println("\n----------------- LA MÁQUINA HA ROBADO CARTA  -----------------");
             } else {
-                System.out.println("---- LA MÁQUINA HA JUGADO CARTA ----");
+                System.out.println("\n----------------- LA MÁQUINA HA JUGADO CARTA  -----------------");
             }
+        }
+
+        //Pauso el programa para ver resultado y limpio pantalla
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < 20; i++) {
+            System.out.println("");
         }
     }
 
@@ -74,9 +96,9 @@ public class Juego {
         if (!juegoTerminado) {
             carta = pedirNumeroCarta();
             //Compruebo si ha elegido la opción robar si es asi robamos y pasamos turno
-            if (carta == (cartasUsuario.size() + 1)) {
+            if (carta == -1) {
                 cartasUsuario.add(mazo.remove(0));
-                System.out.println("----- HAS ROBADO UNA CARTA -----");
+                System.out.println("\n----------------- HAS ROBADO UNA CARTA  -----------------");
             } else {
                 cartaElegida = cartasUsuario.get(carta);
                 //Compruebo si el jugador puede jugar esa carta o debe realizar otra opcion
@@ -98,14 +120,14 @@ public class Juego {
                 juegoTerminado = true; // Termina el juego
 
                 if (cartasUsuario.size() < cartasMaquina.size()) {
-                    System.out.println("----- ¡ENHORABUENA! ¡HAS GANADO! -----");
+                    System.out.println("\n================= ¡ENHORABUENA! ¡HAS GANADO! =================");
                 } else if (cartasUsuario.size() > cartasMaquina.size()) {
-                    System.out.println("----- ¡LO SIENTO! ¡LA MÁQUINA HA GANADO! -----");
+                    System.out.println("\n================= ¡LO SIENTO! ¡LA MÁQUINA HA GANADO! =================");
                     System.out.println("\n******************************************");
                     System.out.println("*********** G A M E    O V E R ***********");
                     System.out.println("******************************************");
                 } else {
-                    System.out.println("----- EMPATE -----");
+                    System.out.println("\n================= EMPATE =================");
                 }
             }
         }
@@ -137,18 +159,30 @@ public class Juego {
     public static void mostrarCartas() {
         List<List<String>> cartas = new ArrayList<>();
         if (!juegoTerminado) {
+            //Muestro la carta centro de mesa
+            System.out.println("");
+            mesa.get((mesa.size() - 1)).mostrarCarta();
+            System.out.println("");
 
+            //Muestro mensaje
+            System.out.println("==================== T U S   C A R T A S ====================");
             // Obtiene las representaciones de todas las cartas del usuario
             for (Carta carta : cartasUsuario) {
                 cartas.add(carta.mostrarCartaUsuario());
             }
 
             // Imprime las cartas lado a lado
-            for (int i = 0; i < cartas.get(0).size(); i++) { 
+            for (int i = 0; i < cartas.get(0).size(); i++) {
                 for (List<String> c : cartas) {
-                    System.out.print(c.get(i)+"  ");
+                    System.out.print(c.get(i) + "  ");
                 }
                 System.out.println(); // Salto de línea después de imprimir todas las cartas en la misma fila
+                if (i == (cartas.get(0).size() - 1)) {
+                    for (int j = 0; j < (cartas.size()); j++) {
+                        System.out.print("   " + (j + 1) + "     ");
+                    }
+                    System.out.println("");//Salto de línea
+                }
             }
         }
     }
@@ -157,11 +191,12 @@ public class Juego {
     public static int pedirNumeroCarta() {
         Scanner entrada = new Scanner(System.in);
         int carta;
+        System.out.println("\n----------------- PULSE 0 PARA ROBAR UNA CARTA  -----------------");
         System.out.println("Por favor, elige la carta:");
-        carta = entrada.nextInt();
+        carta = entrada.nextInt() - 1;
 
         //Comprobamos si la carta existe si no la volvemos a pedir
-        if (carta < 0 || carta > (cartasUsuario.size() + 1)) {
+        if (carta < -1 || carta > (cartasUsuario.size() + 1)) {
             System.out.println("ERROR.Introduce una carta válida.");
             carta = pedirNumeroCarta();
         }

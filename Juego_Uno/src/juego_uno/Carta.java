@@ -49,32 +49,48 @@ public class Carta {
     public void mostrarCarta() {
         switch (color) {
             case "ROJO":
-                System.out.println(Juego.rojo + " -----");
-                System.out.println(Juego.rojo + "|     |");
-                System.out.println(Juego.rojo + "|  " + numero + "  |");
-                System.out.println(Juego.rojo + "|     |");
-                System.out.println(Juego.rojo + " -----");
+                System.out.println("                      ---- M E S A -----");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                     |" + Juego.rojo + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.rojo + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.rojo + "     |' " + Juego.negro + numero + Juego.rojo + " '|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.rojo + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.rojo + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                      ------------------");
                 break;
             case "AZUL":
-                System.out.println(Juego.azul + " -----");
-                System.out.println(Juego.azul + "|     |");
-                System.out.println(Juego.azul + "|  " + numero + "  |");
-                System.out.println(Juego.azul + "|     |");
-                System.out.println(Juego.azul + " -----");
+                System.out.println("                      ---- M E S A -----");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                     |" + Juego.azul + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.azul + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.azul + "     |' " + Juego.negro + numero + Juego.azul + " '|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.azul + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.azul + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                      ------------------");
                 break;
             case "AMARILLO":
-                System.out.println(Juego.amarillo + " -----");
-                System.out.println(Juego.amarillo + "|     |");
-                System.out.println(Juego.amarillo + "|  " + numero + "  |");
-                System.out.println(Juego.amarillo + "|     |");
-                System.out.println(Juego.amarillo + " -----");
+                System.out.println("                      ---- M E S A -----");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                     |" + Juego.amarillo + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.amarillo + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.amarillo + "     |' " + Juego.negro + numero + Juego.amarillo + " '|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.amarillo + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.amarillo + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                      ------------------");
                 break;
             case "VERDE":
-                System.out.println(Juego.verde + " -----");
-                System.out.println(Juego.verde + "|     |");
-                System.out.println(Juego.verde + "|  " + numero + "  |");
-                System.out.println(Juego.verde + "|     |");
-                System.out.println(Juego.verde + " -----");
+                System.out.println("                      ---- M E S A -----");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                     |" + Juego.verde + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.verde + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.verde + "     |' " + Juego.negro + numero + Juego.verde + " '|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.verde + "     |'''''|      " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |" + Juego.verde + "      -----       " + Juego.negro + "|");
+                System.out.println(Juego.negro + "                     |                  |");
+                System.out.println(Juego.negro + "                      ------------------");
                 break;
             default:
                 throw new AssertionError();
@@ -86,30 +102,30 @@ public class Carta {
         switch (color) {
             case "ROJO":
                 cartas.add(Juego.rojo + " ----- ");
-                cartas.add(Juego.rojo + "|     |");
-                cartas.add(Juego.rojo + "|  " + numero + "  |");
-                cartas.add(Juego.rojo + "|     |");
+                cartas.add(Juego.rojo + "|'''''|");
+                cartas.add(Juego.rojo + "|' " + Juego.negro + numero + Juego.rojo + " '|");
+                cartas.add(Juego.rojo + "|'''''|");
                 cartas.add(Juego.rojo + " ----- ");
                 break;
             case "AZUL":
                 cartas.add(Juego.azul + " ----- ");
-                cartas.add(Juego.azul + "|     |");
-                cartas.add(Juego.azul + "|  " + numero + "  |");
-                cartas.add(Juego.azul + "|     |");
+                cartas.add(Juego.azul + "|'''''|");
+                cartas.add(Juego.azul + "|' " + Juego.negro + numero + Juego.azul + " '|");
+                cartas.add(Juego.azul + "|'''''|");
                 cartas.add(Juego.azul + " ----- ");
                 break;
             case "AMARILLO":
                 cartas.add(Juego.amarillo + " ----- ");
-                cartas.add(Juego.amarillo + "|     |");
-                cartas.add(Juego.amarillo + "|  " + numero + "  |");
-                cartas.add(Juego.amarillo + "|     |");
+                cartas.add(Juego.amarillo + "|'''''|");
+                cartas.add(Juego.amarillo + "|' " + Juego.negro + numero + Juego.amarillo + " '|");
+                cartas.add(Juego.amarillo + "|'''''|");
                 cartas.add(Juego.amarillo + " ----- ");
                 break;
             case "VERDE":
                 cartas.add(Juego.verde + " ----- ");
-                cartas.add(Juego.verde + "|     |");
-                cartas.add(Juego.verde + "|  " + numero + "  |");
-                cartas.add(Juego.verde + "|     |");
+                cartas.add(Juego.verde + "|'''''|");
+                cartas.add(Juego.verde + "|' " + Juego.negro + numero + Juego.verde + " '|");
+                cartas.add(Juego.verde + "|'''''|");
                 cartas.add(Juego.verde + " ----- ");
                 break;
             default:
