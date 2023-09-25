@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 import static pokemon.Constantes.*;
 
 /**
@@ -22,16 +24,48 @@ public class Juego {
 
     public static void main(String[] args) throws IOException {
         cargarDatos();
-        for (Ataque a : listaAtaques) {
-            System.out.println(a.toString());
-        }
-        for (Pokemon b : listaPokemons) {
-            System.out.println(b.toString());
-        }
-        for (Entrenador c : listaEntrenadores) {
-            System.out.println(c.toString());
-        }
+        mostrarInicio();
 
+    }
+
+    //Este método muestra los entrenadores y devuelve el entrenador que ha elegido el usuario
+    public static void mostrarInicio() {
+        System.out.println(" -----------------------------------------------------------------------\n"
+                + "|                                   ,'\\                                 |\n"
+                + "|      _.----.        ____         ,'  _\\   ___    ___     ____         |\n"
+                + "|  _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.	|\n"
+                + "|  \\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |	|\n"
+                + "|   \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |	|\n"
+                + "|     \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |	|\n"
+                + "|      \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |	|\n"
+                + "|       \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |	|\n"
+                + "|        \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |	|\n"
+                + "|         \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |	|\n"
+                + "|          \\_.-'       |__|    `-._ |              '-.|     '-.| |   |	|\n"
+                + "|                                  `'                            '-._|	|\n"
+                + " -----------------------------------------------------------------------");
+        System.out.println("            E L I G E    A    T U    E N T R E N A D O R ");
+        mostrarEntrenadores();
+        int opcion = pedirEntero("INTRODUCE UNA OPCION:");
+        
+    }
+
+    public static void mostrarEntrenadores(){
+        for (Entrenador entrenador : listaEntrenadores) {
+            entrenador.mostrarEntrenador();
+        }
+    }
+    public static int pedirEntero(String texto) {
+        Scanner s = new Scanner(System.in);
+        int opcion;
+        try {
+            System.out.println(texto);
+            opcion = s.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("ERROR.NO PUEDES INTRODUCIR UNA LETRA.");
+            opcion = pedirEntero(texto);
+        }
+        return opcion - 1;
     }
 
     public static void cargarDatos() throws FileNotFoundException, IOException {
@@ -61,13 +95,14 @@ public class Juego {
         switch (objeto[0]) {
             case "ATAQUE":
                 //Creo el objeto ataque
-                Ataque ataque = new Ataque(objeto[1], objeto[2], Integer.valueOf(objeto[3]), Integer.valueOf(objeto[4]), Integer.valueOf(objeto[5]));
+                var ataque = new Ataque(objeto[1], objeto[2], Integer.parseInt(objeto[3]), Integer.parseInt(objeto[4]), Integer.parseInt(objeto[5]));
                 //Introduzco el objeto ataque en la lista
                 listaAtaques.add(ataque);
                 break;
+
             case "POKEMON":
                 //Creo el objeto pokemon
-                Pokemon pokemon = new Pokemon(objeto[1], objeto[2]);
+                Pokemon pokemon = new Pokemon(objeto[1], objeto[3], objeto[4]);
                 //Introduzco el objeto pokemon a la lista
                 listaPokemons.add(pokemon);
                 break;

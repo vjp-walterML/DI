@@ -38,29 +38,29 @@ ATAQUE,Patada Alta,NORMAL,45,90,22
 ATAQUE,Polvo Veneno,PLANTA,25,50,12
 ATAQUE,Danza Pétalo,PLANTA,40,80,20
 ATAQUE,Vuelo,NORMAL,35,70,17
-POKEMON,Bulbasaur,100,PLANTA
-POKEMON,Ivysaur,100,PLANTA
-POKEMON,Venusaur,100,PLANTA
-POKEMON,Charmander,100,FUEGO
-POKEMON,Charmeleon,100,FUEGO
-POKEMON,Charizard,100,FUEGO
-POKEMON,Squirtle,100,AGUA
-POKEMON,Wartortle,100,AGUA
-POKEMON,Blastoise,100,AGUA
-POKEMON,Pikachu,100,NORMAL
-POKEMON,Raichu,100,NORMAL
-POKEMON,Jigglypuff,100,NORMAL
-POKEMON,Wigglytuff,100,NORMAL
-POKEMON,Meowth,100,NORMAL
-POKEMON,Persian,100,NORMAL
-POKEMON,Psyduck,100,AGUA
-POKEMON,Golduck,100,AGUA
-POKEMON,Geodude,100,TIERRA
-POKEMON,Graveler,100,TIERRA
-POKEMON,Golem,100,TIERRA
-POKEMON,Eevee,100,NORMAL
-POKEMON,Vaporeon,100,AGUA
-POKEMON,Jolteon,100,NORMAL
+POKEMON,Bulbasaur,100,PLANTA,    /\\_/\\\n   ( o.o )\n    > ^ <
+POKEMON,Ivysaur,100,PLANTA,    /\\_/\\\n   ( @.@ )\n    > ^ <
+POKEMON,Venusaur,100,PLANTA,    /\\_/\\\n'' ( -.- )\n    > ^ <
+POKEMON,Charmander,100,FUEGO,   _/\\_/\\_\n'  ( >o< )\n'' > ^ <
+POKEMON,Charmeleon,100,FUEGO,  _/\\_/\\_\n  ( >.< )\n   > ^ <
+POKEMON,Charizard,100,FUEGO,  _/\\_/\\_\n' ( >^< )\n'' > ^ <
+POKEMON,Squirtle,100,AGUA,    ~\\_/~\n   ( o.o )\n    > ^ <
+POKEMON,Wartortle,100,AGUA,    ~\\_/~\n   ( @.@ )\n    > ^ <
+POKEMON,Blastoise,100,AGUA,    ~\\_/~\n   ( -.- )\n    > ^ <
+POKEMON,Pikachu,100,NORMAL,   /\\_/\\\n' ( ^_^ )\n'' > ^ <
+POKEMON,Raichu,100,NORMAL,    /\\_/\\\n   ( o_o )\n    > ^ <
+POKEMON,Jigglypuff,100,NORMAL,    -\\_/-\n   ( o.o )\n    > ^ <
+POKEMON,Wigglytuff,100,NORMAL,    -\\_/-\n   ( @.@ )\n    > ^ <
+POKEMON,Meowth,100,NORMAL,    ~\\_/~\n   ( ^_^ )\n    > ^ <
+POKEMON,Persian,100,NORMAL,    ~\\_/~\n   ( -_- )\n    > ^ <
+POKEMON,Psyduck,100,AGUA,    /\\_/\\\n   ( o_O )\n    > ^ <
+POKEMON,Golduck,100,AGUA,    /\\_/\\\n   ( O_o )\n    > ^ <
+POKEMON,Geodude,100,TIERRA,   _\\_/_\n  ( >o< )\n   > ^ <
+POKEMON,Graveler,100,TIERRA,   _\\_/_\n  ( >.< )\n   > ^ <
+POKEMON,Golem,100,TIERRA,   _\\_/_\n  ( >^< )\n   > ^ <
+POKEMON,Eevee,100,NORMAL,    ~\\_/~\n   ( o.o )\n    > ^ <
+POKEMON,Vaporeon,100,AGUA,    ~\\_/~\n   ( @.@ )\n    > ^ <
+POKEMON,Jolteon,100,NORMAL,    ~\\_/~\n   ( ^_^ )\n    > ^ <
 ENTRENADOR,Ash
 ENTRENADOR,Misty
 ENTRENADOR,Brock

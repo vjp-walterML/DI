@@ -13,16 +13,19 @@ public class Pokemon {
     private String nombre;
     private int vida;
     private String tipo;
+    private String representacion;
     private List<Ataque> lAtaques;
 
     //CONSTRUCTORES
-    public Pokemon(String nombre, String tipo) {
+    public Pokemon(String nombre, String tipo,String representacion) {
         this.nombre = nombre;
         this.vida = Constantes.VIDA_MAX;
         this.tipo = tipo;
+        this.representacion = representacion.replace("\\n", "\n");
         this.lAtaques = new ArrayList<>();
         rellenarAtaques();
     }
+
 
     //SETTER Y GETTER
     public String getNombre() {
@@ -58,6 +61,13 @@ public class Pokemon {
         this.tipo = tipo;
     }
 
+    public String getRepresentacion() {
+        return representacion;
+    }
+
+    public void setRepresentacion(String representacion) {
+        this.representacion = representacion;
+    }
     public List<Ataque> getLataques() {
         return lAtaques;
     }
