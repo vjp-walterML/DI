@@ -17,7 +17,7 @@ public class Pokemon {
     private List<Ataque> lAtaques;
 
     //CONSTRUCTORES
-    public Pokemon(String nombre, String tipo,String representacion) {
+    public Pokemon(String nombre, String tipo, String representacion) {
         this.nombre = nombre;
         this.vida = Constantes.VIDA_MAX;
         this.tipo = tipo;
@@ -25,7 +25,6 @@ public class Pokemon {
         this.lAtaques = new ArrayList<>();
         rellenarAtaques();
     }
-
 
     //SETTER Y GETTER
     public String getNombre() {
@@ -68,6 +67,7 @@ public class Pokemon {
     public void setRepresentacion(String representacion) {
         this.representacion = representacion;
     }
+
     public List<Ataque> getLataques() {
         return lAtaques;
     }
@@ -78,17 +78,43 @@ public class Pokemon {
 
     //MÉTODOS PROPIOS
     private void rellenarAtaques() {
+        boolean encontrado;
+        int a = 0;
         for (int i = 0; i < Constantes.MAX_ATAQUES; i++) {
-            //Barajo los ataques para que salgan aleatorios
-            Collections.shuffle(Juego.listaAtaques);
-            for (Ataque a : Juego.listaAtaques) {
-                //Si es del mismo tipo lo añado a la lista de ataques del pokemon
-                if (a.getTipo().equalsIgnoreCase(tipo)) {
-                    lAtaques.add(a);
+            encontrado = false;
+            while (a < Juego.listaAtaques.size() && !encontrado) {
+                if (Juego.listaAtaques.get(a).getTipo().equalsIgnoreCase(tipo)) {
+                    lAtaques.add(Juego.listaAtaques.get(a));
                     Juego.listaAtaques.remove(a);
-                    break;
+                    encontrado = true;
+                } else {
+                    a++;
                 }
             }
+        }
+    }
+
+    public void mostrarPokemon() {
+        System.out.println("" + this.nombre.toUpperCase());
+        System.out.println("");
+        System.out.println(this.representacion);
+        System.out.println("-------------------");
+    }
+
+    public void mostrarPokemonInfo() {
+        System.out.println("------------------");
+        System.out.println(this.representacion);
+        System.out.println("\nNombre: " + this.nombre);
+        System.out.println("Tipo: " + this.tipo);
+        System.out.println("Vida: " + this.vida);
+        System.out.println("Estado: ");
+        for (int i = 0; i < lAtaques.size(); i++) {
+            System.out.println("#ATAQUE " + (i + 1));
+            System.out.println("   -" + lAtaques.get(i).getNombre());
+            System.out.println("   -TIPO: " + lAtaques.get(i).getTipo());
+            System.out.println("   -Daño normal: " + lAtaques.get(i).getPuntosDeDanoNormal());
+            System.out.println("   -Daño vulnerable: " + lAtaques.get(i).getPuntosDeDanoVulnerable());
+            System.out.println("   -Daño inofensivo: " + lAtaques.get(i).getPuntosDeDanoInofensivo());
         }
     }
 }

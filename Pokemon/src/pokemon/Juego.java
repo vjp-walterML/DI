@@ -21,15 +21,29 @@ public class Juego {
     public static List<Entrenador> listaEntrenadores = new ArrayList<>();
     public static List<Pokemon> listaPokemons = new ArrayList<>();
     public static List<Ataque> listaAtaques = new ArrayList<>();
+    public static Entrenador usuario;
+    public static Entrenador maquina;
+    public static boolean finJuego = false;
 
     public static void main(String[] args) throws IOException {
+        //Cargo los datos del fichero
         cargarDatos();
-        mostrarInicio();
+        //Muestro los entrenadores disponibles,el usuario elige uno y lo elimino de la lista de entrenadores.
+        usuario = listaEntrenadores.get(mostrarInicio());
+        listaEntrenadores.remove(usuario);
+        //Asigno aleatoriamente un entrenador a la máquina
+        maquina = listaEntrenadores.get((int) Math.round(Math.random() * (listaEntrenadores.size() - 1)));
+        listaEntrenadores.remove(maquina);
 
+        //Inicio el juego
+        //while (!finJuego) {
+            mostrarJuego();
+
+        //}
     }
 
     //Este método muestra los entrenadores y devuelve el entrenador que ha elegido el usuario
-    public static void mostrarInicio() {
+    public static int mostrarInicio() {
         System.out.println(" -----------------------------------------------------------------------\n"
                 + "|                                   ,'\\                                 |\n"
                 + "|      _.----.        ____         ,'  _\\   ___    ___     ____         |\n"
@@ -44,17 +58,39 @@ public class Juego {
                 + "|          \\_.-'       |__|    `-._ |              '-.|     '-.| |   |	|\n"
                 + "|                                  `'                            '-._|	|\n"
                 + " -----------------------------------------------------------------------");
-        System.out.println("            E L I G E    A    T U    E N T R E N A D O R ");
+        System.out.println("\n            E L I G E    A    T U    E N T R E N A D O R \n");
         mostrarEntrenadores();
+        System.out.println("=======================================================================");
         int opcion = pedirEntero("INTRODUCE UNA OPCION:");
-        
+        return opcion;
+    }
+    
+    //Metodo para mostrar juego
+    public static void mostrarJuego(){
+        //  mostrar maquina tabulado
+        System.out.println("\n*********************");
+        System.out.println("*** M A Q U I N A ***");
+        System.out.println("*********************");
+        System.out.println("\n"+maquina.getNombre().toUpperCase());
+        System.out.println("\n ======= P O K E M O N S =======");
+        maquina.mostrarInfoPokemons();
+        //Mostrar usuario sin tabular
+        System.out.println("\n*********************");
+        System.out.println("*** U S U A R I O ***");
+        System.out.println("*********************");
+        System.out.println("\n"+usuario.getNombre().toUpperCase());
+        System.out.println("\n ======= P O K E M O N S =======");
+        usuario.mostrarInfoPokemons();
     }
 
-    public static void mostrarEntrenadores(){
-        for (Entrenador entrenador : listaEntrenadores) {
-            entrenador.mostrarEntrenador();
+    public static void mostrarEntrenadores() {
+        for (int i = 0; i < listaEntrenadores.size(); i++) {
+            System.out.println("============================ O P C I O N  " + (i + 1) + " ============================");
+            listaEntrenadores.get(i).mostrarEntrenador();
         }
+
     }
+
     public static int pedirEntero(String texto) {
         Scanner s = new Scanner(System.in);
         int opcion;
@@ -117,4 +153,36 @@ public class Juego {
         }
     }
 
+    //Comprueba si el juego ha llegado a su fin comprobando si alguno de los dos se ha quedado sin pokemons con vida
+    public static void comprobarFinJuego() {
+        List<Pokemon> pokemonUsuario = usuario.getLpokemon();
+        List<Pokemon> pokemonMaquina = maquina.getLpokemon();
+        boolean vidaUsuario = false;
+        boolean vidaMaquina = false;
+        for (Pokemon pokemon : pokemonUsuario) {
+            if (pokemon.getVida() > 0) {
+                vidaUsuario = true;
+            }
+        }
+        for (Pokemon pokemon : pokemonMaquina) {
+            if (pokemon.getVida() > 0) {
+                vidaMaquina = true;
+            }
+        }
+
+        if (vidaUsuario && !vidaMaquina) {
+            finJuego = true;
+            System.out.println("\n******************************************************");
+            System.out.println("************** ¡E N H O R A B U E N A! ***************");
+            System.out.println("*************** ¡H A S   G A N A D O! ****************");
+            System.out.println("******************************************************");
+        } else {
+            if (vidaMaquina && !vidaUsuario) {
+                finJuego = true;
+                System.out.println("\n******************************************");
+                System.out.println("*********** G A M E    O V E R ***********");
+                System.out.println("******************************************");
+            }
+        }
+    }
 }
