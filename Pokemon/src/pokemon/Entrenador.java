@@ -82,6 +82,19 @@ public class Entrenador {
                 + "     ***  **** ++***          \n"
                 + "       .******* *             "
         );
+        System.out.println("        ************");
+        System.out.println("      **            **");
+        System.out.println("    **                **");
+        System.out.println("  **                    **");
+        System.out.println(" *                        *");
+        System.out.println("*                          *");
+        System.out.println("*   ####       ####         *");
+        System.out.println("*   #  #       #  #         *");
+        System.out.println(" *   ####       ####       *");
+        System.out.println("  **                    **");
+        System.out.println("    **                **");
+        System.out.println("      **            **");
+        System.out.println("        ************");
 
     }
 }
