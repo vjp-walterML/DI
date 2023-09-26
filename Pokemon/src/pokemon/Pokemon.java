@@ -13,6 +13,7 @@ public class Pokemon {
     private String nombre;
     private int vida;
     private String tipo;
+    private String estado;
     private String representacion;
     private List<Ataque> lAtaques;
 
@@ -21,6 +22,7 @@ public class Pokemon {
         this.nombre = nombre;
         this.vida = Constantes.VIDA_MAX;
         this.tipo = tipo;
+        this.estado = "NORMAL";
         this.representacion = representacion.replace("\\n", "\n");
         this.lAtaques = new ArrayList<>();
         rellenarAtaques();
@@ -60,6 +62,14 @@ public class Pokemon {
         this.tipo = tipo;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public String getRepresentacion() {
         return representacion;
     }
@@ -79,17 +89,24 @@ public class Pokemon {
     //MÉTODOS PROPIOS
     private void rellenarAtaques() {
         boolean encontrado;
-        int a = 0;
+        int contador;
         for (int i = 0; i < Constantes.MAX_ATAQUES; i++) {
             encontrado = false;
-            while (a < Juego.listaAtaques.size() && !encontrado) {
-                if (Juego.listaAtaques.get(a).getTipo().equalsIgnoreCase(tipo)) {
-                    lAtaques.add(Juego.listaAtaques.get(a));
-                    Juego.listaAtaques.remove(a);
+            contador = 0;
+            while (contador < Juego.listaAtaques.size() && !encontrado) {
+                if (Juego.listaAtaques.get(contador).getTipo().equalsIgnoreCase(tipo)) {
+                    lAtaques.add(Juego.listaAtaques.get(contador));
+                    Juego.listaAtaques.remove(contador);
                     encontrado = true;
                 } else {
-                    a++;
+                    contador++;
                 }
+            }
+
+            // Si después de recorrer todos los ataques disponibles no encontramos uno adecuado
+            if (!encontrado) {
+                System.out.println("ERROR: No hay suficientes ataques del tipo " + tipo + " para el Pokémon " + nombre);
+                return;  // Salimos del método ya que no tiene sentido seguir buscando más ataques si ya sabemos que no hay suficientes
             }
         }
     }
@@ -102,19 +119,18 @@ public class Pokemon {
     }
 
     public void mostrarPokemonInfo() {
-        System.out.println("------------------");
-        System.out.println(this.representacion);
-        System.out.println("\nNombre: " + this.nombre);
-        System.out.println("Tipo: " + this.tipo);
-        System.out.println("Vida: " + this.vida);
-        System.out.println("Estado: ");
-        for (int i = 0; i < lAtaques.size(); i++) {
-            System.out.println("#ATAQUE " + (i + 1));
-            System.out.println("   -" + lAtaques.get(i).getNombre());
-            System.out.println("   -TIPO: " + lAtaques.get(i).getTipo());
-            System.out.println("   -Daño normal: " + lAtaques.get(i).getPuntosDeDanoNormal());
-            System.out.println("   -Daño vulnerable: " + lAtaques.get(i).getPuntosDeDanoVulnerable());
-            System.out.println("   -Daño inofensivo: " + lAtaques.get(i).getPuntosDeDanoInofensivo());
+        //Solo muestro la informacion del pokemon si el pokemon sigue con vida
+        if (this.vida > 0) {
+            System.out.println("------------------");
+            System.out.println(this.representacion);
+            System.out.println("\nNombre: " + this.nombre);
+            System.out.println("Tipo: " + this.tipo);
+            System.out.println("Vida: " + this.vida);
+            System.out.println("Estado: ");
+            for (int i = 0; i < lAtaques.size(); i++) {
+                System.out.println("#ATAQUE " + (i + 1));
+                lAtaques.get(i).mostrarAtaque();
+            }
         }
     }
 }

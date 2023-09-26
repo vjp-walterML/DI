@@ -15,4 +15,6 @@ public class Constantes {
     final static int MAX_POKEMON = 3;
     final static int MAX_ATAQUES = 4;
     final static int NUM_POCIONES = 3;
+    final static int ESTADO_NORMAL = 60;
+    final static int ESTADO_VULNERABLE = 20;
 }

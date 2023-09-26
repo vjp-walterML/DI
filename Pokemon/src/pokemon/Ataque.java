@@ -63,4 +63,11 @@ public class Ataque {
     }
 
     //MÉTODOS PROPIOS
+    public void mostrarAtaque() {
+        System.out.println("   -" + nombre);
+        System.out.println("   -TIPO: " + tipo);
+        System.out.println("   -Daño normal: " + puntosDeDanoNormal);
+        System.out.println("   -Daño vulnerable: " + puntosDeDanoVulnerable);
+        System.out.println("   -Daño inofensivo: " + puntosDeDanoInofensivo);
+    }
 }

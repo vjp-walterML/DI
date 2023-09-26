@@ -22,7 +22,9 @@ public class Juego {
     public static List<Pokemon> listaPokemons = new ArrayList<>();
     public static List<Ataque> listaAtaques = new ArrayList<>();
     public static Entrenador usuario;
+    public static Pokemon pokemonUsuario;
     public static Entrenador maquina;
+    public static Pokemon pokemonMaquina;
     public static boolean finJuego = false;
 
     public static void main(String[] args) throws IOException {
@@ -36,10 +38,114 @@ public class Juego {
         listaEntrenadores.remove(maquina);
 
         //Inicio el juego
-        //while (!finJuego) {
-            mostrarJuego();
+        while (!finJuego) {
+            //mostrarJuego();
+            asignarPokemons();
+            turnoUsuario();
+            comprobarFinJuego();
+            actualizarEstadoPokemons();
+            asignarPokemons();
+            turnoMaquina();
+            actualizarEstadoPokemons();
+        }
+    }
 
-        //}
+    //TURNO USUARIO
+    public static void turnoUsuario() {
+        if (!finJuego) {
+            System.out.println("ESTÁS JUGANDO CON " + pokemonUsuario.getNombre());
+            pokemonUsuario.mostrarPokemonInfo();
+            //Pedimos el ataque al usuario y atacamos
+            Ataque ataqueElegido = pokemonUsuario.getLataques().get(pedirAtaque("Introduce el ataque que deseas: "));
+            if (pokemonMaquina.getEstado().equalsIgnoreCase("NORMAL")) {
+                pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoNormal());
+                System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+            } else {
+                if (pokemonMaquina.getEstado().equalsIgnoreCase("VULNERABLE")) {
+                    pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoVulnerable());
+                    System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                    System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                } else {
+                    pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoInofensivo());
+                    System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                    System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                }
+            }
+            if (pokemonMaquina.getVida() > 0) {
+                System.out.println("AHORA SU VIDA ES DE " + pokemonMaquina.getVida());
+            } else {
+                System.out.println("¡HAS MATADO A !" + pokemonMaquina.getNombre() + "!");
+            }
+        }
+    }
+
+    public static void turnoMaquina() {
+        if (!finJuego) {
+            System.out.println("LA MÁQUINA HA ELEGIDO A  " + pokemonMaquina.getNombre());
+            //pokemonMaquina.mostrarPokemonInfo();
+            //Elige el ataque aleatoriamente y atacam
+            Ataque ataqueElegido = pokemonMaquina.getLataques().get((int) Math.round(Math.random() * (pokemonMaquina.getLataques().size())));
+            if (pokemonUsuario.getEstado().equalsIgnoreCase("NORMAL")) {
+                pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoNormal());
+                System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
+                System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+            } else {
+                if (pokemonUsuario.getEstado().equalsIgnoreCase("VULNERABLE")) {
+                    pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoVulnerable());
+                    System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
+                    System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                } else {
+                    pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoInofensivo());
+                    System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
+                    System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                }
+            }
+            if (pokemonUsuario.getVida() > 0) {
+                System.out.println("AHORA TU VIDA ES DE " + pokemonUsuario.getVida());
+            } else {
+                System.out.println("¡LA MAQUINA HA MATADO A !" + pokemonUsuario.getNombre() + "!");
+            }
+        }
+    }
+
+    public static void asignarPokemons() {
+        //Me recorro la lista de pokemon del usuario para dar valor a la variable pokemonUsuario
+        for (Pokemon p : usuario.getLpokemon()) {
+            if (p.getVida() > 0) {
+                pokemonUsuario = p;
+            }
+        }
+        //Me recorro la lista de pokemon de la máquina para dar valor a la variable pokemonMaquina
+        for (Pokemon p : maquina.getLpokemon()) {
+            if (p.getVida() > 0) {
+                pokemonMaquina = p;
+            }
+        }
+    }
+
+    public static void actualizarEstadoPokemons() {
+        //Actualizo el estado del pokemon de la maquina según su vida
+        if (pokemonMaquina.getVida() > Constantes.ESTADO_NORMAL) {
+            pokemonMaquina.setEstado("NORMAL");
+        } else {
+            if (pokemonMaquina.getVida() > Constantes.ESTADO_VULNERABLE) {
+                pokemonMaquina.setEstado("VULNERABLE");
+            } else {
+                pokemonMaquina.setEstado("INOFENSIVO");
+            }
+        }
+        //Actualizo el estado del pokemon del usuario según su vida
+        if (pokemonUsuario.getVida() > Constantes.ESTADO_NORMAL) {
+            pokemonUsuario.setEstado("NORMAL");
+        } else {
+            if (pokemonUsuario.getVida() > Constantes.ESTADO_VULNERABLE) {
+                pokemonUsuario.setEstado("VULNERABLE");
+            } else {
+                pokemonUsuario.setEstado("INOFENSIVO");
+            }
+        }
+
     }
 
     //Este método muestra los entrenadores y devuelve el entrenador que ha elegido el usuario
@@ -64,21 +170,21 @@ public class Juego {
         int opcion = pedirEntero("INTRODUCE UNA OPCION:");
         return opcion;
     }
-    
+
     //Metodo para mostrar juego
-    public static void mostrarJuego(){
+    public static void mostrarJuego() {
         //  mostrar maquina tabulado
         System.out.println("\n*********************");
         System.out.println("*** M A Q U I N A ***");
         System.out.println("*********************");
-        System.out.println("\n"+maquina.getNombre().toUpperCase());
+        System.out.println("\n" + maquina.getNombre().toUpperCase());
         System.out.println("\n ======= P O K E M O N S =======");
         maquina.mostrarInfoPokemons();
         //Mostrar usuario sin tabular
         System.out.println("\n*********************");
         System.out.println("*** U S U A R I O ***");
         System.out.println("*********************");
-        System.out.println("\n"+usuario.getNombre().toUpperCase());
+        System.out.println("\n" + usuario.getNombre().toUpperCase());
         System.out.println("\n ======= P O K E M O N S =======");
         usuario.mostrarInfoPokemons();
     }
@@ -99,6 +205,23 @@ public class Juego {
             opcion = s.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("ERROR.NO PUEDES INTRODUCIR UNA LETRA.");
+            opcion = pedirEntero(texto);
+        }
+        return opcion - 1;
+    }
+
+    public static int pedirAtaque(String texto) {
+        Scanner s = new Scanner(System.in);
+        int opcion;
+        try {
+            System.out.println(texto);
+            opcion = s.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("ERROR.NO PUEDES INTRODUCIR UNA LETRA.");
+            opcion = pedirEntero(texto);
+        }
+        if (opcion < 0 || opcion > 4) {
+            System.out.println("ERROR.INTRODUCE UN ATAQUE VALIDO.");
             opcion = pedirEntero(texto);
         }
         return opcion - 1;
