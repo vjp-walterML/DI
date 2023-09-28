@@ -47,6 +47,7 @@ public class Entrenador {
     }
 
     public void mostrarEntrenador() {
+        List<String[]> representacion = new ArrayList<>();
         System.out.println("\n                             " + this.nombre.toUpperCase() + "      ");
         System.out.println(
                 "                   ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"

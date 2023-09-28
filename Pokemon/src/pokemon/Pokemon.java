@@ -112,7 +112,7 @@ public class Pokemon {
     }
 
     public void mostrarPokemon() {
-        System.out.println("" + this.nombre.toUpperCase());
+        System.out.println("    " + this.nombre.toUpperCase());
         System.out.println("");
         System.out.println(this.representacion);
         System.out.println("-------------------");
@@ -126,7 +126,7 @@ public class Pokemon {
             System.out.println("\nNombre: " + this.nombre);
             System.out.println("Tipo: " + this.tipo);
             System.out.println("Vida: " + this.vida);
-            System.out.println("Estado: ");
+            System.out.println("Estado: "+this.estado);
             for (int i = 0; i < lAtaques.size(); i++) {
                 System.out.println("#ATAQUE " + (i + 1));
                 lAtaques.get(i).mostrarAtaque();

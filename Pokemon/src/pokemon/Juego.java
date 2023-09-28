@@ -27,7 +27,7 @@ public class Juego {
     public static Pokemon pokemonMaquina;
     public static boolean finJuego = false;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         //Cargo los datos del fichero
         cargarDatos();
         //Muestro los entrenadores disponibles,el usuario elige uno y lo elimino de la lista de entrenadores.
@@ -50,61 +50,91 @@ public class Juego {
         }
     }
 
-    //TURNO USUARIO
-    public static void turnoUsuario() {
+    public static void turnoUsuario() throws InterruptedException {
         if (!finJuego) {
-            System.out.println("ESTÁS JUGANDO CON " + pokemonUsuario.getNombre());
+            limpiarPantalla();
+            System.out.println("\nESTÁS JUGANDO CON EL POKEMON " + pokemonUsuario.getNombre());
             pokemonUsuario.mostrarPokemonInfo();
             //Pedimos el ataque al usuario y atacamos
-            Ataque ataqueElegido = pokemonUsuario.getLataques().get(pedirAtaque("Introduce el ataque que deseas: "));
+            Ataque ataqueElegido = pokemonUsuario.getLataques().get(pedirAtaque("\nIntroduce el ataque que deseas: "));
             if (pokemonMaquina.getEstado().equalsIgnoreCase("NORMAL")) {
                 pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoNormal());
-                System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
-                System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                Thread.sleep(1000);
+                System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                Thread.sleep(1000);
+                System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                Thread.sleep(2000);
             } else {
                 if (pokemonMaquina.getEstado().equalsIgnoreCase("VULNERABLE")) {
                     pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoVulnerable());
-                    System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
-                    System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(2000);
                 } else {
                     pokemonMaquina.setVida(pokemonMaquina.getVida() - ataqueElegido.getPuntosDeDanoInofensivo());
-                    System.out.println("¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
-                    System.out.println("¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(2000);
                 }
             }
             if (pokemonMaquina.getVida() > 0) {
-                System.out.println("AHORA SU VIDA ES DE " + pokemonMaquina.getVida());
+                System.out.println("\nAHORA SU VIDA ES DE " + pokemonMaquina.getVida());
+                Thread.sleep(2000);
             } else {
-                System.out.println("¡HAS MATADO A !" + pokemonMaquina.getNombre() + "!");
+                System.out.println("\n¡HAS MATADO A !" + pokemonMaquina.getNombre() + "!");
+                Thread.sleep(2000);
             }
         }
     }
 
-    public static void turnoMaquina() {
+    public static void mostrarInfoEntrenadoresElegidos() throws InterruptedException {
+        System.out.println("¡HAS ELEGIDO A " + usuario.getNombre() + "!");
+        Thread.sleep(1000);
+        System.out.println("LA MÁQUINA HA ELEGIDO AL ENTRENADOR " + maquina.getNombre());
+        Thread.sleep(1000);
+    }
+
+    public static void turnoMaquina() throws InterruptedException {
         if (!finJuego) {
-            System.out.println("LA MÁQUINA HA ELEGIDO A  " + pokemonMaquina.getNombre());
+            System.out.println("\nLA MÁQUINA HA ELEGIDO A  " + pokemonMaquina.getNombre());
+            Thread.sleep(1000);
             //pokemonMaquina.mostrarPokemonInfo();
             //Elige el ataque aleatoriamente y atacam
             Ataque ataqueElegido = pokemonMaquina.getLataques().get((int) Math.round(Math.random() * (pokemonMaquina.getLataques().size())));
             if (pokemonUsuario.getEstado().equalsIgnoreCase("NORMAL")) {
                 pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoNormal());
-                System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
-                System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                Thread.sleep(1000);
+                System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
+                Thread.sleep(1000);
+                System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                Thread.sleep(2000);
             } else {
                 if (pokemonUsuario.getEstado().equalsIgnoreCase("VULNERABLE")) {
                     pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoVulnerable());
-                    System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
-                    System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(2000);
                 } else {
                     pokemonUsuario.setVida(pokemonUsuario.getVida() - ataqueElegido.getPuntosDeDanoInofensivo());
-                    System.out.println("¡TE HA ATACADO CON" + ataqueElegido.getNombre() + "!");
-                    System.out.println("¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
+                    Thread.sleep(1000);
+                    System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                    Thread.sleep(2000);
                 }
             }
             if (pokemonUsuario.getVida() > 0) {
-                System.out.println("AHORA TU VIDA ES DE " + pokemonUsuario.getVida());
+                System.out.println("\nAHORA TU VIDA ES DE " + pokemonUsuario.getVida());
+                Thread.sleep(2000);
             } else {
-                System.out.println("¡LA MAQUINA HA MATADO A !" + pokemonUsuario.getNombre() + "!");
+                System.out.println("\n¡LA MAQUINA HA MATADO A !" + pokemonUsuario.getNombre() + "!");
+                Thread.sleep(2000);
             }
         }
     }
@@ -149,25 +179,44 @@ public class Juego {
     }
 
     //Este método muestra los entrenadores y devuelve el entrenador que ha elegido el usuario
-    public static int mostrarInicio() {
-        System.out.println(" -----------------------------------------------------------------------\n"
-                + "|                                   ,'\\                                 |\n"
-                + "|      _.----.        ____         ,'  _\\   ___    ___     ____         |\n"
-                + "|  _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.	|\n"
-                + "|  \\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |	|\n"
-                + "|   \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |	|\n"
-                + "|     \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |	|\n"
-                + "|      \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |	|\n"
-                + "|       \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |	|\n"
-                + "|        \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |	|\n"
-                + "|         \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |	|\n"
-                + "|          \\_.-'       |__|    `-._ |              '-.|     '-.| |   |	|\n"
-                + "|                                  `'                            '-._|	|\n"
-                + " -----------------------------------------------------------------------");
+    public static int mostrarInicio() throws InterruptedException {
+        System.out.println(" -----------------------------------------------------------------------");
+        Thread.sleep(200);
+        System.out.println("|                                   ,'\\                                 |");
+        Thread.sleep(200);
+        System.out.println("|      _.----.        ____         ,'  _\\   ___    ___     ____         |");
+        Thread.sleep(200);
+        System.out.println("|  _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.	|");
+        Thread.sleep(200);
+        System.out.println("|  \\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |	|");
+        Thread.sleep(200);
+        System.out.println("|   \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |	|");
+        Thread.sleep(200);
+        System.out.println("|     \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |	|");
+        Thread.sleep(200);
+        System.out.println("|      \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |	|");
+        Thread.sleep(200);
+        System.out.println("|       \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |	|");
+        Thread.sleep(200);
+        System.out.println("|        \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |	|");
+        Thread.sleep(200);
+        System.out.println("|         \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |	|");
+        Thread.sleep(200);
+        System.out.println("|          \\_.-'       |__|    `-._ |              '-.|     '-.| |   |	|");
+        Thread.sleep(200);
+        System.out.println("|                                  `'                            '-._|	|");
+        Thread.sleep(200);
+        System.out.println(" -----------------------------------------------------------------------");
+        Thread.sleep(400);
         System.out.println("\n            E L I G E    A    T U    E N T R E N A D O R \n");
+        Thread.sleep(3000);
         mostrarEntrenadores();
         System.out.println("=======================================================================");
         int opcion = pedirEntero("INTRODUCE UNA OPCION:");
+        while (opcion > listaEntrenadores.size() || opcion < 0) {
+            System.out.println("ERROR, ELIGE UNA OPCION VALIDA.");
+            opcion = pedirEntero("INTRODUCE UNA OPCION:");
+        }
         return opcion;
     }
 
@@ -189,10 +238,18 @@ public class Juego {
         usuario.mostrarInfoPokemons();
     }
 
-    public static void mostrarEntrenadores() {
+    public static void limpiarPantalla() {
+        for (int i = 0; i < 60; i++) {
+            System.out.println("");
+        }
+    }
+
+    public static void mostrarEntrenadores() throws InterruptedException {
         for (int i = 0; i < listaEntrenadores.size(); i++) {
             System.out.println("============================ O P C I O N  " + (i + 1) + " ============================");
+            Thread.sleep(100);
             listaEntrenadores.get(i).mostrarEntrenador();
+            Thread.sleep(100);
         }
 
     }
