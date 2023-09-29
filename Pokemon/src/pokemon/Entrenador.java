@@ -11,7 +11,7 @@ public class Entrenador {
 
     private String nombre;
     private List<Pokemon> lPokemon;
-    private static int pociones = 3;
+    private static int pociones = Constantes.NUM_POCIONES;
 
     //CONSTRUCTORES
     public Entrenador(String nombre) {
@@ -72,13 +72,13 @@ public class Entrenador {
                 + "              ⠀⠀⠀   ⠀⠀⠀⠀⠈⠙⠻⢷⣶⣶⠾⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
 
         for (Pokemon pokemon : lPokemon) {
-            pokemon.mostrarPokemon();
+            pokemon.mostrarRepresentacionPokemon();
         }
     }
 
     public void mostrarInfoPokemons() {
         for (Pokemon pokemon : lPokemon) {
-            pokemon.mostrarPokemonInfo();
+            pokemon.mostrarInfoPokemon();
         }
     }
 

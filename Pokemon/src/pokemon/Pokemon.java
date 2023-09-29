@@ -1,7 +1,6 @@
 package pokemon;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -111,14 +110,14 @@ public class Pokemon {
         }
     }
 
-    public void mostrarPokemon() {
+    public void mostrarRepresentacionPokemon() {
         System.out.println("    " + this.nombre.toUpperCase());
         System.out.println("");
         System.out.println(this.representacion);
         System.out.println("-------------------");
     }
 
-    public void mostrarPokemonInfo() {
+    public void mostrarInfoPokemon() {
         //Solo muestro la informacion del pokemon si el pokemon sigue con vida
         if (this.vida > 0) {
             System.out.println("------------------");

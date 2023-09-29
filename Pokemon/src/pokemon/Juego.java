@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -48,14 +47,16 @@ public class Juego {
         }
     }
 
+    //Realiza todo lo necesario del turno usuario
     public static void turnoUsuario() throws InterruptedException {
         int ataque;
         if (!finJuego) {
-            limpiarPantalla();
+            limpiarPantalla();//Método que limpia la consola
             System.out.println("\nESTÁS JUGANDO CON EL POKEMON " + pokemonUsuario.getNombre());
-            pokemonUsuario.mostrarPokemonInfo();
+            pokemonUsuario.mostrarInfoPokemon();
             //Pedimos el ataque al usuario y atacamos
             ataque = pedirAtaque("\nIntroduce el ataque que deseas, pulsa 0 para gastar una poción: ");
+            //Si elige tomar una pocion y tiene pociones gasta el turno curando el pokemon sino elige ataque y hace un daño dependiendo del estado del pokemon y el tipo de pokemon contrincante
             if (ataque == -1) {
                 if (usuario.getPociones() > 0) {
                     pokemonUsuario.setVida(VIDA_MAX);
@@ -71,7 +72,7 @@ public class Juego {
                         Thread.sleep(1000);
                         System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                         Thread.sleep(1000);
-                        System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                        System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
                         Thread.sleep(2000);
                     } else {
                         if (pokemonMaquina.getEstado().equalsIgnoreCase("VULNERABLE")) {
@@ -79,14 +80,14 @@ public class Juego {
                             Thread.sleep(1000);
                             System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                             Thread.sleep(1000);
-                            System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                            System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
                             Thread.sleep(2000);
                         } else {
                             pokemonMaquina.setVida(pokemonMaquina.getVida() - danoSegunTipoPokemon(ataqueElegido.getPuntosDeDanoInofensivo(), true));
                             Thread.sleep(1000);
                             System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                             Thread.sleep(1000);
-                            System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                            System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
                             Thread.sleep(2000);
                         }
                     }
@@ -106,7 +107,7 @@ public class Juego {
                     Thread.sleep(1000);
                     System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                     Thread.sleep(1000);
-                    System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                    System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
                     Thread.sleep(2000);
                 } else {
                     if (pokemonMaquina.getEstado().equalsIgnoreCase("VULNERABLE")) {
@@ -114,14 +115,14 @@ public class Juego {
                         Thread.sleep(1000);
                         System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                         Thread.sleep(1000);
-                        System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                        System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
                         Thread.sleep(2000);
                     } else {
                         pokemonMaquina.setVida(pokemonMaquina.getVida() - danoSegunTipoPokemon(ataqueElegido.getPuntosDeDanoInofensivo(), true));
                         Thread.sleep(1000);
                         System.out.println("\n¡HAS ATACADO A " + pokemonMaquina.getNombre() + " con " + ataqueElegido.getNombre() + "!");
                         Thread.sleep(1000);
-                        System.out.println("\n¡LE HAS INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                        System.out.println("\n¡LE HAS INFRINGIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
                         Thread.sleep(2000);
                     }
                 }
@@ -136,6 +137,7 @@ public class Juego {
         }
     }
 
+    //Muestra los nombres de los entrenadores elegidos
     public static void mostrarInfoEntrenadoresElegidos() throws InterruptedException {
         System.out.println("¡HAS ELEGIDO A " + usuario.getNombre() + "!");
         Thread.sleep(1000);
@@ -143,18 +145,18 @@ public class Juego {
         Thread.sleep(1000);
     }
 
+    //Realiza todo lo necesario del turno maquina
     public static void turnoMaquina() throws InterruptedException {
         if (!finJuego) {
-            //System.out.println("\nLA MÁQUINA HA ELEGIDO A  " + pokemonMaquina.getNombre());
             Thread.sleep(1000);
-            //Elige el ataque aleatoriamente y atacam
+            //Elige el ataque aleatoriamente y ataca
             Ataque ataqueElegido = pokemonMaquina.getLataques().get((int) Math.round(Math.random() * (pokemonMaquina.getLataques().size())));
             if (pokemonUsuario.getEstado().equalsIgnoreCase("NORMAL")) {
                 pokemonUsuario.setVida(pokemonUsuario.getVida() - danoSegunTipoPokemon(ataqueElegido.getPuntosDeDanoNormal(), false));
                 Thread.sleep(1000);
                 System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
                 Thread.sleep(1000);
-                System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
+                System.out.println("\n¡TE HA INFRINGIDO " + ataqueElegido.getPuntosDeDanoNormal() + " PUNTOS DE DAÑO!");
                 Thread.sleep(2000);
             } else {
                 if (pokemonUsuario.getEstado().equalsIgnoreCase("VULNERABLE")) {
@@ -162,14 +164,14 @@ public class Juego {
                     Thread.sleep(1000);
                     System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
                     Thread.sleep(1000);
-                    System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
+                    System.out.println("\n¡TE HA INFRINGIDO " + ataqueElegido.getPuntosDeDanoVulnerable() + " PUNTOS DE DAÑO!");
                     Thread.sleep(2000);
                 } else {
                     pokemonUsuario.setVida(pokemonUsuario.getVida() - danoSegunTipoPokemon(ataqueElegido.getPuntosDeDanoInofensivo(), false));
                     Thread.sleep(1000);
                     System.out.println("\n¡TE HA ATACADO CON " + ataqueElegido.getNombre() + "!");
                     Thread.sleep(1000);
-                    System.out.println("\n¡TE HA INFRINFIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
+                    System.out.println("\n¡TE HA INFRINGIDO " + ataqueElegido.getPuntosDeDanoInofensivo() + " PUNTOS DE DAÑO!");
                     Thread.sleep(2000);
                 }
             }
@@ -183,6 +185,7 @@ public class Juego {
         }
     }
 
+    //Método para asignar los pokemon, el usuario lo elige y la maquina lo asigna de manera ordenada, usa el mismo hasta que se le acabe la vida
     public static void asignarPokemons() throws InterruptedException {
         Thread.sleep(1000);
         //Me recorro la lista de pokemon de la máquina para dar valor a la variable pokemonMaquina
@@ -196,7 +199,7 @@ public class Juego {
         Thread.sleep(200);
         System.out.println("LA MÁQUINA A ELEGIDO EL POKEMON " + pokemonMaquina.getNombre() + " de tipo " + pokemonMaquina.getTipo() + " y su estado es " + pokemonMaquina.getEstado());
         Thread.sleep(200);
-        pokemonMaquina.mostrarPokemon();
+        pokemonMaquina.mostrarRepresentacionPokemon();
         Thread.sleep(200);
         System.out.println("===============================================================================\n");
         Thread.sleep(3000);
@@ -207,11 +210,12 @@ public class Juego {
             System.out.println("PULSA " + (i + 1) + " para elegir a " + usuario.getLpokemon().get(i).getNombre());
             System.out.println("Tipo: " + usuario.getLpokemon().get(i).getTipo());
             System.out.println("Estado: " + usuario.getLpokemon().get(i).getEstado());
-            usuario.getLpokemon().get(i).mostrarPokemon();
+            usuario.getLpokemon().get(i).mostrarRepresentacionPokemon();
         }
         pokemonUsuario = usuario.getLpokemon().get(elegirPokemonUsuario());
     }
 
+    //Método que pide y retorna el pokemon elegido por el usuario controlando excepciones como la vida, fuera de rango y InputMismatchException
     public static int elegirPokemonUsuario() {
         Scanner s = new Scanner(System.in);
         int num;
@@ -233,6 +237,7 @@ public class Juego {
         return num;
     }
 
+    //Método que actualiza el estado del pokemon segun la vida, se actualiza despues de cada turno
     public static void actualizarEstadoPokemons() {
         //Actualizo el estado del pokemon de la maquina según su vida
         if (pokemonMaquina.getVida() > Constantes.ESTADO_NORMAL) {
@@ -337,24 +342,7 @@ public class Juego {
         return opcion;
     }
 
-    //Metodo para mostrar juego
-    public static void mostrarJuego() {
-        //  mostrar maquina tabulado
-        System.out.println("\n*********************");
-        System.out.println("*** M A Q U I N A ***");
-        System.out.println("*********************");
-        System.out.println("\n" + maquina.getNombre().toUpperCase());
-        System.out.println("\n ======= P O K E M O N S =======");
-        maquina.mostrarInfoPokemons();
-        //Mostrar usuario sin tabular
-        System.out.println("\n*********************");
-        System.out.println("*** U S U A R I O ***");
-        System.out.println("*********************");
-        System.out.println("\n" + usuario.getNombre().toUpperCase());
-        System.out.println("\n ======= P O K E M O N S =======");
-        usuario.mostrarInfoPokemons();
-    }
-
+    //Limpia la pantalla
     public static void limpiarPantalla() {
         for (int i = 0; i < 60; i++) {
             System.out.println("");
@@ -401,6 +389,7 @@ public class Juego {
         return opcion - 1;
     }
 
+    //Método que se encarga de cargar los datos desde un único fichero de texto
     public static void cargarDatos() throws FileNotFoundException, IOException {
         String linea;
         String[] objeto;
@@ -424,6 +413,7 @@ public class Juego {
         br.close();
     }
 
+    //Método que recibe un string de cada linea del fichero y crea el objeto correspondiente
     public static void crearObjeto(String[] objeto) {
         switch (objeto[0]) {
             case "ATAQUE":
@@ -452,16 +442,14 @@ public class Juego {
 
     //Comprueba si el juego ha llegado a su fin comprobando si alguno de los dos se ha quedado sin pokemons con vida
     public static void comprobarFinJuego() {
-        List<Pokemon> pokemonUsuario = usuario.getLpokemon();
-        List<Pokemon> pokemonMaquina = maquina.getLpokemon();
         boolean vidaUsuario = false;
         boolean vidaMaquina = false;
-        for (Pokemon pokemon : pokemonUsuario) {
+        for (Pokemon pokemon : usuario.getLpokemon()) {
             if (pokemon.getVida() > 0) {
                 vidaUsuario = true;
             }
         }
-        for (Pokemon pokemon : pokemonMaquina) {
+        for (Pokemon pokemon : maquina.getLpokemon()) {
             if (pokemon.getVida() > 0) {
                 vidaMaquina = true;
             }
