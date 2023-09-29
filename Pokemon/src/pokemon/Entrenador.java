@@ -11,6 +11,7 @@ public class Entrenador {
 
     private String nombre;
     private List<Pokemon> lPokemon;
+    private static int pociones = 3;
 
     //CONSTRUCTORES
     public Entrenador(String nombre) {
@@ -34,6 +35,10 @@ public class Entrenador {
 
     public List<Pokemon> getLpokemon() {
         return lPokemon;
+    }
+
+    public static int getPociones() {
+        return pociones;
     }
 
     //MÉTODOS PROPIOS
@@ -75,5 +80,9 @@ public class Entrenador {
         for (Pokemon pokemon : lPokemon) {
             pokemon.mostrarPokemonInfo();
         }
+    }
+
+    public void gastarPocion() {
+        pociones--;
     }
 }

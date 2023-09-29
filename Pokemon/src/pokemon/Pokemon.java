@@ -128,8 +128,7 @@ public class Pokemon {
             System.out.println("Vida: " + this.vida);
             System.out.println("Estado: "+this.estado);
             for (int i = 0; i < lAtaques.size(); i++) {
-                System.out.println("#ATAQUE " + (i + 1));
-                lAtaques.get(i).mostrarAtaque();
+                System.out.println("#ATAQUE " + (i + 1)+" "+lAtaques.get(i).getNombre());
             }
         }
     }
