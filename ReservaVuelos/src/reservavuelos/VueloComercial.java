@@ -129,7 +129,7 @@ public class VueloComercial implements Vuelo {
             if (!comprobarAforo()) {
                 System.out.println("¡LO SENTIMOS! NO HAY ASIENTOS DISPONIBLES.");
             }
-            if (Utilidades.comprobarRequisitosPasajero(pasajero)) {
+            if (!Utilidades.comprobarRequisitosPasajero(pasajero)) {
                 System.out.println("¡LO SENTIMOS! EL PASAJERO NO CUMPLE LOS REQUISITOS MÍNIMOS.");
             }
             return false;

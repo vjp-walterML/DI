@@ -20,7 +20,7 @@ public class Main {
         //Creo pasajeros
         Pasajero pasajero1 = new Pasajero("Pasajero1", 45132526, 25);
         Pasajero pasajero2 = new Pasajero("Pasajero2", 45132527, 26);
-        Pasajero pasajero3 = new Pasajero("Pasajero3", 45132528, 27);
+        Pasajero pasajero3 = new Pasajero("Pasajero3", 45132528, 14);
         Pasajero pasajero4 = new Pasajero("Pasajero4", 45132529, 28);
 
         //CREO VUELO COMERCIAL
