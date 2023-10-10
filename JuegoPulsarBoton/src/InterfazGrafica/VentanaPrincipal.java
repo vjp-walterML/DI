@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import Logica.Juego;
+import java.awt.Color;
 import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //Constructor
     public VentanaPrincipal() {
         initComponents();
+        getContentPane().setBackground(Color.decode("#926349"));
     }
 
     @SuppressWarnings("unchecked")
@@ -28,16 +30,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonNuevoJuego = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabelTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(100, 100, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jButtonNuevoJuego.setText("Nuevo Juego");
+        jButtonNuevoJuego.setFont(new java.awt.Font("Lucida Calligraphy", 1, 18)); // NOI18N
+        jButtonNuevoJuego.setForeground(new java.awt.Color(88, 49, 27));
+        jButtonNuevoJuego.setText("NUEVO JUEGO");
         jButtonNuevoJuego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoJuegoActionPerformed(evt);
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -57,6 +65,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTable1.setToolTipText("");
         jScrollPane1.setViewportView(jTable1);
 
+        jLabelTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo.setFont(new java.awt.Font("Lucida Calligraphy", 1, 36)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(86, 51, 31));
+        jLabelTitulo.setText("\"Botón Batalla: Desafío del Tiempo\"");
+        jLabelTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,34 +78,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(129, 129, 129)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(jButtonNuevoJuego)))
-                .addContainerGap(98, Short.MAX_VALUE))
+                        .addGap(259, 259, 259)
+                        .addComponent(jButtonNuevoJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(jButtonNuevoJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(jButtonNuevoJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //SETTER
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setTiempo(int tiempo) {
-        this.tiempo = tiempo;
-    }
 
     //Botón nuevo juego
     private void jButtonNuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoJuegoActionPerformed
@@ -101,9 +111,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Juego juego = new Juego();
         juego.setNombre(nombre);
         juego.setTiempo(tiempo);
+        //Controlo si es el record y si es así lo establezco
+        if (Juego.mejorJuego.getTiempo() < juego.getTiempo()) {
+            Juego.mejorJuego = juego;
+        }
         //Añado registro
         aniadirRegistroTabla(juego);
     }//GEN-LAST:event_jButtonNuevoJuegoActionPerformed
+
+    //SETTER
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
+    }
 
     //Añadir datos a la tabla
     public void aniadirRegistroTabla(Juego juego) {
@@ -146,6 +169,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonNuevoJuego;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

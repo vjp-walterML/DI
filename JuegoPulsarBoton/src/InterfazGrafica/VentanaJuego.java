@@ -1,13 +1,14 @@
 package InterfazGrafica;
 
 import Logica.Tiempo;
+import java.awt.Color;
 
 /**
  *
  * @author wmartinl01
  */
 public class VentanaJuego extends javax.swing.JDialog {
-    
+
     private Tiempo tiempo = new Tiempo(this);
     private VentanaPrincipal ventanaPrincipal;
 
@@ -15,21 +16,27 @@ public class VentanaJuego extends javax.swing.JDialog {
     public VentanaJuego(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        getContentPane().setBackground(Color.decode("#926349"));
         ventanaPrincipal = (VentanaPrincipal) parent;
+        actualizarRecord();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabelSegundos = new javax.swing.JLabel();
         jButtonJuego = new javax.swing.JButton();
+        jLabelMensaje1 = new javax.swing.JLabel();
+        jLabelMensaje2 = new javax.swing.JLabel();
+        jLabelMensaje3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabelSegundos.setText("Segundos");
+        jLabelSegundos.setFont(new java.awt.Font("Lucida Calligraphy", 0, 24)); // NOI18N
 
-        jButtonJuego.setText("PULSAME");
+        jButtonJuego.setFont(new java.awt.Font("Lucida Calligraphy", 1, 18)); // NOI18N
+        jButtonJuego.setText("PÚLSAME");
         jButtonJuego.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButtonJuegoMousePressed(evt);
@@ -44,25 +51,45 @@ public class VentanaJuego extends javax.swing.JDialog {
             }
         });
 
+        jLabelMensaje1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+
+        jLabelMensaje2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+
+        jLabelMensaje3.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
+                .addGap(173, 173, 173)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonJuego)
-                    .addComponent(jLabelSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(229, Short.MAX_VALUE))
+                    .addComponent(jButtonJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabelSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelMensaje3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                    .addComponent(jLabelMensaje2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelMensaje1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(41, 41, 41)
+                .addComponent(jLabelMensaje1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMensaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMensaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addComponent(jLabelSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(jButtonJuego)
-                .addGap(99, 99, 99))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -70,7 +97,21 @@ public class VentanaJuego extends javax.swing.JDialog {
 
     //ESTABLECER SEGUNDOS
     public void actualizarSegundos(int segundos) {
-        jLabelSegundos.setText(String.valueOf(segundos));
+        jLabelSegundos.setText(String.valueOf(segundos) + " segundos");
+    }
+
+    //ACTUALIZAR RECORD
+    public void actualizarRecord() {
+        if (Logica.Juego.mejorJuego.getTiempo() != 0) {
+            String nombre = Logica.Juego.mejorJuego.getNombre();
+            String tiempo = String.valueOf(Logica.Juego.mejorJuego.getTiempo());
+            jLabelMensaje1.setText("Desafía tus límites apretando el botón y mantén");
+            jLabelMensaje2.setText("la presión el mayor tiempo posible. ¿Podrás superar");
+            jLabelMensaje3.setText("el récord de " + nombre + " con " + tiempo + " segundos?");
+        } else {
+            jLabelMensaje1.setText("Desafía tus límites apretando el botón y mantén");
+            jLabelMensaje2.setText("la presión el mayor tiempo posible.");
+        }
     }
 
     //BOTÓN JUEGO ===============================================================
@@ -90,6 +131,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         ventanaPrincipal.setTiempo(tiempo.getSegundos());
         //Creo ventanaNombre y la abro
         VentanaNombre ventanaNombre = new VentanaNombre(ventanaPrincipal, true);
+        ventanaNombre.mostrarMensaje(tiempo.getSegundos());
         ventanaNombre.setVisible(true);
         //Cierro
         dispose();
@@ -138,6 +180,9 @@ public class VentanaJuego extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonJuego;
+    private javax.swing.JLabel jLabelMensaje1;
+    private javax.swing.JLabel jLabelMensaje2;
+    private javax.swing.JLabel jLabelMensaje3;
     private javax.swing.JLabel jLabelSegundos;
     // End of variables declaration//GEN-END:variables
 }

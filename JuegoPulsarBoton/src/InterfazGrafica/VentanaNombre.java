@@ -1,5 +1,7 @@
 package InterfazGrafica;
 
+import java.awt.Color;
+
 /**
  *
  * @author wmartinl01
@@ -12,6 +14,7 @@ public class VentanaNombre extends javax.swing.JDialog {
     public VentanaNombre(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        getContentPane().setBackground(Color.decode("#926349"));
         ventanaPrincipal = (VentanaPrincipal) parent;
     }
 
@@ -22,17 +25,25 @@ public class VentanaNombre extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jButtonAceptar = new javax.swing.JButton();
+        jLabelMensaje = new javax.swing.JLabel();
+        jLabelMensaje2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 14)); // NOI18N
         jLabel1.setText("INGRESA TU NOMBRE: ");
 
+        jButtonAceptar.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         jButtonAceptar.setText("ACEPTAR");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAceptarActionPerformed(evt);
             }
         });
+
+        jLabelMensaje.setFont(new java.awt.Font("Lucida Calligraphy", 0, 14)); // NOI18N
+
+        jLabelMensaje2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,27 +54,47 @@ public class VentanaNombre extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(82, 82, 82)
                         .addComponent(jLabel1)
-                        .addGap(50, 50, 50)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(209, 209, 209)
-                        .addComponent(jButtonAceptar)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addComponent(jButtonAceptar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelMensaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addGap(30, 30, 30)
+                .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMensaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72)
                 .addComponent(jButtonAceptar)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //Mostrar mensaje
+    public void mostrarMensaje(int segundos) {
+        if (segundos > Logica.Juego.mejorJuego.getTiempo()) {
+            jLabelMensaje.setText("¡ENHORABUENA! ¡HAS CONSEGUIDO UN");
+            jLabelMensaje2.setText("NUEVO RECORD CON " + segundos + " SEGUNDOS!");
+        } else {
+            jLabelMensaje.setText("NO HAS BATIDO EL RECORD... PERO");
+            jLabelMensaje2.setText("¡HAS CONSEGUIDO " + segundos + " SEGUNDOS!");
+        }
+    }
 
     //Botón aceptar
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -117,6 +148,8 @@ public class VentanaNombre extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelMensaje;
+    private javax.swing.JLabel jLabelMensaje2;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

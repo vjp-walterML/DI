@@ -55,7 +55,7 @@ public class Juego {
 
     //Método para retornar la información del juego en un String []
     public String[] toArrayString() {
-        String[] juego = {nombre, String.valueOf(tiempo), dateToString(fecha)};
+        String[] juego = {nombre, String.valueOf(tiempo)+" segundos", dateToString(fecha)};
         return juego;
     }
 
