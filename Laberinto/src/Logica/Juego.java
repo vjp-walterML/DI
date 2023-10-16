@@ -11,6 +11,12 @@ public class Juego {
     private String nivel;
 
     //Constructores
+    public Juego() {
+        nombre = "";
+        tiempo = 0;
+        nivel = "";
+    }
+
     public Juego(String nombre, int tiempo, String nivel) {
         this.nombre = nombre;
         this.tiempo = tiempo;

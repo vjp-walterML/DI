@@ -1,5 +1,7 @@
 package Logica;
 
+import InterfazGrafica.NivelDificil;
+import InterfazGrafica.NivelFacil;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,24 +11,45 @@ import java.util.TimerTask;
  */
 public class Tiempo {
 
-    //Atributo ventana juego, que recibia por constructor
+    //Atributo ventana NivelFacil y NivelDificil
+    private NivelFacil nivelFacil;
+    private NivelDificil nivelDificil;
+    //Atributos propios
     private Timer timer;
     private int segundos = 0;
 
-    public Tiempo() {
+    //Constructores
+    public Tiempo(NivelFacil nivelFacil) {
         this.timer = new Timer();
+        this.nivelFacil = nivelFacil;
+    }
+
+    public Tiempo(NivelDificil nivelDificil) {
+        this.timer = new Timer();
+        this.nivelDificil = nivelDificil;
     }
 
     //Clase interna que funciona como contador
     class Contador extends TimerTask {
 
+        //Atributo ventana NivelFacil y NivelDificil
+        private NivelFacil nivelFacil;
+        private NivelDificil nivelDificil;
+
         //Atributo VentanaJuego, que recibia por constructor
-        public Contador() {
+        public Contador(NivelFacil nivelFacil, NivelDificil nivelDificil) {
+            this.nivelFacil = nivelFacil;
+            this.nivelDificil = nivelDificil;
         }
 
         public void run() {
             segundos++;
-            //Implemento el método actualizar segundos
+            //Compruebo en que ventana estoy jugando y actualizo segundos
+            if (nivelFacil != null) {
+                nivelFacil.actualizarSegundos(segundos);
+            } else {
+                nivelDificil.actualizarSegundos(segundos);
+            }
         }
     }
 
@@ -34,7 +57,7 @@ public class Tiempo {
     public void Contar() {
         this.segundos = 0;
         timer = new Timer();
-        timer.schedule(new Contador(), 0, 1000);
+        timer.schedule(new Contador(nivelFacil, nivelDificil), 0, 1000);
     }
 
     //Detiene el contador
