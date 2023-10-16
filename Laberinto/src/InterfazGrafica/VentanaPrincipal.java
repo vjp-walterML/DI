@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import Logica.Juego;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -9,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    //Variables globales
     //Atributos para crear el objeto Juego
     private String nombre;
     private int tiempo;
@@ -18,6 +18,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //Constructor
     public VentanaPrincipal() {
         initComponents();
+        this.getContentPane().setBackground(Color.decode("#001F3F"));
     }
 
     @SuppressWarnings("unchecked")
@@ -28,9 +29,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonNivelDificil = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableResultados = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButtonNivelFacil.setBackground(new java.awt.Color(204, 255, 204));
+        jButtonNivelFacil.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jButtonNivelFacil.setForeground(new java.awt.Color(0, 153, 0));
         jButtonNivelFacil.setText("Nivel Fácil");
         jButtonNivelFacil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -38,6 +44,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonNivelDificil.setBackground(new java.awt.Color(255, 204, 204));
+        jButtonNivelDificil.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jButtonNivelDificil.setForeground(new java.awt.Color(204, 0, 0));
         jButtonNivelDificil.setText("Nivel Difícil");
         jButtonNivelDificil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,6 +54,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jTableResultados.setBackground(new java.awt.Color(0, 51, 102));
+        jTableResultados.setFont(new java.awt.Font("Consolas", 2, 14)); // NOI18N
+        jTableResultados.setForeground(new java.awt.Color(224, 224, 224));
         jTableResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -63,6 +75,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableResultados);
 
+        jLabel1.setFont(new java.awt.Font("Gabriola", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 215, 0));
+        jLabel1.setText("Resultados");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jLabel2.setFont(new java.awt.Font("Gabriola", 3, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 215, 0));
+        jLabel2.setText("EL LABERINTO DE WALTER");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,25 +92,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
+                        .addGap(205, 205, 205)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
                         .addComponent(jButtonNivelFacil)
-                        .addGap(88, 88, 88)
+                        .addGap(100, 100, 100)
                         .addComponent(jButtonNivelDificil))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonNivelFacil)
-                    .addComponent(jButtonNivelDificil))
-                .addGap(36, 36, 36)
+                    .addComponent(jButtonNivelDificil)
+                    .addComponent(jButtonNivelFacil))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
 
         pack();
@@ -190,6 +222,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonNivelDificil;
     private javax.swing.JButton jButtonNivelFacil;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableResultados;
     // End of variables declaration//GEN-END:variables

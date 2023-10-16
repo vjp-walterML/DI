@@ -86,6 +86,7 @@ public class NivelFacil extends javax.swing.JDialog {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonInicio.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jButtonInicio.setText("Inicio");
         jButtonInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +95,7 @@ public class NivelFacil extends javax.swing.JDialog {
         });
         getContentPane().add(jButtonInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, -1));
 
+        jButtonFin.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jButtonFin.setText("Fin");
         jButtonFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +103,9 @@ public class NivelFacil extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButtonFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 530, 50, -1));
-        getContentPane().add(jLabelTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 520, 136, 51));
+
+        jLabelTiempo.setFont(new java.awt.Font("Consolas", 3, 12)); // NOI18N
+        getContentPane().add(jLabelTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 150, 51));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 567, 20));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 20, 580));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 20, 580));
@@ -109,6 +113,8 @@ public class NivelFacil extends javax.swing.JDialog {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 500, 60));
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 16, 490, 70));
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 520, 90));
+
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 180, 290, 70));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 76, 220, 240));
 
@@ -139,7 +145,7 @@ public class NivelFacil extends javax.swing.JDialog {
 
     //Actualizar segundos
     public void actualizarSegundos(int segundos) {
-        jLabelTiempo.setText("TIEMPO: " + segundos + " segundos");
+        jLabelTiempo.setText(" TIEMPO: " + segundos + " segundos");
     }
 
     //Main

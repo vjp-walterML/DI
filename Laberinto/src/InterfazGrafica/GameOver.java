@@ -1,5 +1,7 @@
 package InterfazGrafica;
 
+import java.awt.Color;
+
 /**
  *
  * @author wmartinl01
@@ -11,6 +13,7 @@ public class GameOver extends javax.swing.JDialog {
     public GameOver(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getContentPane().setBackground(Color.decode("#cc8f8f"));
     }
 
     @SuppressWarnings("unchecked")
@@ -23,8 +26,12 @@ public class GameOver extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Game Over");
 
+        jLabel1.setFont(new java.awt.Font("Gabriola", 3, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("GAME OVER");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        jButtonSalir.setFont(new java.awt.Font("Consolas", 3, 18)); // NOI18N
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -37,20 +44,23 @@ public class GameOver extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSalir)
-                    .addComponent(jLabel1))
-                .addContainerGap(165, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(jButtonSalir)))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel1)
-                .addGap(70, 70, 70)
+                .addGap(66, 66, 66)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
                 .addComponent(jButtonSalir)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
