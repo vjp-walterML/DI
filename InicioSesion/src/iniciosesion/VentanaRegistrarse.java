@@ -1,9 +1,14 @@
 package iniciosesion;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
 import org.netbeans.validation.api.ui.ValidationGroup;
+import org.openide.util.Exceptions;
 
 /**
  *
@@ -13,13 +18,13 @@ public class VentanaRegistrarse extends javax.swing.JDialog {
 
     //Variables globales
     VentanaPrincipal ventanaPrincipal;
-    
+
     //Constructor
     public VentanaRegistrarse(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         ventanaPrincipal = (VentanaPrincipal) parent;
-         ValidationGroup group = this.validationPanel1.getValidationGroup();
+        ValidationGroup group = this.validationPanel1.getValidationGroup();
         group.add(this.jTextFieldNombre, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(this.jPasswordFieldContrasenia, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(this.jTextFieldNombre, StringValidators.NO_WHITESPACE);
@@ -123,8 +128,35 @@ public class VentanaRegistrarse extends javax.swing.JDialog {
 
     //Registrarse
     private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
-        // Escribir en fichero
+        //Recupero los datos que introduce el usuario
+        String nombre = jTextFieldNombre.getText();
+        String psw = new String(jPasswordFieldContrasenia.getPassword());
+        psw = Utileria.encodeToMD5(psw);//Codifico la contraseña
+        //Compruebo si el usuario que intenta registrar ya existe o no
+        if (ventanaPrincipal.usuarios.containsKey(nombre)) {
+            JOptionPane.showMessageDialog(this, "¡El usuario que intentas registrar ya existe!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            //Creo flujos
+            PrintWriter pw = crearFlujos();
+            //Escribo
+            String nuevoUsuario = nombre + "-" + psw;
+            pw.println(nuevoUsuario);
+            //Cierro flujos
+            pw.close();
+            //Muestro mensaje de registro correcto
+            JOptionPane.showMessageDialog(this, "¡Usuario registrado correctamente!", "Registro correcto", JOptionPane.INFORMATION_MESSAGE);
+        }
+        dispose();//Cierro ventana
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
+
+    private PrintWriter crearFlujos() {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(ventanaPrincipal.FICHERO, true));
+            return pw;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 
     //Main
     public static void main(String args[]) {

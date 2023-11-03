@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
@@ -20,18 +21,19 @@ import org.openide.util.Exceptions;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     //Variables globales
-    private final static File FICHERO = new File("Users.txt");
-    private Map<String, String> usuarios = new LinkedHashMap<>();
+    public final static File FICHERO = new File("Users.txt");
+    public Map<String, String> usuarios = new LinkedHashMap<>();
 
     //Constructor
     public VentanaPrincipal() {
         initComponents();
+
+        //Muestro contraseñas de prueba, ya que estan codificadas en el fichero
+        mostrarPswConsola();
+
         //Cargo los datos
-        try {
-            cargarDatos();
-        } catch (IOException ex) {
-            System.out.println("SE HA PRODUCIDO UN ERROR AL CARGAR LOS USUARIOS.");
-        }
+        usuarios = cargarDatos();
+
         //ValidationGroup====================================================================================
         ValidationGroup group = this.validationPanel1.getValidationGroup();
         group.add(this.jTextFieldNombre, StringValidators.REQUIRE_NON_EMPTY_STRING);
@@ -45,8 +47,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             public void stateChanged(ChangeEvent e) {
                 if (validationPanel1.getProblem() == null) {
                     jButtonValidar.setEnabled(true);
+                    jButtonRegistrarse.setEnabled(false);
                 } else {
                     jButtonValidar.setEnabled(false);
+                    jButtonRegistrarse.setEnabled(true);
                 }
             }
         });
@@ -152,29 +156,66 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //Validar usuario
     private void jButtonValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValidarActionPerformed
-        // TODO add your handling code here:
+        //Obtengo los datos que el usuario ha introducido en los campos
+        String nombre = jTextFieldNombre.getText();
+        String psw = new String(jPasswordFieldContrasenia.getPassword());
+        //Codifico a MD5 para comparar
+        psw = Utileria.encodeToMD5(psw);
+        //Controlo si el usuario existe
+        if (usuarios.containsKey(nombre)) {
+            //Controlo si la contraseña es correcta
+            if (usuarios.get(nombre).equals(psw)) {
+                //Muestro mensaje de login correcto
+                JOptionPane.showMessageDialog(this, "¡Bienvenido " + nombre + "!", "Inicio de sesión correcto", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                //Muestro mensaje de contraseña incorrecta
+                JOptionPane.showMessageDialog(this, "¡Contraseña incorrecta!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            //Muestro mensaje de error, ya que no existe ese usuario
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonValidarActionPerformed
 
     //Método que lee los datos del fichero y los almacena en el mapa
-    private void cargarDatos() throws FileNotFoundException, IOException {
-        //Abro flujos
-        BufferedReader br = new BufferedReader(new FileReader(FICHERO));
-        String linea = br.readLine();
-        String[] usuario;
-        //Leo mientras haya usuarios
-        while (linea != null) {
-            usuario = linea.split("-");
-            usuarios.put(usuario[0], usuario[1]);
-            linea = br.readLine();
+    private Map<String, String> cargarDatos() {
+        Map<String, String> lUsuarios = new LinkedHashMap<>();
+        try {
+            //Abro flujos
+            BufferedReader br = new BufferedReader(new FileReader(FICHERO));
+            String linea = br.readLine();
+            String[] usuario;
+            //Leo mientras haya usuarios
+            while (linea != null) {
+                usuario = linea.split("-");
+                lUsuarios.put(usuario[0], usuario[1]);
+                linea = br.readLine();
+            }
+            //Cierro flujos
+            br.close();
+        } catch (IOException ex) {
+            System.out.println("ERROR: NO SE HA PODIDO CARGAR LOS DATOS DEL FICHERO.");
         }
-        //Cierro flujos
-        br.close();
+        //Retorno mapa
+        return lUsuarios;
+    }
+
+    //Método que muestra las contraseñas de prueba por consola
+    public static void mostrarPswConsola() {
+        System.out.println("*************************************");
+        System.out.println("******* C O N T R A S E Ñ A S *******");
+        System.out.println("*************************************");
+        System.out.println("USUARIO: Walter | CONTRASEÑA: 'papita'");
+        System.out.println("USUARIO: Izzy | CONTRASEÑA: 'coco'");
+        System.out.println("USUARIO: Pepe | CONTRASEÑA: 'dInterfaces'");
     }
 
     //Registrarse
     private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
         VentanaRegistrarse ventanaRegistrarse = new VentanaRegistrarse(this, true);
         ventanaRegistrarse.setVisible(true);
+        //Refresco los datos de usuarios
+        usuarios = cargarDatos();
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
 
     //Main
