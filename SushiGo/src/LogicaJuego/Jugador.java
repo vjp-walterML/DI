@@ -7,28 +7,22 @@ import java.util.List;
  *
  * @author wmartinl01
  */
-//Esta clase representa un jugador del juego, puede ser el usuario o CPU
+//Esta clase representa un jugador del juego, puede ser el USER o CPU
 public class Jugador {
 
     //Atributos
     private String nombre;
     private List<Carta> mano;
+    private List<Carta> cartasVisibles;
     private int puntuacion;
     private int puddings;
     private String tipo;
 
     //Constructores
-    public Jugador() {
-        nombre = "";
-        mano = new ArrayList<>();
-        puntuacion = 0;
-        puddings = 0;
-        tipo = "";
-    }
-
-    public Jugador(String nombre, List<Carta> mano, int puntuacion, int puddings, String tipo) {
+    public Jugador(String nombre, List<Carta> cartasVisibles, int puntuacion, int puddings, String tipo) {
         this.nombre = nombre;
-        this.mano = mano;
+        this.cartasVisibles = cartasVisibles;
+        this.mano = new ArrayList<>();
         this.puntuacion = puntuacion;
         this.puddings = puddings;
         this.tipo = tipo;
@@ -49,6 +43,14 @@ public class Jugador {
 
     public void setMano(List<Carta> mano) {
         this.mano = mano;
+    }
+
+    public List<Carta> getCartasVisibles() {
+        return cartasVisibles;
+    }
+
+    public void setCartasVisibles(List<Carta> cartasVisibles) {
+        this.cartasVisibles = cartasVisibles;
     }
 
     public int getPuntuacion() {
@@ -89,6 +91,11 @@ public class Jugador {
     //Retorna un objeto carta según el índice
     public Carta jugarCarta(int indice) {
         return mano.get(indice);
+    }
+
+    //Añade la carta a la mano
+    public void cogerCarta(Carta carta) {
+        mano.add(carta);
     }
 
     //Añadir pudding

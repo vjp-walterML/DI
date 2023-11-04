@@ -1,29 +1,27 @@
 package LogicaJuego;
 
-import javax.swing.Icon;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author wmartinl01
  */
-
 //Esta clase representa una carta individual en el juego
 public class Carta {
 
     //Atributos
     private String nombre;
     private int valor;
-    private Icon representacion;//AQUI
+    private String rutaImg;
+    private ImageIcon representacion;
 
     //Constructores
-    public Carta() {
-        nombre = "";
-        valor = 0;
-    }
-
-    public Carta(String nombre, int valor) {
+    public Carta(String nombre, int valor, String rutaImg) {
         this.nombre = nombre;
         this.valor = valor;
+        this.rutaImg = rutaImg;
+        representacion = generarRepresentacion();
     }
 
     //Getter y Setter
@@ -43,6 +41,25 @@ public class Carta {
         this.valor = valor;
     }
 
+    public String getRutaImg() {
+        return rutaImg;
+    }
+
+    public void setRutaImg(String rutaImg) {
+        this.rutaImg = rutaImg;
+    }
+
+    public ImageIcon getRepresentacion() {
+        return representacion;
+    }
+
     //MÉTODOS PROPIOS
-    
+    //Este método genera el objeto ImageIcon que establecemos al botón a partir de la ruta de la imagen.
+    private ImageIcon generarRepresentacion() {
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource(rutaImg));
+        Image image = imageIcon.getImage();
+        Image newImg = image.getScaledInstance(Constantes.ANCHO_CARTA, Constantes.ALTO_CARTA, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newImg);
+        return imageIcon;
+    }
 }
