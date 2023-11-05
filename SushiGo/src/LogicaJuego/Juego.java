@@ -2,7 +2,6 @@ package LogicaJuego;
 
 import InterfazGrafica.VentanaJuego;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,27 +13,24 @@ import java.util.Map;
 //Aquí se implementará toda la lógica principal del juego
 public class Juego {
 
+    //Variables globales
     private VentanaJuego ventanaJuego;
+    public Jugador usuario;
+    public Jugador cpu1;
+    public Jugador cpu2;
 
     //Atributos
     private Mazo mazo;
-    private Jugador usuario;
-    private Jugador cpu1;
-    private Jugador cpu2;
     private List<Jugador> jugadores;
     private int ronda;
 
-    //Constructores
+    //Constructor
     public Juego(String nombreUsuario) {
         this.mazo = new Mazo();
         this.jugadores = new ArrayList<>();
-        crearJugadorUsuario(nombreUsuario);
-        crearJugadoresCPU();
+        crearJugadorUsuario(nombreUsuario);//Creo el jugador usuario
+        crearJugadoresCPU();//Creo los jugadores CPU
         this.ronda = 1;
-    }
-
-    public void comunicarVentanaJuego(VentanaJuego ventanaJuego) {
-        this.ventanaJuego = ventanaJuego;
     }
 
     //Getter y Setter
@@ -63,11 +59,18 @@ public class Juego {
     }
 
     //MÉTODOS PROPIOS
+    //Método que 'comunica' la logica del juego con la ventana del juego para tener acceso a los métodos de VentanaJuego
+    public void comunicarVentanaJuego(VentanaJuego ventanaJuego) {
+        this.ventanaJuego = ventanaJuego;
+    }
+
+    //Método que crea el jugador usuario y lo añade a la lista de jugadores
     private void crearJugadorUsuario(String nombre) {
         usuario = new Jugador(nombre, mazo.repartirCartas(Constantes.NUM_CARTAS), 0, 0, "USER");
         jugadores.add(usuario);
     }
 
+    //Método que crea los jugadores CPU y los añade a la lista de jugadores
     private void crearJugadoresCPU() {
         cpu1 = new Jugador(Constantes.CPU1, mazo.repartirCartas(Constantes.NUM_CARTAS), 0, 0, "CPU");
         cpu2 = new Jugador(Constantes.CPU2, mazo.repartirCartas(Constantes.NUM_CARTAS), 0, 0, "CPU");
@@ -75,6 +78,7 @@ public class Juego {
         jugadores.add(cpu2);
     }
 
+    //Método que se ejecuta desde el ActionListener implementado para los botones carta.
     public void jugarTurnoUsuario(int cartaSeleccionada) {
         //Muevo la carta seleccionada a mano
         usuario.getMano().add(usuario.getCartasVisibles().remove(cartaSeleccionada));
@@ -82,6 +86,37 @@ public class Juego {
         jugarTurnoCPU();
     }
 
+    //Método que contiene la lógica del turno de la CPU
+    private void jugarTurnoCPU() {
+        //Muevo la carta seleccionada a mano
+        cpu1.getMano().add(cpu1.getCartasVisibles().remove(0));
+        cpu2.getMano().add(cpu2.getCartasVisibles().remove(0));
+        //Terminar turno
+        terminarTurno();
+    }
+
+    //Este método termina el turno
+    private void terminarTurno() {
+        //Compruebo si hay cartas todavía
+        if (noHayCartas()) {
+            //Actualizo cartas
+            ventanaJuego.actualizarCartas();
+            //Finalizo la ronda
+            finalizarRonda();
+        } else {
+            //Cambio las cartas con el jugador de la izquierda
+            intercambiarCartasJugadores();
+            //Actualizo cartas
+            ventanaJuego.actualizarCartas();
+        }
+    }
+
+    //Método que comprueba si todavía hay cartas que jugar en la ronda
+    private boolean noHayCartas() {
+        return usuario.getCartasVisibles().isEmpty() && cpu1.getCartasVisibles().isEmpty() && cpu2.getCartasVisibles().isEmpty();
+    }
+
+    //Método que intercambia las cartas entre los jugadores.
     public void intercambiarCartasJugadores() {
         //Introduzco las cartas de usuario en una lista auxiliar
         List<Carta> usuarioAux = new ArrayList<>(usuario.getCartasVisibles());
@@ -96,53 +131,29 @@ public class Juego {
         cpu2.getCartasVisibles().addAll(usuarioAux);
     }
 
-    private void jugarTurnoCPU() {
-        //Muevo la carta seleccionada a mano
-        cpu1.getMano().add(cpu1.getCartasVisibles().remove(0));
-        cpu2.getMano().add(cpu2.getCartasVisibles().remove(0));
-        //Terminar turno
-        terminarTurno();
-    }
-
-    private void terminarTurno() {
-        if (noHayCartas()) {
-            //Actualizo cartas
-            ventanaJuego.actualizarCartas();
-            finalizarRonda();
-        } else {
-            //Cambio las cartas con el jugador de la izquierda
-            intercambiarCartasJugadores();
-            //Actualizo cartas
-            ventanaJuego.actualizarCartas();
-        }
-    }
-
-    private boolean noHayCartas() {
-        return usuario.getCartasVisibles().isEmpty() && cpu1.getCartasVisibles().isEmpty() && cpu2.getCartasVisibles().isEmpty();
-    }
-
-    private boolean finJuego() {
-        return ronda == Constantes.NUM_RONDAS;
-    }
-
+    //Método que finaliza la ronda, comprueba si el juego se ha acabado, sino actualiza las puntuaciones y reparte cartas nuevas.
     private void finalizarRonda() {
         if (finJuego()) {
             actualizarPuntuacionRonda();//Actualizo puntuaciones y puddings
             limpiarManos();//Limpio las listas mano de cada jugador
+            ventanaJuego.actualizarInfo();//Actualizo información
             ventanaJuego.actualizarCartas();//Actualizo
-            System.out.println("GANADOR: " + comprobarGanador().getNombre());//Compruebo ganador
-            //FINALIZO EL JUEGO
-            System.out.println("FIN DEL JUEGO");
+            ventanaJuego.finalizarJuego();//Finalizo el juego
         } else {
             actualizarPuntuacionRonda();//Actualizo puntuaciones y puddings
             limpiarManos();//Limpio las listas mano de cada jugador
             repartirCartasNuevas();//Reparto cartas nuevas
-            //Incremento ronda
-            ronda++;
-            System.out.println("RONDA: " + ronda);
+            ronda++;//Incremento ronda
+            ventanaJuego.actualizarInfo();//Actualizo información
         }
     }
 
+    //Este método comprueba si el juego ha terminado, es decir, si las 3 rondas se han completado.
+    private boolean finJuego() {
+        return ronda == Constantes.NUM_RONDAS;
+    }
+
+    //Este método limpia las listas donde se almacena las cartas elegidas despues de finalizar la ronda y actualizar la puntuación
     private void limpiarManos() {
         //Limpio las listas mano
         usuario.getMano().clear();
@@ -150,6 +161,7 @@ public class Juego {
         cpu2.getMano().clear();
     }
 
+    //Método que reparte cartas nuevas al finalizar la ronda.
     private void repartirCartasNuevas() {
         //RepartoCartasNuevas
         usuario.getCartasVisibles().addAll(mazo.repartirCartas(Constantes.NUM_CARTAS));
@@ -158,6 +170,7 @@ public class Juego {
         ventanaJuego.actualizarCartas();//Actualizo
     }
 
+    //Método que calcula y actualiza la puntuación al final de cada ronda
     private void actualizarPuntuacionRonda() {
         //Variables
         int puntuacionUsuario = 0, puntuacionCpu1 = 0, puntuacionCpu2 = 0;
@@ -225,11 +238,9 @@ public class Juego {
         usuario.setPuntuacion(usuario.getPuntuacion() + puntuacionUsuario);
         cpu1.setPuntuacion(cpu1.getPuntuacion() + puntuacionCpu1);
         cpu2.setPuntuacion(cpu2.getPuntuacion() + puntuacionCpu2);
-        System.out.println("USUARIO: " + puntuacionUsuario + " puntos.");
-        System.out.println("CPU1: " + puntuacionCpu1 + " puntos.");
-        System.out.println("CPU2: " + puntuacionCpu2 + " puntos.");
     }
 
+    //Método auxiliar para simplificar el calculo de la puntuación de los dumplings
     private int calcularPuntuacionDumplings(int numDumplings) {
         return switch (numDumplings) {
             case 0 ->
@@ -247,6 +258,7 @@ public class Juego {
         };
     }
 
+    //Método auxiliar que recibe una mano por parámetro y devuelve un mapa con el nombre del tipo de carta como clave, y el numero de cartas del mismo tipo como valor.
     private Map<String, Integer> contarTiposCarta(List<Carta> mano) {
         //Variables
         int numMakis = 0, numSashimi = 0, numDumpling = 0, numNigiriCalamar = 0, numNigiriHuevo = 0, numNigiriSalmon = 0;
@@ -295,6 +307,7 @@ public class Juego {
         return cartas;
     }
 
+    //Método auxiliar que actualiza la puntuacion de cada jugador al finalizar el juego según los puddings que tenga.
     private void actualizarPuntuacionPudding() {
         //ACTUALIZO PUNTUACIÓN AÑADIENDO LOS PUNTOS DE PUDDING
         //El jugador con más cartas de pudin gana 6 puntos. Si varios jugadores empatan en primera posición,
@@ -356,6 +369,7 @@ public class Juego {
         }
     }
 
+    //Este método contiene la lógica que permite obtener el ganador del juego segun las normas de este
     public Jugador comprobarGanador() {
         //El jugador que haya acumulado más puntos después de tres rondas.
         //Si hay dos o más jugadores empatados, gana quien tenga más cartas de puddin.

@@ -6,15 +6,21 @@ package LogicaJuego;
  */
 public class Constantes {
 
-    public final static int ANCHO_CARTA = 65;
-    public final static int ALTO_CARTA = 95;
+    //General
     public final static int NUM_CARTAS = 9;
     public final static int NUM_RONDAS = 3;
-    public final static int ANCHO_PANEL = 665;
-    public final static int ALTO_PANEL = 95;
     public final static String CPU1 = "CPU 1";
     public final static String CPU2 = "CPU 2";
-    //    CARTAS
+    //Dimensiones
+    public final static int ANCHO_CARTA = 65;
+    public final static int ALTO_CARTA = 95;
+    public final static int ANCHO_ICONO = 300;
+    public final static int ALTO_ICONO = 300;
+    public final static int ANCHO_FONDO = 1024;
+    public final static int ALTO_FONDO = 682;
+    public final static int ANCHO_PANEL = 665;
+    public final static int ALTO_PANEL = 95;
+    //Nombre cartas
     public final static String MAKIS = "Makis";
     public final static String MAKI1 = "Maki 1";
     public final static String MAKI2 = "Maki 2";
@@ -25,6 +31,7 @@ public class Constantes {
     public final static String NIGIRI_HUEVO = "NigiriHuevo";
     public final static String NIGIRI_SALMON = "NigiriSalmon";
     public final static String PUDDING = "Pudding";
+    //Valor cartas
     public final static int VALOR_MAKIS = 6;
     public final static int VALOR_SASHIMI = 10;
     public final static int VALOR_DUMPLING1 = 1;

@@ -54,7 +54,7 @@ public class Carta {
     }
 
     //MÉTODOS PROPIOS
-    //Este método genera el objeto ImageIcon que establecemos al botón a partir de la ruta de la imagen.
+    //Este método genera el objeto ImageIcon redimensionado que establecemos al botón a partir de la ruta de la imagen.
     private ImageIcon generarRepresentacion() {
         ImageIcon imageIcon = new ImageIcon(getClass().getResource(rutaImg));
         Image image = imageIcon.getImage();

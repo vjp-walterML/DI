@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author wmartinl01
  */
+//Esta clase representa el mazo del juego, es la encargada de generarlo,barajarlo y repartir las cartas
 public class Mazo {
 
     //Atributos
@@ -76,7 +77,7 @@ public class Mazo {
         Collections.shuffle(cartas);
     }
 
-    //Este método recibe el numero de cartas, baraja las cartas y reparte el numero de cartas especificado.
+    //Este método recibe el numero de cartas, baraja las cartas y reparte el numero de cartas especificado, lo hace devolviendo una lista de objeto Carta
     public List<Carta> repartirCartas(int numeroCartas) {
         List<Carta> lCartas = new ArrayList<>();
         //Barajo cartas

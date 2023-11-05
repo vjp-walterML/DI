@@ -12,11 +12,11 @@ public class Jugador {
 
     //Atributos
     private String nombre;
-    private List<Carta> mano;
-    private List<Carta> cartasVisibles;
+    private List<Carta> mano;//Cartas que va seleccionando
+    private List<Carta> cartasVisibles;//Cartas que son visibles en la mesa
     private int puntuacion;
-    private int puddings;
-    private String tipo;
+    private int puddings;//Número de puddings, este atributo se usará para calcular la puntuación final
+    private String tipo;//USER O CPU
 
     //Constructores
     public Jugador(String nombre, List<Carta> cartasVisibles, int puntuacion, int puddings, String tipo) {
@@ -78,24 +78,9 @@ public class Jugador {
     }
 
     //MÉTODOS PROPIOS
-    //Añade puntuacion
-    public void sumarPuntos(int puntos) {
-        puntuacion += puntos;
-    }
-
     //Retorna true si el jugador es tipo CPU
     public boolean esCPU() {
         return tipo.equalsIgnoreCase("CPU");
-    }
-
-    //Retorna un objeto carta según el índice
-    public Carta jugarCarta(int indice) {
-        return mano.get(indice);
-    }
-
-    //Añade la carta a la mano
-    public void cogerCarta(Carta carta) {
-        mano.add(carta);
     }
 
     //Añadir pudding
