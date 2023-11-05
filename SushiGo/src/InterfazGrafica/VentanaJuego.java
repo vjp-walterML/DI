@@ -210,6 +210,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         ventanaJuego.add(jPanelCartasVisiblesCpu2);
     }
 
+    //Método que se encarga de configurar y colocar los JLabel necesarios
     private void pintarLabels() {
         //TU MANO
         jLabelTuMano.setText("Tu mano");
@@ -251,7 +252,17 @@ public class VentanaJuego extends javax.swing.JDialog {
         jLabelNombreCpu2.setBackground(new Color(255, 255, 255, 150));
         jLabelNombreCpu2.setOpaque(true);
         ventanaJuego.add(jLabelNombreCpu2);
-        crearLabelRonda();
+        //RONDA
+        jLabelRonda.setName("jLabelRonda");
+        jLabelRonda.setText("RONDA " + juego.getRonda() + "/3");
+        jLabelRonda.setBounds(830, 65, jLabelRonda.getWidth(), jLabelRonda.getHeight());
+        jLabelRonda.setVerticalAlignment(SwingConstants.CENTER);
+        jLabelRonda.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelRonda.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 20));
+        jLabelRonda.setForeground(new Color(122, 53, 18));
+        jLabelRonda.setBackground(new Color(255, 255, 255, 150));
+        jLabelRonda.setOpaque(true);
+        ventanaJuego.add(jLabelRonda);
         //TE TOCA
         ImageIcon imagen = new ImageIcon("src/IMG/tetoca.png");
         jLabelTeToca.setBounds(0, 0, 1030, 25);
@@ -270,26 +281,6 @@ public class VentanaJuego extends javax.swing.JDialog {
         jLabelPuntuaciones.setBackground(new Color(255, 255, 255, 150));
         jLabelPuntuaciones.setOpaque(true);
         ventanaJuego.add(jLabelPuntuaciones);
-        crearLabelPuntuacionUsuario();
-        crearLabelPuntuacionCpu1();
-        crearLabelPuntuacionCpu2();
-    }
-
-    private void crearLabelRonda() {
-        //RONDA
-        jLabelRonda.setName("jLabelRonda");
-        jLabelRonda.setText("RONDA " + juego.getRonda() + "/3");
-        jLabelRonda.setBounds(830, 65, jLabelRonda.getWidth(), jLabelRonda.getHeight());
-        jLabelRonda.setVerticalAlignment(SwingConstants.CENTER);
-        jLabelRonda.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelRonda.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 20));
-        jLabelRonda.setForeground(new Color(122, 53, 18));
-        jLabelRonda.setBackground(new Color(255, 255, 255, 150));
-        jLabelRonda.setOpaque(true);
-        ventanaJuego.add(jLabelRonda);
-    }
-
-    private void crearLabelPuntuacionUsuario() {
         //PUNTUACION USUARIO
         jLabelPuntuacionUsuario.setName("jLabelPuntuacionUsuario");
         jLabelPuntuacionUsuario.setText(jLabelNombreUsuario.getText() + "  " + juego.usuario.getPuntuacion());
@@ -301,9 +292,6 @@ public class VentanaJuego extends javax.swing.JDialog {
         jLabelPuntuacionUsuario.setBackground(new Color(255, 255, 255, 150));
         jLabelPuntuacionUsuario.setOpaque(true);
         ventanaJuego.add(jLabelPuntuacionUsuario);
-    }
-
-    private void crearLabelPuntuacionCpu1() {
         //PUNTUACION CPU1
         jLabelPuntuacionCpu1.setName("jLabelPuntuacionCpu1");
         jLabelPuntuacionCpu1.setText(jLabelNombreCpu1.getText() + "  " + juego.cpu1.getPuntuacion());
@@ -315,9 +303,6 @@ public class VentanaJuego extends javax.swing.JDialog {
         jLabelPuntuacionCpu1.setBackground(new Color(255, 255, 255, 150));
         jLabelPuntuacionCpu1.setOpaque(true);
         ventanaJuego.add(jLabelPuntuacionCpu1);
-    }
-
-    private void crearLabelPuntuacionCpu2() {
         //PUNTUACION CPU2
         jLabelPuntuacionCpu2.setName("jLabelPuntuacionCpu2");
         jLabelPuntuacionCpu2.setText(jLabelNombreCpu2.getText() + "  " + juego.cpu2.getPuntuacion());
@@ -329,53 +314,6 @@ public class VentanaJuego extends javax.swing.JDialog {
         jLabelPuntuacionCpu2.setBackground(new Color(255, 255, 255, 150));
         jLabelPuntuacionCpu2.setOpaque(true);
         ventanaJuego.add(jLabelPuntuacionCpu2);
-    }
-
-    public void actualizarInfo() {
-        jLabelRonda.setText("RONDA " + juego.getRonda() + "/3");
-        jLabelPuntuacionUsuario.setText(jLabelNombreUsuario.getText() + "  " + juego.usuario.getPuntuacion());
-        jLabelPuntuacionCpu1.setText(jLabelNombreCpu1.getText() + "  " + juego.cpu1.getPuntuacion());
-        jLabelPuntuacionCpu2.setText(jLabelNombreCpu2.getText() + "  " + juego.cpu2.getPuntuacion());
-        ventanaJuego.revalidate();
-        ventanaJuego.repaint();
-    }
-
-    public void borrarComponentesActualizar() {
-        jPanelCartasVisiblesCpu1.removeAll();
-        jPanelCartasVisiblesCpu1.revalidate();
-        jPanelCartasVisiblesCpu1.repaint();
-        jPanelCartasVisiblesCpu2.removeAll();
-        jPanelCartasVisiblesCpu2.revalidate();
-        jPanelCartasVisiblesCpu2.repaint();
-        jPanelCartasVisiblesUsuario.removeAll();
-        jPanelCartasVisiblesUsuario.revalidate();
-        jPanelCartasVisiblesUsuario.repaint();
-        jPanelManoUsuario.removeAll();
-        jPanelManoUsuario.revalidate();
-        jPanelManoUsuario.repaint();
-    }
-
-    public void finalizarJuego() {
-        Jugador ganador = juego.comprobarGanador();
-        actualizarInfo();//Actualizo info
-        if (ganador.esCPU()) {
-            //VENTANA PERDER
-            ImageIcon iconoPerder = new ImageIcon("src/IMG/perder.png");
-            iconoPerder = redimensionarImagen(iconoPerder);
-            JOptionPane.showMessageDialog(null, "¡LO SIENTO!  " + ganador.getNombre() + "  te ha ganado con " + ganador.getPuntuacion() + " puntos...", "GAME OVER", JOptionPane.INFORMATION_MESSAGE, iconoPerder);
-        } else {
-            //VENTANA GANAR
-            ImageIcon iconoGanar = new ImageIcon("src/IMG/ganar.png");
-            iconoGanar = redimensionarImagen(iconoGanar);
-            JOptionPane.showMessageDialog(null, "¡ENHORABUENA! has ganado con " + ganador.getPuntuacion() + " puntos!", "WIN", JOptionPane.INFORMATION_MESSAGE, iconoGanar);
-        }
-        dispose();//Cierro VentanaJuego
-    }
-
-    private ImageIcon redimensionarImagen(ImageIcon imageIcon) {
-        Image image = imageIcon.getImage();
-        Image newImg = image.getScaledInstance(Constantes.ANCHO_ICONO, Constantes.ALTO_ICONO, java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(newImg);
     }
 
     //Este método actualiza las cartas en la pantalla
@@ -422,6 +360,33 @@ public class VentanaJuego extends javax.swing.JDialog {
         });
     }
 
+    //Método auxiliar que vacia los componentes de los paneles, actualiza y obliga a refrescar. Es usado en el actualizarCartas()
+    public void borrarComponentesActualizar() {
+        jPanelCartasVisiblesCpu1.removeAll();
+        jPanelCartasVisiblesCpu1.revalidate();
+        jPanelCartasVisiblesCpu1.repaint();
+        jPanelCartasVisiblesCpu2.removeAll();
+        jPanelCartasVisiblesCpu2.revalidate();
+        jPanelCartasVisiblesCpu2.repaint();
+        jPanelCartasVisiblesUsuario.removeAll();
+        jPanelCartasVisiblesUsuario.revalidate();
+        jPanelCartasVisiblesUsuario.repaint();
+        jPanelManoUsuario.removeAll();
+        jPanelManoUsuario.revalidate();
+        jPanelManoUsuario.repaint();
+    }
+
+    //Método que actualiza la información necesaria en tiempo de ejecución, el número de ronda, la puntuación...
+    public void actualizarInfo() {
+        jLabelRonda.setText("RONDA " + juego.getRonda() + "/3");
+        jLabelPuntuacionUsuario.setText(jLabelNombreUsuario.getText() + "  " + juego.usuario.getPuntuacion());
+        jLabelPuntuacionCpu1.setText(jLabelNombreCpu1.getText() + "  " + juego.cpu1.getPuntuacion());
+        jLabelPuntuacionCpu2.setText(jLabelNombreCpu2.getText() + "  " + juego.cpu2.getPuntuacion());
+        ventanaJuego.revalidate();
+        ventanaJuego.repaint();
+    }
+
+    //Método auxiliar que configura los estilos del boton carta
     private void configurarEstilosBoton(JButton boton) {
         // Ajustar el tamaño del botón al tamaño de la imagen
         boton.setPreferredSize(new Dimension(Constantes.ANCHO_CARTA, Constantes.ALTO_CARTA));
@@ -432,6 +397,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         boton.setMargin(new Insets(0, 0, 0, 0)); // Ajustar márgenes
     }
 
+    //Método que recibe un JButton (Carta) por parámetro y le añade el ActionListener
     private void generarActionListenerBoton(JButton boton) {
         //Genero un actionListener para el botón
         boton.addActionListener(new ActionListener() {
@@ -442,6 +408,31 @@ public class VentanaJuego extends javax.swing.JDialog {
                 juego.jugarTurnoUsuario(cartaSeleccionada);
             }
         });
+    }
+
+    //Método auxiliar que recibe un ImageIcon, lo redimensiona y lo retorna
+    private ImageIcon redimensionarImagen(ImageIcon imageIcon) {
+        Image image = imageIcon.getImage();
+        Image newImg = image.getScaledInstance(Constantes.ANCHO_ICONO, Constantes.ALTO_ICONO, java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(newImg);
+    }
+
+    //Método que finaliza el juego, comprueba el ganador, y muestra un jOptionPanel con el resultado.
+    public void finalizarJuego() {
+        Jugador ganador = juego.comprobarGanador();
+        actualizarInfo();//Actualizo info
+        if (ganador.esCPU()) {
+            //VENTANA PERDER
+            ImageIcon iconoPerder = new ImageIcon("src/IMG/perder.png");
+            iconoPerder = redimensionarImagen(iconoPerder);
+            JOptionPane.showMessageDialog(null, "¡LO SIENTO!  " + ganador.getNombre() + "  te ha ganado con " + ganador.getPuntuacion() + " puntos...", "GAME OVER", JOptionPane.INFORMATION_MESSAGE, iconoPerder);
+        } else {
+            //VENTANA GANAR
+            ImageIcon iconoGanar = new ImageIcon("src/IMG/ganar.png");
+            iconoGanar = redimensionarImagen(iconoGanar);
+            JOptionPane.showMessageDialog(null, "¡ENHORABUENA! has ganado con " + ganador.getPuntuacion() + " puntos!", "WIN", JOptionPane.INFORMATION_MESSAGE, iconoGanar);
+        }
+        dispose();//Cierro VentanaJuego
     }
 
     //===========================================================================
