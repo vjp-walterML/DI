@@ -14,4 +14,26 @@ public class Constantes {
     public final static int ALTO_PANEL = 95;
     public final static String CPU1 = "CPU 1";
     public final static String CPU2 = "CPU 2";
+    //    CARTAS
+    public final static String MAKIS = "Makis";
+    public final static String MAKI1 = "Maki 1";
+    public final static String MAKI2 = "Maki 2";
+    public final static String MAKI3 = "Maki 3";
+    public final static String SASHIMI = "Sashimi";
+    public final static String DUMPLING = "Dumpling";
+    public final static String NIGIRI_CALAMAR = "NigiriCalamar";
+    public final static String NIGIRI_HUEVO = "NigiriHuevo";
+    public final static String NIGIRI_SALMON = "NigiriSalmon";
+    public final static String PUDDING = "Pudding";
+    public final static int VALOR_MAKIS = 6;
+    public final static int VALOR_SASHIMI = 10;
+    public final static int VALOR_DUMPLING1 = 1;
+    public final static int VALOR_DUMPLING2 = 3;
+    public final static int VALOR_DUMPLING3 = 6;
+    public final static int VALOR_DUMPLING4 = 10;
+    public final static int VALOR_DUMPLING5 = 15;
+    public final static int VALOR_NIGIRI_CALAMAR = 3;
+    public final static int VALOR_NIGIRI_HUEVO = 1;
+    public final static int VALOR_NIGIRI_SALMON = 2;
+    public final static int VALOR_PUDDING = 6;
 }

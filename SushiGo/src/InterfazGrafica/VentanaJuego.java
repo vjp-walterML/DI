@@ -37,7 +37,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         //Comunico las ventanas
         juego.comunicarVentanaJuego(this);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,7 +93,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         crearPaneles();
         actualizarCartas();
     }
-    
+
     private void establecerFondo() {
         // Cargar la imagen de fondo
         ImageIcon icon = new ImageIcon("src/IMG/mesa.png");
@@ -105,36 +105,45 @@ public class VentanaJuego extends javax.swing.JDialog {
         this.setContentPane(labelConFondo);
         this.pack();
     }
-    
+
     private void crearPaneles() {
-        jPanelManoUsuario.setBounds(125, 32, Constantes.ANCHO_PANEL, Constantes.ALTO_PANEL);
-        jPanelManoUsuario.setBackground(new Color(0, 0, 0, 0));
-        ventanaJuego.add(jPanelManoUsuario);
+        jPanelManoUsuario.setBounds(125, 32, Constantes.ANCHO_PANEL, Constantes.ALTO_PANEL);//Establezco dimensiones
+        jPanelManoUsuario.setBackground(new Color(0, 0, 0, 0));//Establezco color transparente
+        jPanelManoUsuario.setOpaque(false); //Informo a Swing de que el panel debe ser transparente
+        ventanaJuego.add(jPanelManoUsuario); //Añado el panel a ventanaJuego
         jPanelCartasVisiblesUsuario.setBounds(125, 192, Constantes.ANCHO_PANEL, Constantes.ALTO_PANEL);
         jPanelCartasVisiblesUsuario.setBackground(new Color(0, 0, 0, 0));
+        jPanelCartasVisiblesUsuario.setOpaque(false);
         ventanaJuego.add(jPanelCartasVisiblesUsuario);
         jPanelCartasVisiblesCpu1.setBounds(125, 368, Constantes.ANCHO_PANEL, Constantes.ALTO_PANEL);
         jPanelCartasVisiblesCpu1.setBackground(new Color(0, 0, 0, 0));
+        jPanelCartasVisiblesCpu1.setOpaque(false);
         ventanaJuego.add(jPanelCartasVisiblesCpu1);
         jPanelCartasVisiblesCpu2.setBounds(125, 547, Constantes.ANCHO_PANEL, Constantes.ALTO_PANEL);
         jPanelCartasVisiblesCpu2.setBackground(new Color(0, 0, 0, 0));
+        jPanelCartasVisiblesCpu2.setOpaque(false);
         ventanaJuego.add(jPanelCartasVisiblesCpu2);
     }
 
-    public void borrarTOOO(){
+    public void borrarComponentesActualizar() {
         jPanelCartasVisiblesCpu1.removeAll();
+        jPanelCartasVisiblesCpu1.revalidate();
+        jPanelCartasVisiblesCpu1.repaint();
         jPanelCartasVisiblesCpu2.removeAll();
+        jPanelCartasVisiblesCpu2.revalidate();
+        jPanelCartasVisiblesCpu2.repaint();
         jPanelCartasVisiblesUsuario.removeAll();
+        jPanelCartasVisiblesUsuario.revalidate();
+        jPanelCartasVisiblesUsuario.repaint();
         jPanelManoUsuario.removeAll();
+        jPanelManoUsuario.revalidate();
+        jPanelManoUsuario.repaint();
     }
+
     //Este método actualiza las cartas en la pantalla
     public void actualizarCartas() {
-        //Elimino todos los componentes existentes en los paneles
-        jPanelCartasVisiblesCpu1.removeAll();
-        jPanelCartasVisiblesCpu2.removeAll();
-        jPanelCartasVisiblesUsuario.removeAll();
-        jPanelManoUsuario.removeAll();
-
+        //Elimino todos los componentes existentes en los paneles y actualizo
+        borrarComponentesActualizar();
         //Recorro los jugadores
         juego.getJugadores().forEach(jugador -> {
             //Si el jugador es USER
@@ -174,7 +183,7 @@ public class VentanaJuego extends javax.swing.JDialog {
             }
         });
     }
-    
+
     private void configurarEstilosBoton(JButton boton) {
         // Ajustar el tamaño del botón al tamaño de la imagen
         boton.setPreferredSize(new Dimension(Constantes.ANCHO_CARTA, Constantes.ALTO_CARTA));
@@ -184,7 +193,7 @@ public class VentanaJuego extends javax.swing.JDialog {
         boton.setContentAreaFilled(false);  // Quitar el fondo del botón
         boton.setMargin(new Insets(0, 0, 0, 0)); // Ajustar márgenes
     }
-    
+
     private void generarActionListenerBoton(JButton boton) {
         //Genero un actionListener para el botón
         boton.addActionListener(new ActionListener() {

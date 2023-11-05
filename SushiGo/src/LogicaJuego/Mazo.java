@@ -35,39 +35,39 @@ public class Mazo {
         //CARTAS
         //MAKI 1
         for (int i = 0; i < 6; i++) {
-            cartas.add(new Carta("Maki 1", 6, "/IMG/maki1.PNG"));
+            cartas.add(new Carta(Constantes.MAKI1, 6, "/IMG/maki1.PNG"));
         }
         //MAKI 2
         for (int i = 0; i < 12; i++) {
-            cartas.add(new Carta("Maki 2", 6, "/IMG/maki2.PNG"));
+            cartas.add(new Carta(Constantes.MAKI2, 6, "/IMG/maki2.PNG"));
         }
         //MAKI 3
         for (int i = 0; i < 8; i++) {
-            cartas.add(new Carta("Maki 3", 6, "/IMG/maki3.PNG"));
+            cartas.add(new Carta(Constantes.MAKI3, 6, "/IMG/maki3.PNG"));
         }
         //SASHIMI
         for (int i = 0; i < 14; i++) {
-            cartas.add(new Carta("Sashimi", 10, "/IMG/sashimi.PNG"));
+            cartas.add(new Carta(Constantes.SASHIMI, 10, "/IMG/sashimi.PNG"));
         }
         //DUMPLING
         for (int i = 0; i < 14; i++) {
-            cartas.add(new Carta("Dumpling", 15, "/IMG/dumpling.PNG"));
+            cartas.add(new Carta(Constantes.DUMPLING, 15, "/IMG/dumpling.PNG"));
         }
         //NIGIRI CALAMAR
         for (int i = 0; i < 5; i++) {
-            cartas.add(new Carta("NigiriCalamar", 3, "/IMG/nigiricalamar.PNG"));
+            cartas.add(new Carta(Constantes.NIGIRI_CALAMAR, 3, "/IMG/nigiricalamar.PNG"));
         }
         //NIGIRI HUEVO
         for (int i = 0; i < 5; i++) {
-            cartas.add(new Carta("NigiriHuevo", 1, "/IMG/nigirihuevo.PNG"));
+            cartas.add(new Carta(Constantes.NIGIRI_HUEVO, 1, "/IMG/nigirihuevo.PNG"));
         }
         //NIGIRI SALMÓN
         for (int i = 0; i < 10; i++) {
-            cartas.add(new Carta("NigiriSalmon", 2, "/IMG/nigirisalmon.PNG"));
+            cartas.add(new Carta(Constantes.NIGIRI_SALMON, 2, "/IMG/nigirisalmon.PNG"));
         }
         //PUDDING
         for (int i = 0; i < 10; i++) {
-            cartas.add(new Carta("Pudding", 6, "/IMG/pudding.PNG"));
+            cartas.add(new Carta(Constantes.PUDDING, 6, "/IMG/pudding.PNG"));
         }
     }
 
@@ -83,7 +83,7 @@ public class Mazo {
         mezclar();
         //Añado las cartas a lCartas y lo retorno
         for (int i = 0; i < numeroCartas; i++) {
-            lCartas.add(cartas.remove(i));
+            lCartas.add(cartas.remove(0));
         }
         //Retorno lCartas
         return lCartas;
