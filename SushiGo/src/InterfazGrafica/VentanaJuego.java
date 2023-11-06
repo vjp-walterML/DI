@@ -344,7 +344,7 @@ public class VentanaJuego extends javax.swing.JDialog {
                 });
             } else {
                 //Si es un CPU creo un label con la representacion de la carta y lo añado a su respectivo Jpanel
-                jugador.getCartasVisibles().forEach(carta -> {
+                jugador.getMano().forEach(carta -> {
                     JLabel jLabel = new JLabel(carta.getRepresentacion());
                     if (jugador.getNombre().equalsIgnoreCase(Constantes.CPU1)) {
                         jPanelCartasVisiblesCpu1.add(jLabel);//Añado el label al panel correspondiente

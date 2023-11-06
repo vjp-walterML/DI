@@ -12,8 +12,8 @@ public class Jugador {
 
     //Atributos
     private String nombre;
-    private List<Carta> mano;//Cartas que va seleccionando
-    private List<Carta> cartasVisibles;//Cartas que son visibles en la mesa
+    private List<Carta> mano;//Cartas que va seleccionando el jugador
+    private List<Carta> cartasRepartidas;//Cartas que le son repartidas
     private int puntuacion;
     private int puddings;//Número de puddings, este atributo se usará para calcular la puntuación final
     private String tipo;//USER O CPU
@@ -21,7 +21,7 @@ public class Jugador {
     //Constructores
     public Jugador(String nombre, List<Carta> cartasVisibles, int puntuacion, int puddings, String tipo) {
         this.nombre = nombre;
-        this.cartasVisibles = cartasVisibles;
+        this.cartasRepartidas = cartasVisibles;
         this.mano = new ArrayList<>();
         this.puntuacion = puntuacion;
         this.puddings = puddings;
@@ -46,11 +46,11 @@ public class Jugador {
     }
 
     public List<Carta> getCartasVisibles() {
-        return cartasVisibles;
+        return cartasRepartidas;
     }
 
     public void setCartasVisibles(List<Carta> cartasVisibles) {
-        this.cartasVisibles = cartasVisibles;
+        this.cartasRepartidas = cartasVisibles;
     }
 
     public int getPuntuacion() {
