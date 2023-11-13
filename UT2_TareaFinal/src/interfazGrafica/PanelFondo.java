@@ -9,11 +9,12 @@ import javax.swing.JPanel;
  *
  * @author wmartinl01
  */
-public class PanelPrincipal extends JPanel {
+//Esta clase personalizada es para crear un JPanel con una imagen de fondo
+public class PanelFondo extends JPanel {
 
     private Image fondo;
 
-    public PanelPrincipal(String rutaImagen) {
+    public PanelFondo(String rutaImagen) {
         fondo = new ImageIcon(rutaImagen).getImage();
     }
 
