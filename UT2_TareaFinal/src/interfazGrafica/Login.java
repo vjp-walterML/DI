@@ -1,10 +1,7 @@
 package interfazGrafica;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
@@ -29,6 +26,7 @@ public class Login extends javax.swing.JDialog {
         this.ventanaPrincipal = (VentanaPrincipal) parent;
         usuarios = this.ventanaPrincipal.usuarios;
         usuarios = Logica.Utileria.cargarDatos();//Cargo los datos de los usuarios registrados
+        //establecerWindowsListener();//Implemento un WindowsListener para conseguir que el usuario no haga trampa y acceder al programa principal sin logearse correctamente
         establecerFondo();//Establezco el JPanel de fondo
         aniadirComponentes();//Añado los componentes al JPanels
         validationGroup();//Implemento el validationGroup
@@ -72,6 +70,17 @@ public class Login extends javax.swing.JDialog {
                     jButtonIniciarSesion.setEnabled(false);
                     jButtonRegistrarse.setEnabled(true);
                 }
+            }
+        });
+    }
+
+    //Windows Listener
+    public void establecerWindowsListener() {
+        // Agregar WindowListener al JDialog
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                ventanaPrincipal.dispose(); // Cierra el JFrame cuando se cierra el JDialog
             }
         });
     }
@@ -172,6 +181,7 @@ public class Login extends javax.swing.JDialog {
                 //Muestro mensaje de login correcto
                 JOptionPane.showMessageDialog(this, "¡Bienvenido " + nombre + "!", "Inicio de sesión correcto", JOptionPane.INFORMATION_MESSAGE);
                 ventanaPrincipal.setLoginCorrecto(true);//Establezco a true el login correcto para que deje acceder al programa
+                dispose();
             } else {
                 //Muestro mensaje de contraseña incorrecta
                 JOptionPane.showMessageDialog(this, "¡Contraseña incorrecta!", "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,8 +1,7 @@
 package interfazGrafica;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -42,10 +41,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //Este método lanza el login antes de pintar todos los componentes, si el login es correcto accede a la aplicación, si no lo es volvera a pedir, y si cierra el Dialog, también se cerrará la aplicación.
     public void login() {
         Login login = new Login(this, true);
+       // Agregar WindowListener al JDialog
+       login.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+               dispose(); // Cierra el JFrame cuando se cierra el JDialog
+            }
+        });
         login.setVisible(true);
-        if (!loginCorrecto) {
-            dispose();
-        }
     }
 
     //Setter de loginCorrecto
