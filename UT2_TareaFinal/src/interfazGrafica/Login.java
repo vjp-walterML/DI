@@ -1,7 +1,5 @@
 package interfazGrafica;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
@@ -25,17 +23,15 @@ public class Login extends javax.swing.JDialog {
         initComponents();
         this.ventanaPrincipal = (VentanaPrincipal) parent;
         usuarios = this.ventanaPrincipal.usuarios;
-        usuarios = Logica.Utileria.cargarDatos();//Cargo los datos de los usuarios registrados
-        //establecerWindowsListener();//Implemento un WindowsListener para conseguir que el usuario no haga trampa y acceder al programa principal sin logearse correctamente
+        usuarios = logica.Utileria.cargarDatosLogin();//Cargo los datos de los usuarios registrados
         establecerFondo();//Establezco el JPanel de fondo
         aniadirComponentes();//Añado los componentes al JPanels
         validationGroup();//Implemento el validationGroup
-
+        setLocationRelativeTo(null);//Centro la ventana en el centro de la pantalla
     }
 
     //Establece un JPanel de fondo con una imagen
     public void establecerFondo() {
-        //PanelFondo panelPrincipal = new PanelFondo("src/interfazGrafica/IMG/3.png");
         panelPrincipal = new PanelFondo("src/interfazGrafica/IMG/3.png");
         panelPrincipal.setLayout(null);//Layout absoluto
         // Establecer el JPanel como el contenido del Jframe
@@ -49,6 +45,9 @@ public class Login extends javax.swing.JDialog {
         panelPrincipal.add(jPasswordFieldContrasenia);
         panelPrincipal.add(jButtonIniciarSesion);
         panelPrincipal.add(jButtonRegistrarse);
+        panelPrincipal.add(jLabelUsuario);
+        panelPrincipal.add(jLabelContrasenia);
+        panelPrincipal.add(jLabelInicioSesion);
     }
 
     //Este método implementa el validationGroup
@@ -74,17 +73,6 @@ public class Login extends javax.swing.JDialog {
         });
     }
 
-    //Windows Listener
-    public void establecerWindowsListener() {
-        // Agregar WindowListener al JDialog
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                ventanaPrincipal.dispose(); // Cierra el JFrame cuando se cierra el JDialog
-            }
-        });
-    }
-
     //Código generado
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -96,11 +84,25 @@ public class Login extends javax.swing.JDialog {
         jPasswordFieldContrasenia = new javax.swing.JPasswordField();
         jButtonIniciarSesion = new javax.swing.JButton();
         jButtonRegistrarse = new javax.swing.JButton();
+        jLabelInicioSesion = new javax.swing.JLabel();
+        jLabelUsuario = new javax.swing.JLabel();
+        jLabelContrasenia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setSize(new java.awt.Dimension(500, 500));
 
         validationPanel1.setOpaque(false);
 
+        jTextFieldUsuario.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
+        jTextFieldUsuario.setForeground(new java.awt.Color(67, 112, 114));
+
+        jPasswordFieldContrasenia.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
+        jPasswordFieldContrasenia.setForeground(new java.awt.Color(67, 112, 114));
+
+        jButtonIniciarSesion.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonIniciarSesion.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonIniciarSesion.setForeground(new java.awt.Color(38, 60, 61));
         jButtonIniciarSesion.setText("Iniciar Sesión");
         jButtonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +110,9 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        jButtonRegistrarse.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonRegistrarse.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonRegistrarse.setForeground(new java.awt.Color(38, 60, 61));
         jButtonRegistrarse.setText("Registrarse");
         jButtonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,42 +120,69 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        jLabelInicioSesion.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 24)); // NOI18N
+        jLabelInicioSesion.setForeground(new java.awt.Color(38, 60, 61));
+        jLabelInicioSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelInicioSesion.setText(org.openide.util.NbBundle.getMessage(Login.class, "Registrarse.jLabelRegistrarse.text")); // NOI18N
+        jLabelInicioSesion.setToolTipText(org.openide.util.NbBundle.getMessage(Login.class, "Registrarse.jLabelRegistrarse.toolTipText")); // NOI18N
+
+        jLabelUsuario.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(38, 60, 61));
+        jLabelUsuario.setText(org.openide.util.NbBundle.getMessage(Login.class, "Registrarse.jLabelUsuario.text")); // NOI18N
+
+        jLabelContrasenia.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
+        jLabelContrasenia.setForeground(new java.awt.Color(38, 60, 61));
+        jLabelContrasenia.setText(org.openide.util.NbBundle.getMessage(Login.class, "Registrarse.jLabelContrasenia.text")); // NOI18N
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPrincipalLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                .addContainerGap()
+                .addComponent(jLabelInicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addComponent(jButtonIniciarSesion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(66, 66, 66)
                         .addComponent(jButtonRegistrarse))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPrincipalLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelContrasenia)
+                            .addComponent(jLabelUsuario))
+                        .addGap(41, 41, 41)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(jPasswordFieldContrasenia))))
+                .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(17, 17, 17)
                 .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(jLabelInicioSesion)
+                .addGap(49, 49, 49)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelUsuario)
+                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonIniciarSesion)
                     .addComponent(jButtonRegistrarse))
-                .addGap(61, 61, 61))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,13 +205,11 @@ public class Login extends javax.swing.JDialog {
         String nombre = jTextFieldUsuario.getText();
         String psw = new String(jPasswordFieldContrasenia.getPassword());
         //Codifico a MD5 para comparar
-        psw = Logica.Utileria.encodeToMD5(psw);
+        psw = logica.Utileria.encodeToMD5(psw);
         //Controlo si el usuario existe
         if (usuarios.containsKey(nombre)) {
             //Controlo si la contraseña es correcta
             if (usuarios.get(nombre).equals(psw)) {
-                //Muestro mensaje de login correcto
-                JOptionPane.showMessageDialog(this, "¡Bienvenido " + nombre + "!", "Inicio de sesión correcto", JOptionPane.INFORMATION_MESSAGE);
                 ventanaPrincipal.setLoginCorrecto(true);//Establezco a true el login correcto para que deje acceder al programa
                 dispose();
             } else {
@@ -197,7 +227,7 @@ public class Login extends javax.swing.JDialog {
         Registrarse ventanaRegistrarse = new Registrarse(ventanaPrincipal, true);
         ventanaRegistrarse.setVisible(true);
         //Refresco los datos de usuarios
-        usuarios = Logica.Utileria.cargarDatos();
+        usuarios = logica.Utileria.cargarDatosLogin();
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
 
     //Main
@@ -243,6 +273,9 @@ public class Login extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciarSesion;
     private javax.swing.JButton jButtonRegistrarse;
+    private javax.swing.JLabel jLabelContrasenia;
+    private javax.swing.JLabel jLabelInicioSesion;
+    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPasswordField jPasswordFieldContrasenia;
     private javax.swing.JTextField jTextFieldUsuario;
     private javax.swing.JPanel panelPrincipal;

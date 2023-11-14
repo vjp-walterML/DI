@@ -1,9 +1,8 @@
 package interfazGrafica;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import logica.Utileria;
 
 /**
  *
@@ -18,9 +17,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //Constructor
     public VentanaPrincipal() {
         initComponents();
-        login();//Lanzo el login
+        usuarios = Utileria.cargarDatosLogin();//Cargo los datos de los usuarios
+        //login();//Lanzo el login
         establecerFondo();//Establezco el JPanel de fondo
         aniadirComponentes();//Añado los componentes al JPanel
+        setLocationRelativeTo(null);//Centro la ventana en el centro de la pantalla
     }
 
     //Establece un JPanel de fondo con una imagen
@@ -35,20 +36,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //En este método se añaden los componentes al JPanel para que sean visibles
     public void aniadirComponentes() {
         panelPrincipal.add(jMenuBar);
-
+        
     }
 
     //Este método lanza el login antes de pintar todos los componentes, si el login es correcto accede a la aplicación, si no lo es volvera a pedir, y si cierra el Dialog, también se cerrará la aplicación.
     public void login() {
         Login login = new Login(this, true);
-       // Agregar WindowListener al JDialog
-       login.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-               dispose(); // Cierra el JFrame cuando se cierra el JDialog
-            }
-        });
         login.setVisible(true);
+        //Si el usuario no ha conseguido logearse correctamente e intenta cerrar la ventana de login, también se cierra la VentanaPrincipal
+        if (!loginCorrecto) {
+            System.exit(0);
+        }
     }
 
     //Setter de loginCorrecto
@@ -68,24 +66,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItemModificarCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(900, 650));
+        setSize(new java.awt.Dimension(900, 650));
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 627, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Clientes");
 
         jMenuItemAltaCliente.setText("Alta cliente");
+        jMenuItemAltaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAltaClienteActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemAltaCliente);
 
         jMenuItemModificarCliente.setText("Modificar cliente");
+        jMenuItemModificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarClienteActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemModificarCliente);
 
         jMenuBar.add(jMenu1);
@@ -105,6 +115,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //Botón Alta Cliente
+    private void jMenuItemAltaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltaClienteActionPerformed
+        AltaCliente altaCliente = new AltaCliente(this, true);
+        altaCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAltaClienteActionPerformed
+
+    //Botón modificar Cliente
+    private void jMenuItemModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarClienteActionPerformed
+        ModificarCliente modificarCliente = new ModificarCliente(this, true);
+        modificarCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItemModificarClienteActionPerformed
 
     //Main
     public static void main(String args[]) {
