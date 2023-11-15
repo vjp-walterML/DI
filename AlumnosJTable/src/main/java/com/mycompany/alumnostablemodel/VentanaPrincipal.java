@@ -36,9 +36,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jTable1.setRowSorter(sorter);
 
         //Para que venga ordenado por defecto
-        List<SortKey> sortKeys = new ArrayList<>();
-        sortKeys.add(new SortKey(0, SortOrder.ASCENDING));
-        sorter.setSortKeys(sortKeys);
+//        List<SortKey> sortKeys = new ArrayList<>();
+//        sortKeys.add(new SortKey(0, SortOrder.ASCENDING));
+//        sorter.setSortKeys(sortKeys);
 
     }
 

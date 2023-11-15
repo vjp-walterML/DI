@@ -2,9 +2,12 @@ package interfazGrafica;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.UIManager;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
+import logica.Cliente;
 import logica.Utileria;
 
 /**
@@ -15,12 +18,15 @@ public class ModificarCliente extends javax.swing.JDialog {
 
     //Variables globales
     private VentanaPrincipal ventanaPrincipal;
+    private TableRowSorter<ClienteTableModel> sorter;
+    private List<Cliente> listaClientes;
 
     //Constructor
     public ModificarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.ventanaPrincipal = (VentanaPrincipal) parent;
+        this.listaClientes = Utileria.cargarDatosClientes();//Cargo los datos del fichero
         establecerFondo();//Establezco el JPanel de fondo
         crearTablaClientes();//Creo la jTable con los datos de los clientes
         aniadirComponentes();//Añado los componentes al JPanels
@@ -39,14 +45,19 @@ public class ModificarCliente extends javax.swing.JDialog {
     public void aniadirComponentes() {
         panelPrincipal.add(jScrollPane1);
         panelPrincipal.add(jLabelListaClientes);
-        panelPrincipal.add(jButtonModificar);
+        //panelPrincipal.add(jButtonModificar);
         panelPrincipal.add(jButtonEliminar);
     }
 
     public void crearTablaClientes() {
         //Instancio un ClienteTableModel 
-        ClienteTableModel ctm = new ClienteTableModel(Utileria.cargarDatosClientes());
+        ClienteTableModel ctm = new ClienteTableModel(listaClientes);
         this.jTableClientes.setModel(ctm);//Añado el ClienteTableModel al JTableClientes
+        //Para poder ordenar creo el tableRowShorter
+        sorter = new TableRowSorter<>(ctm);
+        //Añado el tablerowsorter a mi Jtable
+        this.jTableClientes.setRowSorter(sorter);
+        //Establezco el color de fondo de la tabla
         jScrollPane1.getViewport().setBackground(new Color(255, 255, 255));
         // Obteniendo el TableHeader del JTable para modificar los estilos
         JTableHeader header = jTableClientes.getTableHeader();
@@ -81,7 +92,6 @@ public class ModificarCliente extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
         jLabelListaClientes = new javax.swing.JLabel();
-        jButtonModificar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -113,15 +123,15 @@ public class ModificarCliente extends javax.swing.JDialog {
         jLabelListaClientes.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jLabelListaClientes.text")); // NOI18N
         jLabelListaClientes.setToolTipText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jLabelListaClientes.toolTipText")); // NOI18N
 
-        jButtonModificar.setBackground(new java.awt.Color(251, 242, 242));
-        jButtonModificar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
-        jButtonModificar.setForeground(new java.awt.Color(38, 60, 61));
-        jButtonModificar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonModificar.text")); // NOI18N
-
         jButtonEliminar.setBackground(new java.awt.Color(251, 242, 242));
         jButtonEliminar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
         jButtonEliminar.setForeground(new java.awt.Color(38, 60, 61));
         jButtonEliminar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonModificar.text")); // NOI18N
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
@@ -136,9 +146,7 @@ public class ModificarCliente extends javax.swing.JDialog {
                         .addGap(0, 76, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(jButtonModificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(244, 686, Short.MAX_VALUE)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(206, 206, 206))
         );
@@ -150,9 +158,7 @@ public class ModificarCliente extends javax.swing.JDialog {
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
 
@@ -171,6 +177,25 @@ public class ModificarCliente extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //Método que actualiza los datos del fichero y de la tabla después de cualquier modificación
+    public void actualizarDatos() {
+        AbstractTableModel model = (AbstractTableModel) this.jTableClientes.getModel();//Recupero el TableModel del JTable
+        model.fireTableDataChanged();//Este método 'Refresca' la tabla
+        Utileria.volcarDatosClientes(listaClientes);//Actualizo fichero
+    }
+
+    //Botón Eliminar
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        if (jTableClientes.getSelectedRow() != -1) {//Compruebo si hay alguna fila seleccionada
+            int i = this.jTableClientes.getSelectedRow();// Obtengo la fila seleccionada
+            i = this.jTableClientes.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
+            //Elimino el índice de la tabla
+            listaClientes.remove(i);
+            //Actualizo datos
+            actualizarDatos();
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -214,7 +239,6 @@ public class ModificarCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelListaClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClientes;

@@ -298,7 +298,7 @@ public class AltaCliente extends javax.swing.JDialog {
 
         //Creo cliente y lo escribo en el fichero
         Cliente cliente = new Cliente(numCliente, dni, fechaAlta, direccion, telefono, foto);
-        Utileria.darAltaCliente(cliente);
+        Utileria.escribirCliente(cliente);
         //Muestro mensaje satisfactorio
         JOptionPane.showMessageDialog(this, "¡Cliente registrado correctamente!", "Alta", JOptionPane.INFORMATION_MESSAGE);
         dispose();//Cierro ventana

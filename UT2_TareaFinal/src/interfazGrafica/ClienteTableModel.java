@@ -51,4 +51,10 @@ public class ClienteTableModel extends AbstractTableModel {
         return null;
     }
 
+    //Implemento un método que elimina el coche de la lista
+    public void removeRow(int row) {
+        listCliente.remove(row);
+        fireTableRowsDeleted(row, row);//Este método 'Refresca' la tabla 
+    }
+
 }

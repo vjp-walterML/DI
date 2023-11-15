@@ -78,22 +78,28 @@ public class Utileria {
         return lClientes;
     }
 
-    //Método que recibe un cliente y lo escribe en el fichero
-    public static void darAltaCliente(Cliente c) {
-        //CREO STRING PARA ESCRIBIRLO
-        String cliente = c.getNumCliente() + ";";//NumCliente
-        cliente += c.getDni() + ";";//Dni
-        cliente += c.getFechaAlta().getYear() + ";";//AñoFechaAlta
-        cliente += c.getFechaAlta().getMonthValue() + ";";//MesFechaAlta
-        cliente += c.getFechaAlta().getDayOfMonth() + ";";//DiaFechaAlta
-        cliente += c.getDireccion() + ";";//Dirección
-        cliente += c.getTelefono() + ";";//Dirección
-        if (c.getFoto().equals("")) {
-            cliente += "src/interfazGrafica/IMG/user.png";//Si la foto está vacia se asigna una por defecto
-        } else {
-            cliente += "src/interfazGrafica/IMG/" + c.getFoto();//Foto
+    //Método que vuelca los datos de los clientes dados de alta
+    public static void volcarDatosClientes(List<Cliente> clientes) {
+        String cliente;
+        //ESCRITURA EN FICHERO
+        try {
+            //Abro flujos
+            PrintWriter pw = new PrintWriter(new FileWriter(logica.Constantes.FICHERO_CLIENTES));//Conservo datos
+            for (Cliente c : clientes) {
+                cliente = clienteToString(c);
+                pw.println(cliente);//Escribo
+            }
+            //Cierro flujos
+            pw.close();
+        } catch (IOException ex) {
+            System.out.println("ERROR: NO SE HA PODIDO CARGAR LOS DATOS DEL FICHERO.");
         }
+    }
 
+    //Método que recibe un cliente y lo escribe en el fichero
+    public static void escribirCliente(Cliente c) {
+        //CREO STRING PARA ESCRIBIRLO
+        String cliente = clienteToString(c);
         //ESCRITURA EN FICHERO
         try {
             //Abro flujos
@@ -105,6 +111,24 @@ public class Utileria {
         } catch (IOException ex) {
             System.out.println("ERROR: NO SE HA PODIDO CARGAR LOS DATOS DEL FICHERO.");
         }
+    }
+
+    //Método que recibe un Cliente y retorna el String para escribirlo en el fichero
+    public static String clienteToString(Cliente c) {
+        //CREO STRING PARA ESCRIBIRLO
+        String cliente = c.getNumCliente() + ";";//NumCliente
+        cliente += c.getDni() + ";";//Dni
+        cliente += c.getFechaAlta().getYear() + ";";//AñoFechaAlta
+        cliente += c.getFechaAlta().getMonthValue() + ";";//MesFechaAlta
+        cliente += c.getFechaAlta().getDayOfMonth() + ";";//DiaFechaAlta
+        cliente += c.getDireccion() + ";";//Dirección
+        cliente += c.getTelefono() + ";";//Telefono
+        if (c.getFoto().equals("")) {
+            cliente += "src/interfazGrafica/IMG/user.png";//Si la foto está vacia se asigna una por defecto
+        } else {
+            cliente += "src/interfazGrafica/IMG/" + c.getFoto();//Foto
+        }
+        return cliente;
     }
 
     //Método que me retorna true si existe un cliente con ese numCliente
