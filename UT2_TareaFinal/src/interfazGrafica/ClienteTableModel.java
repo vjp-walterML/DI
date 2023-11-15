@@ -8,6 +8,8 @@ import logica.Cliente;
  *
  * @author Walter
  */
+
+//TableModel personalizado, ignoro el campo 'foto'
 public class ClienteTableModel extends AbstractTableModel {
 
     //Atributos

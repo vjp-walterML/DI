@@ -1,13 +1,15 @@
 package logica;
 
+import java.awt.Image;
 import java.time.LocalDate;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Walter
  */
 public class Cliente {
-    
+
     //Atributos
     private int numCliente;
     private String dni;
@@ -15,7 +17,8 @@ public class Cliente {
     private String direccion;
     private int telefono;
     private String foto;
-    
+    private ImageIcon representacion;
+
     //Constructores
     public Cliente(int numCliente, String dni, LocalDate fechaAlta, String direccion, int telefono, String foto) {
         this.numCliente = numCliente;
@@ -24,11 +27,12 @@ public class Cliente {
         this.direccion = direccion;
         this.telefono = telefono;
         this.foto = foto;
+        this.representacion = generarRepresentacion();
     }
 
     public Cliente() {
     }
-    
+
     //Getter y Setter
     public int getNumCliente() {
         return numCliente;
@@ -77,7 +81,19 @@ public class Cliente {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
+
+    public ImageIcon getRepresentacion() {
+        return representacion;
+    }
+
     //Métodos propios
-    
+    //Este método genera el objeto ImageIcon redimensionado que establecemos al botón a partir de la ruta de la imagen.
+    private ImageIcon generarRepresentacion() {
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource(foto));
+        Image image = imageIcon.getImage();
+        Image newImg = image.getScaledInstance(Constantes.ANCHO_IMAGEN, Constantes.ALTO_IMAGEN, java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newImg);
+        return imageIcon;
+    }
+
 }

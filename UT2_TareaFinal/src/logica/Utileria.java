@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -66,9 +65,14 @@ public class Utileria {
             String[] cliente;
             //Leo mientras haya usuarios
             while (linea != null) {
+                //Controlo que la linea no esté vacia, si es asi lo ignoramos
                 cliente = linea.split(";");
-                lClientes.add(new Cliente(Integer.parseInt(cliente[0]), cliente[1], LocalDate.of(Integer.parseInt(cliente[2]), Integer.parseInt(cliente[3]), Integer.parseInt(cliente[4])), cliente[5], Integer.parseInt(cliente[6]), cliente[7]));
-                linea = br.readLine();
+                if (cliente.length != 1) {
+                    lClientes.add(new Cliente(Integer.parseInt(cliente[0]), cliente[1], LocalDate.of(Integer.parseInt(cliente[2]), Integer.parseInt(cliente[3]), Integer.parseInt(cliente[4])), cliente[5], Integer.parseInt(cliente[6]), cliente[7]));
+                    linea = br.readLine();
+                } else {
+                    linea = br.readLine();
+                }
             }
             //Cierro flujos
             br.close();
@@ -104,7 +108,7 @@ public class Utileria {
         try {
             //Abro flujos
             PrintWriter pw = new PrintWriter(new FileWriter(logica.Constantes.FICHERO_CLIENTES, true));//Conservo datos
-            pw.println();//Salto de línea
+            pw.println();//Salto de linea
             pw.println(cliente);//Escribo
             //Cierro flujos
             pw.close();
@@ -124,9 +128,13 @@ public class Utileria {
         cliente += c.getDireccion() + ";";//Dirección
         cliente += c.getTelefono() + ";";//Telefono
         if (c.getFoto().equals("")) {
-            cliente += "src/interfazGrafica/IMG/user.png";//Si la foto está vacia se asigna una por defecto
+            cliente += "/interfazGrafica/IMG/user.png";//Si la foto está vacia se asigna una por defecto
         } else {
-            cliente += "src/interfazGrafica/IMG/" + c.getFoto();//Foto
+            if (!c.getFoto().startsWith("/interfazGrafica/IMG/")) {
+                cliente += "/interfazGrafica/IMG/" + c.getFoto();//Foto
+            } else {
+                cliente += c.getFoto();
+            }
         }
         return cliente;
     }
@@ -146,7 +154,6 @@ public class Utileria {
             }
             contador++;
         }
-
         return existe;
     }
 
@@ -165,7 +172,7 @@ public class Utileria {
             }
             contador++;
         }
-
         return existe;
     }
+
 }

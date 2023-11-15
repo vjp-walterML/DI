@@ -3,6 +3,8 @@ package interfazGrafica;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
@@ -26,7 +28,7 @@ public class ModificarCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.ventanaPrincipal = (VentanaPrincipal) parent;
-        this.listaClientes = Utileria.cargarDatosClientes();//Cargo los datos del fichero
+        this.listaClientes = ventanaPrincipal.listaClientes;
         establecerFondo();//Establezco el JPanel de fondo
         crearTablaClientes();//Creo la jTable con los datos de los clientes
         aniadirComponentes();//Añado los componentes al JPanels
@@ -43,10 +45,16 @@ public class ModificarCliente extends javax.swing.JDialog {
 
     //En este método se añaden los componentes al JPanel para que sean visibles
     public void aniadirComponentes() {
+        //Soluciono problema boton texto
+        jButtonEliminar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonEliminar.text"));
+        //Añado componentes
         panelPrincipal.add(jScrollPane1);
         panelPrincipal.add(jLabelListaClientes);
-        //panelPrincipal.add(jButtonModificar);
+        panelPrincipal.add(jButtonModificar);
         panelPrincipal.add(jButtonEliminar);
+        panelPrincipal.add(jButtonFiltrar);
+        panelPrincipal.add(jButtonAyuda);
+        panelPrincipal.add(jTextFieldFiltrar);
     }
 
     public void crearTablaClientes() {
@@ -93,6 +101,10 @@ public class ModificarCliente extends javax.swing.JDialog {
         jTableClientes = new javax.swing.JTable();
         jLabelListaClientes = new javax.swing.JLabel();
         jButtonEliminar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jTextFieldFiltrar = new javax.swing.JTextField();
+        jButtonFiltrar = new javax.swing.JButton();
+        jButtonAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -133,6 +145,40 @@ public class ModificarCliente extends javax.swing.JDialog {
             }
         });
 
+        jButtonModificar.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonModificar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonModificar.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonModificar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonModificar.text")); // NOI18N
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldFiltrar.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
+        jTextFieldFiltrar.setForeground(new java.awt.Color(67, 112, 114));
+        jTextFieldFiltrar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jTextFieldFiltrar.text")); // NOI18N
+
+        jButtonFiltrar.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonFiltrar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonFiltrar.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonFiltrar.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonFiltrar.text")); // NOI18N
+        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrarActionPerformed(evt);
+            }
+        });
+
+        jButtonAyuda.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonAyuda.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonAyuda.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonAyuda.setText(org.openide.util.NbBundle.getMessage(ModificarCliente.class, "ModificarCliente.jButtonAyuda.text")); // NOI18N
+        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAyudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -142,23 +188,41 @@ public class ModificarCliente extends javax.swing.JDialog {
                     .addComponent(jLabelListaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonAyuda)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 76, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(244, 686, Short.MAX_VALUE)
+                .addGap(230, 230, 230)
+                .addComponent(jButtonModificar)
+                .addGap(85, 85, 85)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(206, 206, 206))
+                .addGap(73, 73, 73)
+                .addComponent(jTextFieldFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jButtonFiltrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabelListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabelListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonAyuda)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -188,14 +252,45 @@ public class ModificarCliente extends javax.swing.JDialog {
     //Botón Eliminar
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         if (jTableClientes.getSelectedRow() != -1) {//Compruebo si hay alguna fila seleccionada
+            if (JOptionPane.showConfirmDialog(this, "¿Quiere eliminar este registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == 0) {
+                int i = this.jTableClientes.getSelectedRow();// Obtengo la fila seleccionada
+                i = this.jTableClientes.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
+                //Elimino el índice de la tabla
+                listaClientes.remove(i);
+                //Actualizo datos
+                actualizarDatos();
+            }
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    //Botón modificar 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        if (jTableClientes.getSelectedRow() != -1) {//Compruebo si hay alguna fila seleccionada
             int i = this.jTableClientes.getSelectedRow();// Obtengo la fila seleccionada
             i = this.jTableClientes.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
-            //Elimino el índice de la tabla
-            listaClientes.remove(i);
+            //Abro ventana actualizar cliente con los datos del cliente
+            ActualizarCliente actualizarCliente = new ActualizarCliente(ventanaPrincipal, true, listaClientes.get(i));
+            actualizarCliente.setVisible(true);
             //Actualizo datos
             actualizarDatos();
         }
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    //Botón filtrar
+    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+        int columnaSeleccionada = 0;//Columna filtrada por defecto es la 0
+        //Si el usuario selecciona una columna se filtra por esa
+        if (jTableClientes.getSelectedColumn() != -1) {
+            columnaSeleccionada = jTableClientes.getSelectedColumn();
+        }
+        RowFilter<ClienteTableModel, Integer> rf = RowFilter.regexFilter(this.jTextFieldFiltrar.getText(), columnaSeleccionada);
+        sorter.setRowFilter(rf);
+    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
+    //Botón ayuda
+    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
+        JOptionPane.showMessageDialog(this, "- Pulsa sobre cualquier columna para filtrar sobre esa misma, por defecto se filtra por la columna 'Número cliente'.\n- Pulsa sobre cualquier columna en la cabecera para ordenar por esa misma.\n- Para resetear el filtro, vacía el campo de texto y pulsa 'Filtrar'.\n- Cierra la ventana para volver a la Ventana Principal.", "Ayuda", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -238,10 +333,14 @@ public class ModificarCliente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonFiltrar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelListaClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClientes;
+    private javax.swing.JTextField jTextFieldFiltrar;
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

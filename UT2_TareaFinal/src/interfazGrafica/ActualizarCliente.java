@@ -1,12 +1,10 @@
 package interfazGrafica;
 
 import java.time.LocalDate;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import logica.Cliente;
-import logica.Utileria;
 import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
 import org.netbeans.validation.api.ui.ValidationGroup;
 
@@ -14,17 +12,19 @@ import org.netbeans.validation.api.ui.ValidationGroup;
  *
  * @author Walter
  */
-public class AltaCliente extends javax.swing.JDialog {
+public class ActualizarCliente extends javax.swing.JDialog {
 
     //Variables Globales
     private VentanaPrincipal ventanaPrincipal;
-    private List<Cliente> listaClientes;
+    private static Cliente cliente;
 
     //Constructor
-    public AltaCliente(java.awt.Frame parent, boolean modal) {
+    public ActualizarCliente(java.awt.Frame parent, boolean modal, Cliente cliente) {
         super(parent, modal);
         initComponents();
+        this.cliente = cliente;
         this.ventanaPrincipal = (VentanaPrincipal) parent;
+        rellenarDatosCliente();//Rellena el formulario con los datos del cliente actuales
         establecerFondo();//Establezco el JPanel de fondo
         aniadirComponentes();//Añado los componentes al JPanels
         validationGroup();//Implemento el validationGroup
@@ -56,8 +56,7 @@ public class AltaCliente extends javax.swing.JDialog {
         panelPrincipal.add(jLabelFoto);
         panelPrincipal.add(jTextFieldFoto);
         panelPrincipal.add(jLabelFormato);
-        panelPrincipal.add(jButtonAlta);
-        panelPrincipal.add(jButtonAyuda);
+        panelPrincipal.add(jButtonActualizar);
 
     }
 
@@ -73,16 +72,30 @@ public class AltaCliente extends javax.swing.JDialog {
         group.add(this.jTextFieldDireccion, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(this.jTextFieldTelefono, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(this.jTextFieldTelefono, StringValidators.NO_WHITESPACE);
-        jButtonAlta.setEnabled(false);
+        jButtonActualizar.setEnabled(false);
 
         validationPanel1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (validationPanel1.getProblem() == null) {
-                    jButtonAlta.setEnabled(true);
+                    jButtonActualizar.setEnabled(true);
                 }
             }
         });
+    }
+
+    //Rellena el formulario con los datos del cliente actuales
+    public void rellenarDatosCliente() {
+        //Recupero los datos del cliente actuales en String para establecerlos en los JTextField
+        String numCliente = String.valueOf(cliente.getNumCliente());
+        jTextFieldNumCliente.setText(numCliente);
+        jTextFieldDni.setText(cliente.getDni());
+        String fechaAlta = cliente.getFechaAlta().getDayOfMonth() + "/" + cliente.getFechaAlta().getMonthValue() + "/" + cliente.getFechaAlta().getYear();
+        jFormattedTextFieldFechaAlta.setText(fechaAlta);
+        jTextFieldDireccion.setText(cliente.getDireccion());
+        String telefono = String.valueOf(cliente.getTelefono());
+        jTextFieldTelefono.setText(telefono);
+        jTextFieldFoto.setText(cliente.getFoto());
     }
 
     //Código generado
@@ -95,7 +108,7 @@ public class AltaCliente extends javax.swing.JDialog {
         jLabelAltaCliente = new javax.swing.JLabel();
         jLabelDni = new javax.swing.JLabel();
         jTextFieldDni = new javax.swing.JTextField();
-        jButtonAlta = new javax.swing.JButton();
+        jButtonActualizar = new javax.swing.JButton();
         jLabelNumCliente = new javax.swing.JLabel();
         jTextFieldNumCliente = new javax.swing.JTextField();
         jLabelFoto = new javax.swing.JLabel();
@@ -107,7 +120,6 @@ public class AltaCliente extends javax.swing.JDialog {
         jTextFieldTelefono = new javax.swing.JTextField();
         jFormattedTextFieldFechaAlta = new javax.swing.JFormattedTextField();
         jLabelFormato = new javax.swing.JLabel();
-        jButtonAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -118,48 +130,48 @@ public class AltaCliente extends javax.swing.JDialog {
         jLabelAltaCliente.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 24)); // NOI18N
         jLabelAltaCliente.setForeground(new java.awt.Color(38, 60, 61));
         jLabelAltaCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelAltaCliente.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelAltaCliente.text")); // NOI18N
-        jLabelAltaCliente.setToolTipText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelAltaCliente.toolTipText")); // NOI18N
+        jLabelAltaCliente.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelAltaCliente.text")); // NOI18N
+        jLabelAltaCliente.setToolTipText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelAltaCliente.toolTipText")); // NOI18N
 
         jLabelDni.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelDni.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelDni.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelDni.text")); // NOI18N
+        jLabelDni.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelDni.text")); // NOI18N
 
         jTextFieldDni.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
         jTextFieldDni.setForeground(new java.awt.Color(67, 112, 114));
 
-        jButtonAlta.setBackground(new java.awt.Color(251, 242, 242));
-        jButtonAlta.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
-        jButtonAlta.setForeground(new java.awt.Color(38, 60, 61));
-        jButtonAlta.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jButtonAlta.text")); // NOI18N
-        jButtonAlta.addActionListener(new java.awt.event.ActionListener() {
+        jButtonActualizar.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonActualizar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonActualizar.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonActualizar.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jButtonActualizar.text")); // NOI18N
+        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAltaActionPerformed(evt);
+                jButtonActualizarActionPerformed(evt);
             }
         });
 
         jLabelNumCliente.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelNumCliente.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelNumCliente.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelNumCliente.text")); // NOI18N
+        jLabelNumCliente.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelNumCliente.text")); // NOI18N
 
         jTextFieldNumCliente.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
         jTextFieldNumCliente.setForeground(new java.awt.Color(67, 112, 114));
 
         jLabelFoto.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelFoto.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelFoto.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelFoto.text")); // NOI18N
+        jLabelFoto.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelFoto.text")); // NOI18N
 
         jLabelFechaAlta.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelFechaAlta.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelFechaAlta.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelFechaAlta.text")); // NOI18N
+        jLabelFechaAlta.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelFechaAlta.text")); // NOI18N
 
         jLabelDireccion.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelDireccion.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelDireccion.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelDireccion.text")); // NOI18N
+        jLabelDireccion.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelDireccion.text")); // NOI18N
 
         jLabelTelefono.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 24)); // NOI18N
         jLabelTelefono.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelTelefono.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelTelefono.text")); // NOI18N
+        jLabelTelefono.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelTelefono.text")); // NOI18N
 
         jTextFieldFoto.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
         jTextFieldFoto.setForeground(new java.awt.Color(67, 112, 114));
@@ -176,22 +188,16 @@ public class AltaCliente extends javax.swing.JDialog {
 
         jLabelFormato.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 14)); // NOI18N
         jLabelFormato.setForeground(new java.awt.Color(38, 60, 61));
-        jLabelFormato.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jLabelFormato.text")); // NOI18N
-
-        jButtonAyuda.setBackground(new java.awt.Color(251, 242, 242));
-        jButtonAyuda.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
-        jButtonAyuda.setForeground(new java.awt.Color(38, 60, 61));
-        jButtonAyuda.setText(org.openide.util.NbBundle.getMessage(AltaCliente.class, "AltaCliente.jButtonAyuda.text")); // NOI18N
-        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAyudaActionPerformed(evt);
-            }
-        });
+        jLabelFormato.setText(org.openide.util.NbBundle.getMessage(ActualizarCliente.class, "ActualizarCliente.jLabelFormato.text")); // NOI18N
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelAltaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,25 +226,17 @@ public class AltaCliente extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jButtonAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(186, 186, 186))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAyuda)
-                        .addGap(23, 23, 23))))
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelAltaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAyuda))
+                .addComponent(validationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelAltaCliente)
                 .addGap(50, 50, 50)
@@ -267,8 +265,8 @@ public class AltaCliente extends javax.swing.JDialog {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFoto)
                     .addComponent(jTextFieldFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(jButtonAlta)
+                .addGap(66, 66, 66)
+                .addComponent(jButtonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
@@ -287,45 +285,24 @@ public class AltaCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     //Botón Alta
-    private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
-        //En primer lugar controlo si ya existe un cliente con ese dni o con ese numCliente, si es así no creo el cliente e informo
-        //al usuario con un JOptionPane. Si por contra no existe ninguno creo un nuevo cliente y lo escribo en el fichero
-
-        //Recupero los datos
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+        //Recupero datos
         int numCliente = Integer.parseInt(jTextFieldNumCliente.getText());
         String dni = jTextFieldDni.getText();
-        //Fecha (dd/mm/yyyy)
-        String[] textoFecha = jFormattedTextFieldFechaAlta.getText().split("/");
-        LocalDate fechaAlta = LocalDate.of(Integer.parseInt(textoFecha[2]), Integer.parseInt(textoFecha[1]), Integer.parseInt(textoFecha[0]));
-        String direccion = jTextFieldDireccion.getText();
+        String[] fecha = jFormattedTextFieldFechaAlta.getText().split("/");
+        LocalDate fechaAlta = LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
         int telefono = Integer.parseInt(jTextFieldTelefono.getText());
-        String foto = jTextFieldFoto.getText();
-
-        //Controlo si existe un cliente con el mismo numCliente o con el mismo Dni
-        if (Utileria.existeCliente(dni)) {
-            //Muestro mensaje de error
-            JOptionPane.showMessageDialog(this, "¡Ya existe un cliente con ese DNI!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;//Salgo del método
-        }
-        if (Utileria.existeCliente(numCliente)) {
-            //Muestro mensaje de error
-            JOptionPane.showMessageDialog(this, "¡Ya existe un cliente con ese 'numCliente'!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;//Salgo del método
-        }
-
-        //Creo cliente y lo escribo en el fichero y actualizo los datos de la lista en VentanaPrincipal
-        Cliente cliente = new Cliente(numCliente, dni, fechaAlta, direccion, telefono, foto);
-        Utileria.escribirCliente(cliente);
-        ventanaPrincipal.actualizarDatos();
+        //Actualizo datos cliente
+        cliente.setNumCliente(numCliente);
+        cliente.setDni(dni);
+        cliente.setFechaAlta(fechaAlta);
+        cliente.setDireccion(jTextFieldDireccion.getText());
+        cliente.setTelefono(telefono);
+        cliente.setFoto(jTextFieldFoto.getText());
         //Muestro mensaje satisfactorio
-        JOptionPane.showMessageDialog(this, "¡Cliente registrado correctamente!", "Alta", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "¡Cliente actualizado correctamente!", "Actualización", JOptionPane.INFORMATION_MESSAGE);
         dispose();//Cierro ventana
-    }//GEN-LAST:event_jButtonAltaActionPerformed
-
-    //Botón ayuda
-    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
-        JOptionPane.showMessageDialog(this, "- El campo 'Foto' no es obligatorio.\n- Para añadir una foto debes introducirla en la carpeta '/interfazGrafica/IMG' y seguidamente poner su ruta en el campo 'Foto'.\n- Puedes poner la ruta completa, o simplemente el nombre de la imagen con su extensión (imagenEjemplo.png).\n- Si no añades una foto al cliente se asignará automaticamente una imagen por defecto.", "Ayuda", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButtonAyudaActionPerformed
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -343,27 +320,28 @@ public class AltaCliente extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltaCliente.class
+            java.util.logging.Logger.getLogger(ActualizarCliente.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltaCliente.class
+            java.util.logging.Logger.getLogger(ActualizarCliente.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltaCliente.class
+            java.util.logging.Logger.getLogger(ActualizarCliente.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltaCliente.class
+            java.util.logging.Logger.getLogger(ActualizarCliente.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AltaCliente dialog = new AltaCliente(new javax.swing.JFrame(), true);
+                ActualizarCliente dialog = new ActualizarCliente(new javax.swing.JFrame(), true, cliente);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -376,8 +354,7 @@ public class AltaCliente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAlta;
-    private javax.swing.JButton jButtonAyuda;
+    private javax.swing.JButton jButtonActualizar;
     private javax.swing.JFormattedTextField jFormattedTextFieldFechaAlta;
     private javax.swing.JLabel jLabelAltaCliente;
     private javax.swing.JLabel jLabelDireccion;
