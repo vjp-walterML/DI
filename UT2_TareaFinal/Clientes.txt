@@ -6,4 +6,4 @@
 6;67890123F;2020;6;20;Ronda de Toledo 19, Toledo;667890123;/interfazGrafica/IMG/personaM3.jpg
 7;78901234G;2021;9;14;Calle Mayor 56, Zaragoza;678901234;/interfazGrafica/IMG/personaH4.jpg
 8;45132337N;2021;6;11;Calle Menor 5, Zaragoza;636542689;/interfazGrafica/IMG/personaM4.jpg
-9;45134320V;2023;11;15;Calle níscalo 9, Plasencia;722748406;/interfazGrafica/IMG/user.png
+9;45134320V;2023;11;15;Madrid;722748406;/interfazGrafica/IMG/user.png

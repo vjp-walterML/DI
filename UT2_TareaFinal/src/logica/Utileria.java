@@ -43,8 +43,12 @@ public class Utileria {
             //Leo mientras haya usuarios
             while (linea != null) {
                 usuario = linea.split("-");
-                lUsuarios.put(usuario[0], usuario[1]);
-                linea = br.readLine();
+                if (usuario.length != 1) {
+                    lUsuarios.put(usuario[0], usuario[1]);
+                    linea = br.readLine();
+                } else {
+                    linea = br.readLine();
+                }
             }
             //Cierro flujos
             br.close();
@@ -108,7 +112,6 @@ public class Utileria {
         try {
             //Abro flujos
             PrintWriter pw = new PrintWriter(new FileWriter(logica.Constantes.FICHERO_CLIENTES, true));//Conservo datos
-            pw.println();//Salto de linea
             pw.println(cliente);//Escribo
             //Cierro flujos
             pw.close();
