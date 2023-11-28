@@ -1,5 +1,6 @@
 package repasoexamentablemodel;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -34,6 +35,14 @@ public class MensajeTableModel extends AbstractTableModel {
     public void addMsg(Mensaje mensaje) {
         mensajes.add(mensaje);
         fireTableDataChanged();
+    }
+
+    public List<String> getEmisores() {
+        List<String> emisores = new ArrayList<>();
+        for (Mensaje mensaje : mensajes) {
+            emisores.add(mensaje.getEmisor());
+        }
+        return emisores;
     }
 
     @Override

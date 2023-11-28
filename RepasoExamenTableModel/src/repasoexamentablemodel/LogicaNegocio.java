@@ -13,9 +13,9 @@ public class LogicaNegocio {
 
     public LogicaNegocio() {
         Mensaje mensaje1 = new Mensaje("Walter", "Izzy", "Patata", "Vamos a comer patatas");
-        Mensaje mensaje2 = new Mensaje("Walter", "Didac", "Fresa", "Vamos a comer fresas");
-        Mensaje mensaje3 = new Mensaje("Walter", "Rosa", "Platano", "Vamos a comer platanos");
-        Mensaje mensaje4 = new Mensaje("Walter", "Rene", "Banana", "Vamos a comer bananas");
+        Mensaje mensaje2 = new Mensaje("Pepe", "Didac", "Fresa", "Vamos a comer fresas");
+        Mensaje mensaje3 = new Mensaje("Jorge", "Rosa", "Platano", "Vamos a comer platanos");
+        Mensaje mensaje4 = new Mensaje("Roberto", "Rene", "Banana", "Vamos a comer bananas");
         mensajes.add(mensaje1);
         mensajes.add(mensaje2);
         mensajes.add(mensaje3);

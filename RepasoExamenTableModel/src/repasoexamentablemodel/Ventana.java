@@ -1,5 +1,8 @@
 package repasoexamentablemodel;
 
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author wmartinl01
@@ -9,12 +12,24 @@ public class Ventana extends javax.swing.JFrame {
     //Variables globales
     private LogicaNegocio logicaNegocio = new LogicaNegocio();
     private MensajeTableModel mensajeTableModel;
+    private TableRowSorter<MensajeTableModel> sorter;
 
     //Constructor
     public Ventana() {
         initComponents();
         jTable1.setModel(new MensajeTableModel(logicaNegocio.getMensajes()));
         mensajeTableModel = (MensajeTableModel) jTable1.getModel();
+        rellenarComboBox();
+        //Para poder ordenar creo el tableRowShorter
+        sorter = new TableRowSorter<>(mensajeTableModel);
+        //Añado el tablerowsorter a mi Jtable
+        this.jTable1.setRowSorter(sorter);
+    }
+
+    public void rellenarComboBox() {
+        for (String s : mensajeTableModel.getEmisores()) {
+            jComboBox1.addItem(s);
+        }
     }
 
     //Código generado
@@ -25,6 +40,8 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButtonFiltrar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +65,13 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        jButtonFiltrar.setText("Filtrar");
+        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,19 +80,26 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
                 .addComponent(jButton1)
-                .addGap(258, 258, 258))
+                .addGap(112, 112, 112)
+                .addComponent(jButtonFiltrar)
+                .addGap(39, 39, 39)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(jButton1)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonFiltrar)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();
@@ -80,9 +111,16 @@ public class Ventana extends javax.swing.JFrame {
         insertarMensaje.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void insertarMensaje(Mensaje mensaje){
+    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+        //Para filtrar
+        RowFilter<MensajeTableModel, Integer> rf = RowFilter.regexFilter(this.jComboBox1.getSelectedItem().toString(), 0);
+        sorter.setRowFilter(rf);
+    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
+    public void insertarMensaje(Mensaje mensaje) {
         mensajeTableModel.addMsg(mensaje);
     }
+
     //Main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -118,6 +156,8 @@ public class Ventana extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonFiltrar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

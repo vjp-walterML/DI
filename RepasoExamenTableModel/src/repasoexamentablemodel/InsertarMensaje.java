@@ -23,6 +23,12 @@ public class InsertarMensaje extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldEmisor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jTextFieldDestinatario = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldAsunto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldMensaje = new javax.swing.JTextField();
+        jButtonInsertar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -36,6 +42,17 @@ public class InsertarMensaje extends javax.swing.JDialog {
 
         jLabel2.setText("Emisor");
 
+        jLabel3.setText("Asunto");
+
+        jLabel4.setText("Mensaje");
+
+        jButtonInsertar.setText("Insertar");
+        jButtonInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -43,14 +60,21 @@ public class InsertarMensaje extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addComponent(jTextFieldEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldEmisor, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jTextFieldDestinatario)
+                    .addComponent(jTextFieldAsunto)
+                    .addComponent(jTextFieldMensaje))
+                .addGap(71, 71, 71))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonInsertar)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -59,9 +83,21 @@ public class InsertarMensaje extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addComponent(jButtonInsertar)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -71,8 +107,12 @@ public class InsertarMensaje extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEmisorActionPerformed
 
-    
-    
+    private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
+        Mensaje mensaje = new Mensaje(jTextFieldEmisor.getText(), jTextFieldDestinatario.getText(), jTextFieldAsunto.getText(), jTextFieldMensaje.getText());
+        ventana.insertarMensaje(mensaje);
+        dispose();
+    }//GEN-LAST:event_jButtonInsertarActionPerformed
+
     //Main
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -114,8 +154,14 @@ public class InsertarMensaje extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonInsertar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jTextFieldAsunto;
+    private javax.swing.JTextField jTextFieldDestinatario;
     private javax.swing.JTextField jTextFieldEmisor;
+    private javax.swing.JTextField jTextFieldMensaje;
     // End of variables declaration//GEN-END:variables
 }
