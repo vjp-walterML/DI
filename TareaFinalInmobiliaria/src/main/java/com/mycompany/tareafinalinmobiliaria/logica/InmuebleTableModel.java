@@ -58,9 +58,13 @@ public class InmuebleTableModel extends AbstractTableModel {
     }
 
     //ACCIONES
-    
-    //Este actualiza los inmuebles en la tabla cargandolos de nuevo de la BD
-    private void actualizarDatos() {
+    //Este método retorna un objeto según un índice
+    public Inmueble retornarInmueble(int filaSeleccionada) {
+        return listInmuebles.get(filaSeleccionada);
+    }
+
+    //Este método actualiza los inmuebles en la tabla cargandolos de nuevo de la BD
+    public void actualizarDatos() {
         //Limpio lista para evitar duplicados
         listInmuebles.clear();
         //Establezco la conexión
@@ -91,6 +95,5 @@ public class InmuebleTableModel extends AbstractTableModel {
         //Actualizo tabla
         fireTableDataChanged();
     }
-    
-    
+
 }

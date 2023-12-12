@@ -27,6 +27,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //Variables globales
     private TableRowSorter<InmuebleTableModel> sorter;
+    public InmuebleTableModel model;
 
     //Constructor
     public VentanaPrincipal() {
@@ -48,6 +49,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void aniadirComponentes() {
         panelPrincipal.add(jScrollPane1);
         panelPrincipal.add(jLabelListadoInmuebles);
+        panelPrincipal.add(jButtonGenerarInforme);
+        panelPrincipal.add(jButtonEliminar);
+        panelPrincipal.add(jButtonModificar);
     }
 
     //Aplica el tableModel, shorter y estilos al JTable
@@ -55,6 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //Instancio un ClienteTableModel 
         InmuebleTableModel itm = new InmuebleTableModel();
         this.jTableInmuebles.setModel(itm);//Añado el InmuebleTableModel al JTableInmuebles
+        model = (InmuebleTableModel) this.jTableInmuebles.getModel();
         //Para poder ordenar creo el tableRowShorter
         sorter = new TableRowSorter<>(itm);
         //Añado el tablerowsorter a mi Jtable
@@ -111,20 +116,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    public int retornarFilaSeleccionada() {
+        int i = -1;
+        //Compruebo si hay alguna fila seleccionada
+        if (jTableInmuebles.getSelectedRow() != -1) {
+            i = this.jTableInmuebles.getSelectedRow();// Obtengo la fila seleccionada
+            i = this.jTableInmuebles.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
+        } else {
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fila!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return i;
+    }
 
-    //Botón Eliminar
-//    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                                
-//        if (jTableClientes.getSelectedRow() != -1) {//Compruebo si hay alguna fila seleccionada
-//            if (JOptionPane.showConfirmDialog(this, "¿Quiere eliminar este registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == 0) {
-//                int i = this.jTableClientes.getSelectedRow();// Obtengo la fila seleccionada
-//                i = this.jTableClientes.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
-//                //Elimino el índice de la tabla
-//                listaClientes.remove(i);
-//                //Actualizo datos
-//                actualizarDatos();
-//            }
-//        }
-//    }       
     //Código generado
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -134,6 +138,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableInmuebles = new javax.swing.JTable();
         jLabelListadoInmuebles = new javax.swing.JLabel();
+        jButtonGenerarInforme = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemAdd = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,28 +167,87 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabelListadoInmuebles.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelListadoInmuebles.setText("LISTADO DE INMUEBLES");
 
+        jButtonGenerarInforme.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonGenerarInforme.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonGenerarInforme.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonGenerarInforme.setText("Generar informe");
+        jButtonGenerarInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarInformeActionPerformed(evt);
+            }
+        });
+
+        jButtonModificar.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonModificar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonModificar.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
+        jButtonEliminar.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonEliminar.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonEliminar.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelListadoInmuebles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelListadoInmuebles, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jButtonModificar)
+                .addGap(66, 66, 66)
+                .addComponent(jButtonGenerarInforme)
+                .addGap(60, 60, 60)
+                .addComponent(jButtonEliminar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabelListadoInmuebles, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButtonGenerarInforme)
+                    .addComponent(jButtonEliminar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("Inmuebles");
+
+        jMenuItemAdd.setText("Añadir");
+        jMenuItemAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAddActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemAdd);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,6 +262,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //Botón generar informe
+    private void jButtonGenerarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarInformeActionPerformed
+        int filaSeleccionada = retornarFilaSeleccionada();
+        //Si existe alguna fila seleccionada
+        if (filaSeleccionada != -1) {
+            //Recupero el inmueble
+            Inmueble inmueble = model.retornarInmueble(filaSeleccionada);
+            //Genero el informe
+            generarInforme(inmueble.getIdInmueble());
+            //Mensaje Check
+            JOptionPane.showMessageDialog(this, "¡Informe generado correctamente!", "Informe generado", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonGenerarInformeActionPerformed
+
+    //Botón añadir Inmueble
+    private void jMenuItemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddActionPerformed
+        AddInmueble addInmueble = new AddInmueble(this, true);
+        addInmueble.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAddActionPerformed
+
+    //Botón eliminar Inmueble
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int filaSeleccionada = retornarFilaSeleccionada();
+        //Si existe alguna fila seleccionada
+        if (filaSeleccionada != -1) {
+            //Recupero el inmueble
+            Inmueble inmueble = model.retornarInmueble(filaSeleccionada);
+            if (JOptionPane.showConfirmDialog(this, "¿Quiere eliminar este inmueble?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                //Elimino el inmueble
+                Utileria.eliminarInmueble(inmueble);
+                //Actualizo tabla
+                model.actualizarDatos();
+                //Mensaje Check
+                JOptionPane.showMessageDialog(this, "¡Inmueble eliminado correctamente!", "Inmueble eliminado", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    //Botón modificar
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        ModificarInmueble modificarInmueble = new ModificarInmueble(this, true);
+        modificarInmueble.setVisible(true);
+    }//GEN-LAST:event_jButtonModificarActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -228,7 +341,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonGenerarInforme;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelListadoInmuebles;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemAdd;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableInmuebles;
     private javax.swing.JPanel panelPrincipal;
