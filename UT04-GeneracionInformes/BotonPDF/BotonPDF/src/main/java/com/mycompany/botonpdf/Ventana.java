@@ -70,13 +70,13 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             System.out.println("Empezando");
-            File file = new File(getClass().getClassLoader().getResource("Invoice.jrxml").getFile());
+            File file = new File(getClass().getClassLoader().getResource("clientes.jrxml").getFile());
             System.out.println(file.getCanonicalPath());
            
             JasperReport archivo = JasperCompileManager.compileReport(file.getAbsolutePath());
             Connection cnx;
             Class.forName("com.mysql.jdbc.Driver");
-        cnx= DriverManager.getConnection("jdbc:mysql://localhost:3307/libreria?user=root&password=");
+        cnx= DriverManager.getConnection("jdbc:mysql://localhost:3306/clientes?user=root&password=");
         
         JasperPrint prin = JasperFillManager.fillReport(archivo, null, cnx);
         
