@@ -2,6 +2,7 @@ package com.mycompany.tareafinalinmobiliaria.interfazGrafica;
 
 import com.mycompany.tareafinalinmobiliaria.logica.Inmueble;
 import com.mycompany.tareafinalinmobiliaria.logica.Utileria;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,7 @@ public class AddInmueble extends javax.swing.JDialog {
         ventanaPrincipal = (VentanaPrincipal) parent;
         establecerFondo();//Establezco el fondo
         aniadirComponentes();//Añado los componentes al panelPrincipal
+        setLocationRelativeTo(null);//Centro la ventana en el centro de la pantalla
     }
 
     //Establece un JPanel de fondo con una imagen
@@ -47,6 +49,7 @@ public class AddInmueble extends javax.swing.JDialog {
         panelPrincipal.add(jTextFieldPrecio);
         panelPrincipal.add(jTextFieldTelefono);
         panelPrincipal.add(jButtonAdd);
+        panelPrincipal.add(jButtonAyuda);
     }
 
     //Código generado
@@ -69,6 +72,7 @@ public class AddInmueble extends javax.swing.JDialog {
         jTextFieldFoto = new javax.swing.JTextField();
         jLabelDescripcion = new javax.swing.JLabel();
         jTextFieldDescripcion = new javax.swing.JTextField();
+        jButtonAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,6 +133,16 @@ public class AddInmueble extends javax.swing.JDialog {
         jTextFieldDescripcion.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
         jTextFieldDescripcion.setForeground(new java.awt.Color(67, 112, 114));
 
+        jButtonAyuda.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonAyuda.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonAyuda.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonAyuda.setText("?");
+        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAyudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -163,11 +177,17 @@ public class AddInmueble extends javax.swing.JDialog {
                                     .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 35, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAyuda)
+                .addGap(20, 20, 20))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
+                .addComponent(jButtonAyuda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAltaInmueble)
                 .addGap(40, 40, 40)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -193,7 +213,7 @@ public class AddInmueble extends javax.swing.JDialog {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTelefono)
                     .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jButtonAdd)
                 .addGap(36, 36, 36))
         );
@@ -214,13 +234,25 @@ public class AddInmueble extends javax.swing.JDialog {
 
     //Botón añadir inmueble
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        //Controlo que estén rellenados los campos necesarios
+        if (jTextFieldTitulo.getText().equalsIgnoreCase("") || jTextFieldTransaccion.getText().equalsIgnoreCase("") || jTextFieldDescripcion.getText().equalsIgnoreCase("") || jTextFieldPrecio.getText().equalsIgnoreCase("")) {
+            //Mensaje Error
+            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios. Son obligatorios todos excepto 'Foto' y 'Teléfono'.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;//Salgo del método
+        }
         //Recupero los valores
         String titulo = jTextFieldTitulo.getText();
         String transaccion = jTextFieldTransaccion.getText();
         String descripcion = jTextFieldDescripcion.getText();
         String foto = jTextFieldFoto.getText();
         int precio = Integer.parseInt(jTextFieldPrecio.getText());
-        int telefono = Integer.parseInt(jTextFieldTelefono.getText());
+        int telefono;
+        if (jTextFieldTelefono.getText().equalsIgnoreCase("")) {
+            telefono = 0;
+        } else {
+            telefono = Integer.parseInt(jTextFieldTelefono.getText());
+        }
+
         //Creo objeto Inmueble
         Inmueble inmueble = new Inmueble(titulo, descripcion, foto, transaccion, precio, telefono);
         //Inserto el inmueble en la bd
@@ -232,6 +264,11 @@ public class AddInmueble extends javax.swing.JDialog {
         //Cierro la ventana
         dispose();
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    //Botón ayuda
+    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
+        JOptionPane.showMessageDialog(this, "- El campo 'Foto' no es obligatorio, se asignará una por defecto.\n- Para añadir una foto debes introducir una ruta absoluta url.\n- El campo 'Teléfono' no es obligatorio, se asignará por defecto el teléfono de la inmobiliaria.", "Ayuda", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -261,6 +298,7 @@ public class AddInmueble extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Locale.setDefault(new Locale("es", "ES"));
                 AddInmueble dialog = new AddInmueble(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
@@ -275,6 +313,7 @@ public class AddInmueble extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonAyuda;
     private javax.swing.JLabel jLabelAltaInmueble;
     private javax.swing.JLabel jLabelDescripcion;
     private javax.swing.JLabel jLabelFoto;

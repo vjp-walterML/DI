@@ -79,6 +79,8 @@ public class InmuebleTableModel extends AbstractTableModel {
                 Inmueble inmueble = new Inmueble();
                 inmueble.setIdInmueble(resultado.getInt("idInmueble"));
                 inmueble.setTitulo(resultado.getString("titulo"));
+                inmueble.setDescripcion(resultado.getString("descripcion"));
+                inmueble.setFoto(resultado.getString("foto"));
                 inmueble.setTransaccion(resultado.getString("ventaAlquiler"));
                 inmueble.setPrecio(resultado.getInt("precio"));
                 inmueble.setTelefono(resultado.getInt("telefono"));

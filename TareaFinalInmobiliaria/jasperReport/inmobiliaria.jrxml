@@ -98,14 +98,14 @@ WHERE   inmobiliaria.inmuebles.`idInmueble` = $P{idInmueble}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="442" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		<band height="500" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement x="156" y="0" width="235" height="230" uuid="bf09fb9a-da68-44fe-b948-b92d83353605"/>
+				<reportElement x="156" y="7" width="235" height="230" uuid="bf09fb9a-da68-44fe-b948-b92d83353605"/>
 				<imageExpression><![CDATA[$F{foto}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="80" y="171" width="400" height="150" forecolor="#595E72" uuid="8f2029a1-7083-44bd-9401-e0726244257f">
+				<reportElement x="80" y="222" width="400" height="150" forecolor="#595E72" uuid="8f2029a1-7083-44bd-9401-e0726244257f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="52a8ace3-5a56-4e5d-9678-3d3fca86148f"/>
 				</reportElement>
 				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
@@ -137,7 +137,7 @@ WHERE   inmobiliaria.inmuebles.`idInmueble` = $P{idInmueble}]]>
 				<textFieldExpression><![CDATA["ID: "+$F{idInmueble}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="340" width="120" height="40" uuid="8e9e8d7e-341b-40d2-9191-7215aaae7a59">
+				<reportElement x="220" y="391" width="120" height="40" uuid="8e9e8d7e-341b-40d2-9191-7215aaae7a59">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea5d44f8-4eaf-4177-8d43-478030ec039a"/>
 				</reportElement>
 				<box>
@@ -153,7 +153,7 @@ WHERE   inmobiliaria.inmuebles.`idInmueble` = $P{idInmueble}]]>
 				<textFieldExpression><![CDATA[$F{ventaAlquiler}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="153" y="400" width="247" height="40" backcolor="rgba(197, 153, 66, 0.25490198)" uuid="52a81c8b-f7d2-462a-b811-5c9ad140ee0d"/>
+				<reportElement x="153" y="451" width="247" height="40" backcolor="rgba(197, 153, 66, 0.25490198)" uuid="52a81c8b-f7d2-462a-b811-5c9ad140ee0d"/>
 				<box>
 					<pen lineWidth="2.0" lineColor="#3A7A02"/>
 					<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#3A7A02"/>

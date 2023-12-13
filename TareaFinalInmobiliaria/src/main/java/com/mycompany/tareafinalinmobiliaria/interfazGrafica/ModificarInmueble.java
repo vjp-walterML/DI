@@ -12,14 +12,18 @@ public class ModificarInmueble extends javax.swing.JDialog {
 
     //Variables globales
     private VentanaPrincipal ventanaPrincipal;
+    private static Inmueble inmuebleOriginal;
 
     //Constructor
-    public ModificarInmueble(java.awt.Frame parent, boolean modal) {
+    public ModificarInmueble(java.awt.Frame parent, boolean modal, Inmueble inmueble) {
         super(parent, modal);
         initComponents();
         ventanaPrincipal = (VentanaPrincipal) parent;
+        inmuebleOriginal = inmueble;
         establecerFondo();//Establezco el fondo
         aniadirComponentes();//Añado los componentes al panelPrincipal
+        mostrarDatosInmueble();//Añado la información actual del inmueble a los campos JTextField
+        setLocationRelativeTo(null);//Centro la ventana en el centro de la pantalla
     }
 
     //Establece un JPanel de fondo con una imagen
@@ -51,6 +55,17 @@ public class ModificarInmueble extends javax.swing.JDialog {
         panelPrincipal.add(jButtonModificar);
     }
 
+    //En este método Añado la información actual del inmueble a los campos JTextField correspondientes
+    public void mostrarDatosInmueble() {
+        jLabelValorIdInmueble.setText(String.valueOf(inmuebleOriginal.getIdInmueble()));
+        jTextFieldTitulo.setText(inmuebleOriginal.getTitulo());
+        jTextFieldDescripcion.setText(inmuebleOriginal.getDescripcion());
+        jTextFieldFoto.setText(inmuebleOriginal.getFoto());
+        jTextFieldTransaccion.setText(inmuebleOriginal.getTransaccion());
+        jTextFieldPrecio.setText(String.valueOf(inmuebleOriginal.getPrecio()));
+        jTextFieldTelefono.setText(String.valueOf(inmuebleOriginal.getTelefono()));
+    }
+
     //Código generado
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -73,6 +88,7 @@ public class ModificarInmueble extends javax.swing.JDialog {
         jTextFieldDescripcion = new javax.swing.JTextField();
         jLabelIdInmueble = new javax.swing.JLabel();
         jLabelValorIdInmueble = new javax.swing.JLabel();
+        jButtonAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,6 +156,16 @@ public class ModificarInmueble extends javax.swing.JDialog {
         jLabelValorIdInmueble.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 18)); // NOI18N
         jLabelValorIdInmueble.setForeground(new java.awt.Color(67, 112, 114));
 
+        jButtonAyuda.setBackground(new java.awt.Color(251, 242, 242));
+        jButtonAyuda.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 18)); // NOI18N
+        jButtonAyuda.setForeground(new java.awt.Color(38, 60, 61));
+        jButtonAyuda.setText("?");
+        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAyudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -150,33 +176,35 @@ public class ModificarInmueble extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jLabelAltaInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelDescripcion)
+                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTelefono)
+                                    .addComponent(jLabelTitulo)
+                                    .addComponent(jLabelTransaccion)
+                                    .addComponent(jLabelPrecio)
+                                    .addComponent(jLabelFoto)))
+                            .addComponent(jLabelIdInmueble))
+                        .addGap(42, 42, 42)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                .addGap(173, 173, 173)
-                                .addComponent(jButtonModificar))
-                            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelDescripcion)
-                                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelTelefono)
-                                            .addComponent(jLabelTitulo)
-                                            .addComponent(jLabelTransaccion)
-                                            .addComponent(jLabelPrecio)
-                                            .addComponent(jLabelFoto)))
-                                    .addComponent(jLabelIdInmueble))
-                                .addGap(42, 42, 42)
-                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldTransaccion, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(jLabelValorIdInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 35, Short.MAX_VALUE)))
+                                .addComponent(jLabelValorIdInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonAyuda))
+                            .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                            .addComponent(jTextFieldTelefono)
+                            .addComponent(jTextFieldFoto)
+                            .addComponent(jTextFieldTransaccion)
+                            .addComponent(jTextFieldDescripcion)
+                            .addComponent(jTextFieldTitulo))
+                        .addGap(23, 23, 23)))
                 .addContainerGap())
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(244, 244, 244)
+                .addComponent(jButtonModificar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,11 +212,13 @@ public class ModificarInmueble extends javax.swing.JDialog {
                 .addGap(35, 35, 35)
                 .addComponent(jLabelAltaInmueble)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelIdInmueble)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabelValorIdInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1, 1, 1)))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabelIdInmueble)
+                        .addGroup(panelPrincipalLayout.createSequentialGroup()
+                            .addComponent(jLabelValorIdInmueble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(1, 1, 1)))
+                    .addComponent(jButtonAyuda))
                 .addGap(28, 28, 28)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTitulo)
@@ -234,24 +264,35 @@ public class ModificarInmueble extends javax.swing.JDialog {
 
     //Botón añadir inmueble
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        //Controlo que estén rellenados los campos necesarios
+        if (jTextFieldTitulo.getText().equalsIgnoreCase("") || jTextFieldTransaccion.getText().equalsIgnoreCase("") || jTextFieldDescripcion.getText().equalsIgnoreCase("") || jTextFieldPrecio.getText().equalsIgnoreCase("")|| jTextFieldFoto.getText().equalsIgnoreCase("")|| jTextFieldTelefono.getText().equalsIgnoreCase("")) {
+            //Mensaje Error
+            JOptionPane.showMessageDialog(this, "¡Ningún campo debe estar vacío!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;//Salgo del método
+        }
         //Recupero los valores
         String titulo = jTextFieldTitulo.getText();
-        String transaccion = jTextFieldTransaccion.getText();
         String descripcion = jTextFieldDescripcion.getText();
         String foto = jTextFieldFoto.getText();
+        String transaccion = jTextFieldTransaccion.getText();
         int precio = Integer.parseInt(jTextFieldPrecio.getText());
         int telefono = Integer.parseInt(jTextFieldTelefono.getText());
         //Creo objeto Inmueble
-        Inmueble inmueble = new Inmueble(titulo, descripcion, foto, transaccion, precio, telefono);
-        //Inserto el inmueble en la bd
-        Utileria.addInmueble(inmueble);
+        Inmueble inmuebleModificado = new Inmueble(titulo, descripcion, foto, transaccion, precio, telefono);
+        //Modifico el inmueble en la bd
+        Utileria.modificarInmueble(inmuebleOriginal, inmuebleModificado);
         //Actualizo la tabla
         ventanaPrincipal.model.actualizarDatos();
         //Mensaje Check
-        JOptionPane.showMessageDialog(this, "¡Inmueble añadido correctamente!", "Inmueble añadido", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "¡Inmueble modificado correctamente!", "Inmueble modificado", JOptionPane.INFORMATION_MESSAGE);
         //Cierro la ventana
         dispose();
     }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    //Botón ayuda
+    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
+        JOptionPane.showMessageDialog(this, "- Todos los campos son obligatorios.", "Ayuda", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     //Main
     public static void main(String args[]) {
@@ -282,7 +323,7 @@ public class ModificarInmueble extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ModificarInmueble dialog = new ModificarInmueble(new javax.swing.JFrame(), true);
+                ModificarInmueble dialog = new ModificarInmueble(new javax.swing.JFrame(), true, inmuebleOriginal);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -295,6 +336,7 @@ public class ModificarInmueble extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAltaInmueble;
     private javax.swing.JLabel jLabelDescripcion;

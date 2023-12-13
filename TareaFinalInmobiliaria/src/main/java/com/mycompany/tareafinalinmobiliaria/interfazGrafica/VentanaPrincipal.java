@@ -35,6 +35,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         establecerFondo();//Establezco el fondo
         crearTablaInmuebles();//Creo tabla inmuebles
         aniadirComponentes();//Añado los componentes al panelPrincipal
+        setLocationRelativeTo(null);//Centro la ventana en el centro de la pantalla
     }
 
     //Establece un JPanel de fondo con una imagen
@@ -89,10 +90,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    //ACCIONES=====================================
+    //Método que retorna la fila seleccionada
+    public int retornarFilaSeleccionada() {
+        int i = -1;
+        //Compruebo si hay alguna fila seleccionada
+        if (jTableInmuebles.getSelectedRow() != -1) {
+            i = this.jTableInmuebles.getSelectedRow();// Obtengo la fila seleccionada
+            i = this.jTableInmuebles.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
+        } else {
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fila!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return i;
+    }
+
+    //Método que genera el informe pdf según el idInmueble
     public void generarInforme(int idInmueble) {
         try {
-            System.out.println("Empezando");
             File file = new File(getClass().getClassLoader().getResource("inmobiliaria.jrxml").getFile());
             System.out.println(file.getCanonicalPath());
             JasperReport archivo = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -115,18 +128,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    public int retornarFilaSeleccionada() {
-        int i = -1;
-        //Compruebo si hay alguna fila seleccionada
-        if (jTableInmuebles.getSelectedRow() != -1) {
-            i = this.jTableInmuebles.getSelectedRow();// Obtengo la fila seleccionada
-            i = this.jTableInmuebles.convertRowIndexToModel(i);//Convierto la fila seleccionada al índice correcto (sirve cuando la información está filtrada)
-        } else {
-            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fila!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return i;
     }
 
     //Código generado
@@ -303,8 +304,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //Botón modificar
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        ModificarInmueble modificarInmueble = new ModificarInmueble(this, true);
-        modificarInmueble.setVisible(true);
+        int filaSeleccionada = retornarFilaSeleccionada();
+        //Si existe alguna fila seleccionada
+        if (filaSeleccionada != -1) {
+            //Recupero el inmueble
+            Inmueble inmueble = model.retornarInmueble(filaSeleccionada);
+            //Abro jDialog para modificar pasandole el inmueble
+            ModificarInmueble modificarInmueble = new ModificarInmueble(this, true, inmueble);
+            modificarInmueble.setVisible(true);
+        }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     //Main

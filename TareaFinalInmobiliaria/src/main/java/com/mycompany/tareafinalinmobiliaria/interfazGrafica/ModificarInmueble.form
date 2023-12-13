@@ -45,42 +45,43 @@
                           <Component id="jLabelAltaInmueble" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
-                                  <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jLabelDescripcion" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jLabelDescripcion" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabelTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabelTransaccion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabelPrecio" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabelFoto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="jLabelIdInmueble" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextFieldPrecio" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldTransaccion" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldTelefono" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldTitulo" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldFoto" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldDescripcion" pref="200" max="32767" attributes="0"/>
-                                      <Component id="jLabelValorIdInmueble" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabelTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelTransaccion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelPrecio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFoto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jLabelIdInmueble" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabelValorIdInmueble" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButtonAyuda" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jTextFieldPrecio" pref="373" max="32767" attributes="0"/>
+                              <Component id="jTextFieldTelefono" max="32767" attributes="0"/>
+                              <Component id="jTextFieldFoto" max="32767" attributes="0"/>
+                              <Component id="jTextFieldTransaccion" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldDescripcion" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldTitulo" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
+                  <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,12 +91,15 @@
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jLabelAltaInmueble" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabelIdInmueble" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jLabelValorIdInmueble" max="32767" attributes="0"/>
-                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabelIdInmueble" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabelValorIdInmueble" max="32767" attributes="0"/>
+                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <Component id="jButtonAyuda" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -310,6 +314,23 @@
               <Color blue="72" green="70" red="43" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonAyuda">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f2" green="f2" red="fb" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Microsoft PhagsPa" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3d" green="3c" red="26" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="?"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAyudaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

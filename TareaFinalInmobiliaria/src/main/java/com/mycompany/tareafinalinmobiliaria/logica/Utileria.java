@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.tareafinalinmobiliaria.logica;
 
 import static com.mycompany.tareafinalinmobiliaria.logica.Constantes.*;
@@ -9,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 
 /**
  *
@@ -40,17 +37,28 @@ public class Utileria {
         //Creamos conexión
         Connection conexion = establecerConexion();
         //Creamos sentencia insert
-        String sql = "INSERT INTO inmuebles (titulo,descripcion,foto,ventaAlquiler,precio,telefono) VALUES (?,?,?,?,?,?)";
-        PreparedStatement sentenciaPreparada = null;
         try {
-            sentenciaPreparada = conexion.prepareStatement(sql);
-            sentenciaPreparada.setString(1, inmueble.getTitulo());
-            sentenciaPreparada.setString(2, inmueble.getDescripcion());
-            sentenciaPreparada.setString(3, inmueble.getFoto());
-            sentenciaPreparada.setString(4, inmueble.getTransaccion());
-            sentenciaPreparada.setInt(5, inmueble.getPrecio());
-            sentenciaPreparada.setInt(6, inmueble.getTelefono());
-            sentenciaPreparada.executeUpdate();
+            PreparedStatement sentenciaPreparada = null;
+            if (inmueble.getTelefono() == 0) {
+                String sql = "INSERT INTO inmuebles (titulo,descripcion,foto,ventaAlquiler,precio) VALUES (?,?,?,?,?)";
+                sentenciaPreparada = conexion.prepareStatement(sql);
+                sentenciaPreparada.setString(1, inmueble.getTitulo());
+                sentenciaPreparada.setString(2, inmueble.getDescripcion());
+                sentenciaPreparada.setString(3, inmueble.getFoto());
+                sentenciaPreparada.setString(4, inmueble.getTransaccion());
+                sentenciaPreparada.setInt(5, inmueble.getPrecio());
+                sentenciaPreparada.executeUpdate();
+            } else {
+                String sql = "INSERT INTO inmuebles (titulo,descripcion,foto,ventaAlquiler,precio,telefono) VALUES (?,?,?,?,?,?)";
+                sentenciaPreparada = conexion.prepareStatement(sql);
+                sentenciaPreparada.setString(1, inmueble.getTitulo());
+                sentenciaPreparada.setString(2, inmueble.getDescripcion());
+                sentenciaPreparada.setString(3, inmueble.getFoto());
+                sentenciaPreparada.setString(4, inmueble.getTransaccion());
+                sentenciaPreparada.setInt(5, inmueble.getPrecio());
+                sentenciaPreparada.setInt(6, inmueble.getTelefono());
+                sentenciaPreparada.executeUpdate();
+            }
             //Liberamos recursos
             sentenciaPreparada.close();
             conexion.close();
@@ -69,6 +77,31 @@ public class Utileria {
         try {
             sentenciaPreparada = conexion.prepareStatement(sql);
             sentenciaPreparada.setInt(1, inmueble.getIdInmueble());
+            sentenciaPreparada.executeUpdate();
+            //Liberamos recursos
+            sentenciaPreparada.close();
+            conexion.close();
+        } catch (SQLException e) {
+            System.out.println(SQLEXCEPTION);
+        }
+    }
+
+    //MODIFICAR INMUEBLE DE LA BD
+    public static void modificarInmueble(Inmueble inmuebleOriginal, Inmueble inmuebleModificado) {
+        //Creamos conexión
+        Connection conexion = establecerConexion();
+        //Creamos sentencia delete
+        String sql = "UPDATE inmuebles SET titulo = ?, descripcion = ?, foto = ?, ventaAlquiler = ?, precio = ?, telefono = ? WHERE idInmueble = ?";
+        PreparedStatement sentenciaPreparada = null;
+        try {
+            sentenciaPreparada = conexion.prepareStatement(sql);
+            sentenciaPreparada.setString(1, inmuebleModificado.getTitulo());
+            sentenciaPreparada.setString(2, inmuebleModificado.getDescripcion());
+            sentenciaPreparada.setString(3, inmuebleModificado.getFoto());
+            sentenciaPreparada.setString(4, inmuebleModificado.getTransaccion());
+            sentenciaPreparada.setInt(5, inmuebleModificado.getPrecio());
+            sentenciaPreparada.setInt(6, inmuebleModificado.getTelefono());
+            sentenciaPreparada.setInt(7, inmuebleOriginal.getIdInmueble());
             sentenciaPreparada.executeUpdate();
             //Liberamos recursos
             sentenciaPreparada.close();
